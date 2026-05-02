@@ -65,15 +65,25 @@ def save_checkpoint(
     """
     os.makedirs(checkpoint_dir, exist_ok=True)
 
-    # Unwrap DDP if necessary
-    raw_model = model.module if hasattr(model, "module") else model
+    # Handle FSDP state dict correctly
+    if hasattr(model, "module") and type(model).__name__ == "FullyShardedDataParallel":
+        from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
+        from torch.distributed.fsdp.api import FullStateDictConfig, StateDictType
+        save_policy = FullStateDictConfig(offload_to_cpu=True, rank0_only=True)
+        with FSDP.state_dict_type(model, StateDictType.FULL_STATE_DICT, save_policy):
+            model_state = model.state_dict()
+            opt_state = FSDP.full_optim_state_dict(model, optimizer)
+    else:
+        raw_model = model.module if hasattr(model, "module") else model
+        model_state = raw_model.state_dict()
+        opt_state = optimizer.state_dict()
 
     state = {
         "step":         step,
         "epoch":        epoch,
         "loss":         loss,
-        "model":        raw_model.state_dict(),
-        "optimizer":    optimizer.state_dict(),
+        "model":        model_state,
+        "optimizer":    opt_state,
         "scaler":       scaler.state_dict() if scaler is not None else None,
         "model_config": model_config.to_dict(),
         # train_config stored as plain dict for portability

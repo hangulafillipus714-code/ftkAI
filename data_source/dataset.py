@@ -861,6 +861,56 @@ def build_streaming_dataset(
     if not paths:
         raise ValueError("data_paths must be non-empty")
 
+    # Real Dataset Streaming Pipeline (HuggingFace datasets)
+    if any(p.startswith("hf://") for p in paths):
+        try:
+            from datasets import load_dataset
+        except ImportError:
+            raise RuntimeError("pip install datasets to stream from HuggingFace")
+        
+        class HuggingFaceStreamingDataset(IterableDataset):
+            def __init__(self, hf_paths, tokenizer, max_length, rank, world_size):
+                super().__init__()
+                self.hf_paths = hf_paths
+                self.tokenizer = tokenizer
+                self.max_length = max_length
+                self.rank = rank
+                self.world_size = world_size
+                
+            def __iter__(self):
+                worker = get_worker_info()
+                worker_id = worker.id if worker is not None else 0
+                num_workers = worker.num_workers if worker is not None else 1
+                shard_mod = max(1, self.world_size * num_workers)
+                shard_index = self.rank * num_workers + worker_id
+
+                for path in self.hf_paths:
+                    dataset_name = path[5:]  # strip hf://
+                    ds = load_dataset(dataset_name, split="train", streaming=True)
+                    
+                    token_buffer = []
+                    sample_idx = 0
+                    
+                    for row in ds:
+                        text = row.get("text", row.get("content", ""))
+                        if not text: continue
+                        
+                        token_buffer.extend(self.tokenizer.encode(text))
+                        
+                        while len(token_buffer) > self.max_length:
+                            if sample_idx % shard_mod == shard_index:
+                                x = torch.tensor(token_buffer[: self.max_length], dtype=torch.long)
+                                y = torch.tensor(token_buffer[1 : self.max_length + 1], dtype=torch.long)
+                                yield {
+                                    "input_ids": x,
+                                    "labels": y,
+                                    "attention_mask": torch.ones_like(x),
+                                }
+                            del token_buffer[: self.max_length]  # chunk without stride to simulate standard block processing
+                            sample_idx += 1
+
+        return HuggingFaceStreamingDataset(paths, tokenizer, max_length, rank, world_size)
+
     suffixes = {Path(path).suffix.lower() for path in paths}
     if ".json" in suffixes:
         raise ValueError(

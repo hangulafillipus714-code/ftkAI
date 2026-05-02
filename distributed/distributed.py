@@ -24,6 +24,11 @@ from typing import Optional
 import torch
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
+from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
+from torch.distributed.fsdp.fully_sharded_data_parallel import (
+    CPUOffload,
+    BackwardPrefetch,
+)
 
 
 # ==========================================================
@@ -136,6 +141,7 @@ def wrap_model_ddp(
     world_size: int,
     compile_model: bool = False,
     find_unused_parameters: bool = False,
+    use_fsdp: bool = False,
 ) -> torch.nn.Module:
 
     if world_size == 1:
@@ -145,6 +151,36 @@ def wrap_model_ddp(
 
     if compile_model and hasattr(torch, "compile"):
         model = torch.compile(model)  # type: ignore[assignment]
+
+    if use_fsdp:
+        import functools
+        from torch.distributed.fsdp.wrap import transformer_auto_wrap_policy
+        from torch.distributed.fsdp import MixedPrecision
+        # We must import the transformer block from the model for the policy
+        from model.model import TransformerBlock
+        
+        auto_wrap_policy = functools.partial(
+            transformer_auto_wrap_policy,
+            transformer_layer_cls={TransformerBlock},
+        )
+        
+        mp_policy = MixedPrecision(
+            param_dtype=torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16,
+            reduce_dtype=torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16,
+            buffer_dtype=torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16,
+        )
+
+        model = FSDP(
+            model,
+            auto_wrap_policy=auto_wrap_policy,
+            mixed_precision=mp_policy,
+            cpu_offload=CPUOffload(offload_params=False),
+            backward_prefetch=BackwardPrefetch.BACKWARD_PRE,
+            device_id=local_rank,
+            limit_all_gathers=True,
+            use_orig_params=True,
+        )
+        return model
 
     if device.type == "cuda":
         model = DDP(
@@ -159,9 +195,10 @@ def wrap_model_ddp(
 
     return model
 
-
 def unwrap_model(model: torch.nn.Module) -> torch.nn.Module:
-    return model.module if isinstance(model, DDP) else model
+    if hasattr(model, "module"):
+        return model.module
+    return model
 
 
 # ==========================================================

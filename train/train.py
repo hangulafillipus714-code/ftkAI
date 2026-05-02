@@ -238,6 +238,7 @@ def train():
         world_size,
         compile_model=t_cfg.compile_model,
         find_unused_parameters=t_cfg.find_unused_parameters,
+        use_fsdp=t_cfg.use_fsdp,
     )
     raw_model = model.module if world_size > 1 else model
     

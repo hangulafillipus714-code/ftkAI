@@ -120,6 +120,7 @@ class TrainConfig:
 
     backend: str = "nccl"  # nccl | gloo
     find_unused_parameters: bool = False
+    use_fsdp: bool = False
 
     # ==========================================================
     # Checkpointing

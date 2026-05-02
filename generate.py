@@ -63,6 +63,8 @@ def main() -> None:
         n_layers=model.config.n_layers,
         n_kv_heads=model.config.n_kv_heads,
         head_dim=model.config.head_dim,
+        max_batch_size=1,
+        max_seq_len=model.config.context_length,
         device=device,
     )
 

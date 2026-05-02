@@ -22,6 +22,7 @@ sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 from PRM import PRMStore, PRMController, load_or_create
 from data_source.tokenizer import Tokenizer
+from kv_cache.cache import KVCache
 from model.model import ModernLLM
 from checkpoint.checkpoint import latest_checkpoint, load_checkpoint
 from config.model_config import ModelConfig
@@ -56,6 +57,14 @@ def main():
     model.eval()
 
     # 2. Setup model wrapper function for PRM
+    kv_cache = KVCache(
+        n_layers=model.config.n_layers,
+        n_kv_heads=model.config.n_kv_heads,
+        head_dim=model.config.head_dim,
+        max_batch_size=1,
+        max_seq_len=model.config.context_length,
+        device=device,
+    )
     def model_fn(prompt_str: str) -> str:
         # Simple generation wrapper
         with torch.no_grad():
@@ -66,6 +75,7 @@ def main():
                 max_new_tokens=256,
                 temperature=0.7,
                 device=device,
+                kv_cache=kv_cache,
             )
         return output
 
