@@ -1,0 +1,2138 @@
+{
+  "dataset_metadata": {
+    "name": "Advanced Reasoning Training Dataset — Ultra Format",
+    "version": "3.0",
+    "created": "2026",
+    "purpose": "Fine-tuning LLMs for multi-domain, chain-of-thought, adversarial, and corrective reasoning",
+    "total_entries": 30,
+    "domains_covered": [
+      "physics", "mathematics", "logic", "chemistry", "biology",
+      "computer_science", "philosophy", "economics", "linguistics",
+      "probability", "thermodynamics", "information_theory"
+    ],
+    "entry_types": [
+      "synthetic_hard_case",
+      "paradox_resolution",
+      "edge_case_handling",
+      "error_correction",
+      "misleading_question",
+      "multi_domain_fusion",
+      "chain_of_thought_labeled",
+      "adversarial_robustness",
+      "counterfactual_reasoning",
+      "constraint_satisfaction"
+    ],
+    "quality_tier": "PRODUCTION — TRAINING READY",
+    "schema_version": "v3",
+    "notes": "Every entry contains full CoT, confidence scoring, error traps, adversarial variants, domain tags, and difficulty labels. Suitable for RLHF, SFT, and reward model training."
+  },
+
+  "schema_definition": {
+    "id": "unique string identifier",
+    "type": "entry category from entry_types",
+    "difficulty": "1=trivial | 2=easy | 3=medium | 4=hard | 5=expert",
+    "domains": "list of subject domains touched",
+    "question": "the prompt given to the model",
+    "misleading_surface": "what the question appears to be asking (trap)",
+    "adversarial_variants": "list of rephrased versions designed to trip up weaker models",
+    "reasoning_steps": "ordered list of explicit reasoning steps, each with a label and content",
+    "critical_insight": "the single key realisation that separates correct from incorrect answers",
+    "final_answer": "concise, definitive answer",
+    "answer_explanation": "a longer natural-language explanation suitable for a human reader",
+    "common_errors": "list of mistakes models typically make on this question",
+    "error_correction_pairs": "list of {wrong_answer, correction, why_wrong} objects",
+    "concepts": "list of knowledge concepts exercised",
+    "confidence_score": "0.0–1.0 rating of how certain the correct answer is",
+    "related_entries": "list of entry IDs that complement this one",
+    "training_signal": "what capability this entry teaches the model"
+  },
+
+  "entries": [
+
+    {
+      "id": "PHY-001",
+      "type": "edge_case_handling",
+      "difficulty": 3,
+      "domains": ["physics", "unit_conversion", "spatial_reasoning"],
+      "question": "Can a 120 ml cup hold 1 litre of water?",
+      "misleading_surface": "Seems like a simple yes/no question about containers.",
+      "adversarial_variants": [
+        "If you pour 1 litre slowly into a 120 ml cup, will any fit?",
+        "A 120 ml cup is filled to exactly 1 litre. Is this possible?",
+        "Could a very special 120 ml cup hold a litre?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Unit conversion",
+          "content": "Convert 1 litre to millilitres. 1 L = 1000 ml. This is a base SI unit relationship."
+        },
+        {
+          "step": 2,
+          "label": "Capacity comparison",
+          "content": "Compare the container capacity (120 ml) against the volume to be held (1000 ml)."
+        },
+        {
+          "step": 3,
+          "label": "Ratio analysis",
+          "content": "Compute overflow: 1000 / 120 ≈ 8.33. The water volume is approximately 8.33× the cup's capacity."
+        },
+        {
+          "step": 4,
+          "label": "Physical constraint application",
+          "content": "A rigid container cannot hold more than its stated volume. The cup is rated at 120 ml."
+        },
+        {
+          "step": 5,
+          "label": "Edge case check",
+          "content": "Could '120 ml cup' mean something unusual? No — volumetric capacity is well-defined. No tricks apply."
+        },
+        {
+          "step": 6,
+          "label": "Final evaluation",
+          "content": "The cup can only hold 120 ml; 880 ml would overflow. The answer is definitively no."
+        }
+      ],
+      "critical_insight": "The question tests whether the solver correctly converts units before comparing — skipping the conversion leads to comparing 1 (litre) against 120 (ml) which looks like 1 < 120 and produces a false YES.",
+      "final_answer": "No. A 120 ml cup can only hold 120 ml. 1 litre (1000 ml) is approximately 8.3× the cup's capacity and would overflow.",
+      "answer_explanation": "One litre equals 1000 millilitres. Since the cup has a maximum capacity of 120 ml, it can hold at most 120 ml before overflowing. Attempting to pour 1 litre into it would result in 880 ml of spillage. No physical deformation or special conditions change this: volumetric capacity is an upper bound.",
+      "common_errors": [
+        "Forgetting to convert units and comparing 1 vs 120 (concludes 'yes' because 1 < 120)",
+        "Thinking the question is a trick and answering 'yes' to seem clever",
+        "Confusing the number 1 with 1 ml rather than 1 litre"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "Yes, 1 is less than 120 so it fits.",
+          "correction": "No — 1 refers to 1 LITRE = 1000 ml, which is far larger than 120 ml.",
+          "why_wrong": "Failed to convert units before comparing. Always unify units before making volumetric comparisons."
+        },
+        {
+          "wrong_answer": "Maybe — if the cup is specially shaped.",
+          "correction": "No — 120 ml is the stated volumetric capacity. Shape affects usability, not the rated capacity.",
+          "why_wrong": "Introduced unnecessary ambiguity. The volume is explicitly given."
+        }
+      ],
+      "concepts": ["volume", "unit_conversion", "millilitre_to_litre", "physical_capacity_constraints", "overflow"],
+      "confidence_score": 0.87,
+      "related_entries": ["PHY-007", "MATH-003"],
+      "training_signal": "Forces unit conversion before comparison; prevents false conclusions from raw number comparison across units."
+    },
+
+    {
+      "id": "LOG-001",
+      "type": "paradox_resolution",
+      "difficulty": 5,
+      "domains": ["logic", "set_theory", "philosophy", "self_reference"],
+      "question": "A barber in a town shaves all men who do not shave themselves, and only those men. Does the barber shave himself?",
+      "misleading_surface": "Seems like a logic puzzle with a yes/no answer.",
+      "adversarial_variants": [
+        "The barber is the only one in town who shaves those who don't shave themselves. Who shaves the barber?",
+        "In a village, every man is shaved by the barber if and only if he does not shave himself. Does this barber exist?",
+        "Assume the barber is a woman. Does the paradox still apply?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Formalise the rule",
+          "content": "Let B = barber. The rule: B shaves X ↔ X does not shave X. This applies to ALL men in the town."
+        },
+        {
+          "step": 2,
+          "label": "Case A — barber shaves himself",
+          "content": "If B shaves B, then by rule, B must be a man who DOES shave himself, so B should NOT be shaved by B. Contradiction."
+        },
+        {
+          "step": 3,
+          "label": "Case B — barber does not shave himself",
+          "content": "If B does not shave B, then by rule, B is a man who does NOT shave himself, so B SHOULD be shaved by B. Contradiction."
+        },
+        {
+          "step": 4,
+          "label": "Both cases yield contradiction",
+          "content": "Whether we assume the barber shaves himself or not, we arrive at a logical contradiction."
+        },
+        {
+          "step": 5,
+          "label": "Resolve paradox",
+          "content": "The resolution is that such a barber CANNOT EXIST in a consistent logical system. This is Bertrand Russell's Barber Paradox, demonstrating naive set theory's inconsistency."
+        },
+        {
+          "step": 6,
+          "label": "Connection to Russell's Paradox",
+          "content": "This is an analogue of the set R = {x | x ∉ x}. Does R ∈ R? If yes, then it shouldn't be; if no, then it should. The barber maps to R and shaving maps to set membership."
+        },
+        {
+          "step": 7,
+          "label": "Escape routes",
+          "content": "Escapes: (1) Barber is not male — then the rule doesn't apply to her. (2) Barber is outside the town's jurisdiction. (3) The rule is self-defeating — no such barber can coherently exist. Option (3) is the canonical answer."
+        }
+      ],
+      "critical_insight": "The question cannot be answered with 'yes' or 'no' — the correct answer is that the described barber is a logical impossibility. The paradox arises from self-referential rule application.",
+      "final_answer": "Neither. The described barber cannot exist. The premise is self-contradictory — a barber who shaves all and only men who don't shave themselves creates a logical impossibility when asked about self-shaving.",
+      "answer_explanation": "This is Russell's Barber Paradox. Assume the barber shaves himself: then by the rule he must not shave himself — contradiction. Assume he doesn't shave himself: then by the rule he must shave himself — contradiction. Both cases are impossible, which means the initial premise (such a barber exists) must be false. The paradox was used by Bertrand Russell to expose flaws in naive set theory, leading to the development of axiomatic set theory (ZFC).",
+      "common_errors": [
+        "Answering 'yes' or 'no' without recognising the paradox",
+        "Saying 'the barber doesn't shave himself' as a final answer without resolving the contradiction",
+        "Missing that the paradox means the barber cannot exist"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "The barber shaves himself.",
+          "correction": "If he shaves himself, the rule says he shouldn't be shaved by himself — contradiction.",
+          "why_wrong": "Accepted one case without checking for the self-referential contradiction."
+        },
+        {
+          "wrong_answer": "The barber doesn't shave himself.",
+          "correction": "If he doesn't shave himself, the rule says he must be shaved by himself — contradiction.",
+          "why_wrong": "Same error on the other branch."
+        },
+        {
+          "wrong_answer": "Someone else shaves the barber.",
+          "correction": "The problem specifies only the barber shaves the men who don't shave themselves. Introducing a third party violates the premise.",
+          "why_wrong": "Attempted to escape the paradox by adding an entity not in the problem."
+        }
+      ],
+      "concepts": ["self_reference", "logical_paradox", "Russell's_paradox", "set_theory", "naive_set_theory", "ZFC", "proof_by_contradiction"],
+      "confidence_score": 0.88,
+      "related_entries": ["LOG-002", "PHIL-001"],
+      "training_signal": "Teaches recognition of self-referential paradoxes; prevents forced yes/no answers on questions whose premises are incoherent."
+    },
+
+    {
+      "id": "PHYS-002",
+      "type": "misleading_question",
+      "difficulty": 4,
+      "domains": ["physics", "thermodynamics", "common_misconceptions"],
+      "question": "Does cold enter a room when you open a window in winter, or does heat leave?",
+      "misleading_surface": "Seems to ask about which direction something travels — cold vs heat.",
+      "adversarial_variants": [
+        "On a cold day, opening a window lets cold air in. True or false?",
+        "Does cold flow from a cold body to a warm body?",
+        "Why does a room feel colder when you open a window in winter?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Identify the false premise",
+          "content": "'Cold' is not a substance or a form of energy — it is the absence of thermal energy. Cold does not 'flow' or 'enter.'"
+        },
+        {
+          "step": 2,
+          "label": "State the thermodynamic principle",
+          "content": "Heat (thermal energy) always flows from regions of higher temperature to regions of lower temperature. This is the Second Law of Thermodynamics."
+        },
+        {
+          "step": 3,
+          "label": "Apply to the scenario",
+          "content": "In winter, room temperature is higher than outdoor temperature. Opening a window creates a pathway for thermal energy to flow from the warm room to the cold outside."
+        },
+        {
+          "step": 4,
+          "label": "Address the sensation of 'cold entering'",
+          "content": "We perceive this as 'cold air coming in' because: (1) cold air physically enters replacing warm air that left (convection/air exchange), and (2) our skin loses heat faster to the colder air particles."
+        },
+        {
+          "step": 5,
+          "label": "Distinguish mechanism",
+          "content": "There are two simultaneous effects: (a) Net heat transfer outward (thermodynamics), and (b) Physical air mass exchange (fluid dynamics). The perception of 'cold entering' is due to (b), but thermodynamically heat is leaving."
+        },
+        {
+          "step": 6,
+          "label": "Final precision",
+          "content": "Correct framing: heat leaves the room. The room cools because its thermal energy decreases via outward transfer and hot air is replaced by cold air (which has lower internal energy)."
+        }
+      ],
+      "critical_insight": "'Cold' is not a thing — it is the absence of heat. Heat flows; cold does not. The question contains a linguistic trap that encodes a misconception.",
+      "final_answer": "Heat leaves the room. 'Cold entering' is a folk-physics misconception. Thermodynamically, heat always flows from warm to cold — so the room's thermal energy exits toward the cold outdoors.",
+      "answer_explanation": "Cold is not a physical entity; it is simply low thermal energy. When you open a window in winter, you create a thermal bridge between a warm interior and a cold exterior. Heat (thermal energy) flows spontaneously from high temperature (room) to low temperature (outside), as required by the Second Law of Thermodynamics. Cold does not flow inward; rather, the room loses heat outward. The feeling of cold air rushing in is a real convective effect — cold air physically displaces warm air — but this is a mass transfer phenomenon, not 'cold entering.'",
+      "common_errors": [
+        "Saying 'cold enters' without recognising the category error",
+        "Saying 'both happen' without explaining the thermodynamic priority",
+        "Confusing air mass movement with thermal energy direction"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "Cold enters the room.",
+          "correction": "Cold is not a substance that can enter. Heat leaves the room — cold is just the absence of heat.",
+          "why_wrong": "Treats 'cold' as a fluid or physical entity, which is a folk-physics misconception inherited from pre-caloric theory of heat."
+        },
+        {
+          "wrong_answer": "Both cold enters and heat leaves, so both answers are correct.",
+          "correction": "Only heat leaves — that is the thermodynamic event. 'Cold entering' is a perceptual description, not a physical one.",
+          "why_wrong": "False equivalence between a physical law and a perceptual description."
+        }
+      ],
+      "concepts": ["thermodynamics", "heat_transfer", "Second_Law", "thermal_energy", "common_misconceptions", "caloric_theory", "convection"],
+      "confidence_score": 0.77,
+      "related_entries": ["PHYS-003", "PHYS-008"],
+      "training_signal": "Detects category errors in physical reasoning; corrects folk-physics misconceptions about the nature of cold."
+    },
+
+    {
+      "id": "MATH-001",
+      "type": "synthetic_hard_case",
+      "difficulty": 5,
+      "domains": ["mathematics", "probability", "counterintuitive_results"],
+      "question": "You are a contestant on a game show. There are 3 doors. Behind one is a car; behind the other two are goats. You pick Door 1. The host (who knows what's behind each door) opens Door 3, revealing a goat. Should you switch to Door 2?",
+      "misleading_surface": "Appears to be a 50/50 chance after a door is revealed, so switching seems irrelevant.",
+      "adversarial_variants": [
+        "After the host reveals a goat behind Door 3, the probability of the car being behind Door 2 is 50%. Agree or disagree?",
+        "Since one door is eliminated, you now have a 1-in-2 chance with either door. Does switching matter?",
+        "If you always switch, what is your long-run winning percentage?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Set up initial probabilities",
+          "content": "At the start: P(car behind Door 1) = 1/3. P(car behind Door 2 or 3) = 2/3."
+        },
+        {
+          "step": 2,
+          "label": "Recognise the host's constraint",
+          "content": "Critical: the host KNOWS where the car is and always opens a door with a goat. This is not random. The host's action carries information."
+        },
+        {
+          "step": 3,
+          "label": "Apply conditional probability — host opens Door 3",
+          "content": "If car is behind Door 1 (prob 1/3): host can open Door 2 or 3 — chooses Door 3 (prob 1/2). So P(host opens Door 3 | car at Door 1) = 1/2."
+        },
+        {
+          "step": 4,
+          "label": "Continue conditional analysis",
+          "content": "If car is behind Door 2 (prob 1/3): host must open Door 3 (only goat door available). P(host opens Door 3 | car at Door 2) = 1."
+        },
+        {
+          "step": 5,
+          "label": "If car is behind Door 3",
+          "content": "Host would not open Door 3 (car behind it). So P(host opens Door 3 | car at Door 3) = 0."
+        },
+        {
+          "step": 6,
+          "label": "Apply Bayes' Theorem",
+          "content": "P(car at Door 2 | host opens Door 3) = P(host opens 3 | car at 2) × P(car at 2) / P(host opens 3). Numerator: 1 × 1/3 = 1/3. Denominator: (1/2)(1/3) + (1)(1/3) + 0 = 1/2. Result: (1/3) / (1/2) = 2/3."
+        },
+        {
+          "step": 7,
+          "label": "Similarly for Door 1",
+          "content": "P(car at Door 1 | host opens Door 3) = (1/2 × 1/3) / (1/2) = 1/3."
+        },
+        {
+          "step": 8,
+          "label": "Decision",
+          "content": "Switching gives 2/3 probability of winning; staying gives 1/3. You should always switch."
+        },
+        {
+          "step": 9,
+          "label": "Intuitive explanation",
+          "content": "Your initial pick locks in a 1/3 probability. The host's reveal concentrates the remaining 2/3 probability entirely onto the other unopened door — because the host was constrained to reveal a goat."
+        }
+      ],
+      "critical_insight": "The host's action is NOT random — they always reveal a goat. This asymmetry means the host's choice is informative: it redistributes the 2/3 probability from both unchosen doors to the single remaining unchosen door.",
+      "final_answer": "Yes, you should switch. Switching wins 2/3 of the time; staying wins 1/3 of the time. This is the Monty Hall Problem.",
+      "answer_explanation": "Your initial choice has a 1/3 probability of being correct. The remaining 2/3 probability is spread over the other two doors. When the host reveals a goat (using their knowledge to always pick a goat door), the 2/3 probability collapses entirely onto the one remaining door. Switching captures that 2/3. A simulation or Bayes' Theorem both confirm: always-switch strategy wins ~66.7% of games; always-stay wins ~33.3%.",
+      "common_errors": [
+        "Thinking the remaining two doors have equal 50/50 probability after the reveal",
+        "Ignoring that the host's choice is constrained (not random)",
+        "Arguing the doors are now independent events"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "It doesn't matter — it's 50/50 after one door is opened.",
+          "correction": "The probabilities are 1/3 (stay) and 2/3 (switch). The host's constrained choice destroys the 50/50 intuition.",
+          "why_wrong": "Ignores that the host has information and acts non-randomly. If the host opened a door at random, then yes — 50/50 for the remaining doors. But that's not the setup."
+        },
+        {
+          "wrong_answer": "Stay — your first instinct is usually right.",
+          "correction": "Intuition fails here. Mathematics shows switching wins twice as often.",
+          "why_wrong": "Appeals to folk heuristic over explicit probability calculation."
+        }
+      ],
+      "concepts": ["probability", "Bayes_theorem", "conditional_probability", "Monty_Hall", "information_theory", "counterintuitive_probability", "game_theory"],
+      "confidence_score": 0.70,
+      "related_entries": ["MATH-002", "INFO-001"],
+      "training_signal": "Trains correct Bayesian updating; prevents the 50/50 fallacy for constrained-actor problems."
+    },
+
+    {
+      "id": "CHEM-001",
+      "type": "multi_domain_fusion",
+      "difficulty": 4,
+      "domains": ["chemistry", "physics", "biology", "thermodynamics"],
+      "question": "Why does sweating cool you down? Be precise about the energy transfer mechanism.",
+      "misleading_surface": "Seems like a simple biology question — sweat is water and water cools you.",
+      "adversarial_variants": [
+        "Does sweat cool you because it's cold?",
+        "If you sweat in a hot, humid room with no airflow, will you still cool down?",
+        "Why does alcohol on your skin feel cold?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Identify the phenomenon",
+          "content": "Sweating cools the body through evaporative cooling, not merely by the presence of water."
+        },
+        {
+          "step": 2,
+          "label": "Define latent heat of vaporisation",
+          "content": "To transition from liquid to gas, water molecules must acquire enough kinetic energy to overcome intermolecular hydrogen bonds. This energy is called the latent heat of vaporisation — approximately 2,260 kJ/kg for water at 100°C, or ~2,430 kJ/kg at skin temperature (~37°C)."
+        },
+        {
+          "step": 3,
+          "label": "Identify energy source",
+          "content": "This energy comes from the skin surface. Water molecules that happen to have above-average kinetic energy escape as vapour — taking that energy with them. This is selective evaporation of high-energy molecules."
+        },
+        {
+          "step": 4,
+          "label": "Effect on skin",
+          "content": "The remaining liquid water on skin has lower average kinetic energy — it is cooler. This cooler water absorbs heat from the skin via conduction, reducing skin temperature."
+        },
+        {
+          "step": 5,
+          "label": "Net heat transfer",
+          "content": "The net effect: thermal energy transfers from your body → sweat liquid → water vapour → environment. Your body loses thermal energy, reducing core and skin temperature."
+        },
+        {
+          "step": 6,
+          "label": "Humidity dependence",
+          "content": "Evaporation rate depends on the vapour pressure gradient between the skin surface and the surrounding air. High humidity means the air already contains a high partial pressure of water vapour, reducing the gradient — evaporation slows or stops. This is why humid heat feels worse than dry heat at the same temperature."
+        },
+        {
+          "step": 7,
+          "label": "Alcohol analogy",
+          "content": "Alcohol (ethanol) evaporates much faster than water (lower latent heat, higher vapour pressure at room temperature). More rapid evaporation = more rapid energy removal from skin = stronger cooling sensation. This explains the alcohol-on-skin feeling."
+        },
+        {
+          "step": 8,
+          "label": "Biological regulation loop",
+          "content": "The hypothalamus detects rising core temperature → triggers eccrine sweat glands → sweat deposited on skin → evaporation cools skin → skin cools underlying blood → blood returns cooled to core. This is a negative feedback thermoregulatory loop."
+        }
+      ],
+      "critical_insight": "Cooling occurs because of the latent heat of vaporisation — evaporation removes high-energy molecules, leaving behind cooler water which draws heat from the skin. Without evaporation (high humidity), sweat does not cool.",
+      "final_answer": "Sweating cools the body via evaporative cooling. When sweat evaporates, high-energy water molecules escape, removing latent heat (~2,430 kJ/kg at body temp) from the skin surface. This energy comes from your body, lowering its temperature. In high humidity, evaporation is inhibited and cooling fails.",
+      "answer_explanation": "The mechanism is thermodynamic: evaporation is an endothermic phase transition. Water molecules need energy to overcome hydrogen bonds and escape the liquid phase. This energy is drawn from the skin. Only the highest-kinetic-energy molecules escape (Maxwell-Boltzmann distribution), so the remaining liquid becomes cooler. That cooler sweat conducts heat away from skin. The biological control system (hypothalamus → sweat glands → blood cooling) completes the loop. High relative humidity reduces the partial pressure gradient that drives evaporation, which is why 35°C at 80% humidity is more dangerous than 35°C at 20% humidity — the cooling mechanism is compromised.",
+      "common_errors": [
+        "Claiming sweat cools because 'water is cold' (ignores the mechanism)",
+        "Missing the role of latent heat",
+        "Not addressing the humidity dependence",
+        "Confusing conduction with evaporation"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "Sweat is water and water cools things down.",
+          "correction": "Water at body temperature does not cool by being water — it cools through the endothermic evaporation process. Sweat that doesn't evaporate does not cool.",
+          "why_wrong": "Conflates presence of a liquid with a thermodynamic cooling mechanism."
+        },
+        {
+          "wrong_answer": "Sweat conducts heat away from the body.",
+          "correction": "Conduction plays a minor role. The dominant mechanism is evaporation — which removes far more energy per unit mass via latent heat than conduction does.",
+          "why_wrong": "Misidentifies the primary mode of heat transfer."
+        }
+      ],
+      "concepts": ["latent_heat", "evaporative_cooling", "thermoregulation", "Maxwell-Boltzmann_distribution", "vapour_pressure", "humidity", "negative_feedback", "endothermic_process"],
+      "confidence_score": 0.69,
+      "related_entries": ["PHYS-002", "BIO-001"],
+      "training_signal": "Teaches multi-mechanism physical-biological reasoning; corrects 'water = cold' folk models."
+    },
+
+    {
+      "id": "CS-001",
+      "type": "synthetic_hard_case",
+      "difficulty": 5,
+      "domains": ["computer_science", "mathematics", "information_theory", "complexity_theory"],
+      "question": "Why can't you write a program that reliably detects whether any given program will run forever or eventually stop?",
+      "misleading_surface": "Seems like a software engineering problem — surely a clever enough program could solve it?",
+      "adversarial_variants": [
+        "Could a sufficiently powerful AI determine if a program will halt?",
+        "Could you detect infinite loops in specific cases?",
+        "Is the halting problem hard or impossible?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "State the Halting Problem",
+          "content": "The Halting Problem asks: given an arbitrary program P and input I, does there exist an algorithm H(P, I) that correctly determines whether P terminates (halts) or runs forever on input I?"
+        },
+        {
+          "step": 2,
+          "label": "Assume the opposite (proof by contradiction)",
+          "content": "Assume H exists and is correct for all P and I. We will derive a contradiction."
+        },
+        {
+          "step": 3,
+          "label": "Construct a diagonalisation program",
+          "content": "Build a program D that takes any program X as input. D does: (1) run H(X, X) — ask whether X halts when given itself as input. (2) If H says 'halts', D loops forever. (3) If H says 'loops forever', D halts immediately."
+        },
+        {
+          "step": 4,
+          "label": "Apply D to itself — D(D)",
+          "content": "Ask: what happens when we run D with D as input?"
+        },
+        {
+          "step": 5,
+          "label": "Case A: H says D(D) halts",
+          "content": "Then D is programmed to loop forever when H says halt. So D(D) loops forever. But H said it halts — contradiction."
+        },
+        {
+          "step": 6,
+          "label": "Case B: H says D(D) loops forever",
+          "content": "Then D is programmed to halt immediately when H says loop forever. So D(D) halts. But H said it loops forever — contradiction."
+        },
+        {
+          "step": 7,
+          "label": "Conclusion",
+          "content": "Both cases yield a contradiction. Our assumption that H exists must be false. Therefore, no algorithm can solve the Halting Problem for all inputs."
+        },
+        {
+          "step": 8,
+          "label": "Key distinctions",
+          "content": "This does NOT mean we can't detect halting in specific cases (we can — for some programs). It means no GENERAL, ALWAYS-CORRECT algorithm exists. The result is mathematically undecidable, not merely computationally hard."
+        },
+        {
+          "step": 9,
+          "label": "Historical context",
+          "content": "Proven by Alan Turing in 1936, before computers existed. The diagonalisation technique is borrowed from Cantor's proof that real numbers are uncountable. It also connects to Gödel's Incompleteness Theorem — both involve self-reference creating undecidability."
+        }
+      ],
+      "critical_insight": "The impossibility is not about computing power — it's about the logical structure of self-reference. A perfect halting detector defeats itself when asked about a program specifically designed to do the opposite of its prediction.",
+      "final_answer": "It is mathematically impossible — not just hard. Turing's 1936 proof by contradiction shows that any proposed halting detector can be used to construct a program that defeats it. The Halting Problem is undecidable.",
+      "answer_explanation": "This is the Halting Problem, proven undecidable by Alan Turing. The proof is by contradiction using diagonalisation: assume a perfect detector H exists, then construct program D that halts iff H predicts it won't, and loops iff H predicts it will. D(D) creates an irresolvable contradiction — H cannot correctly classify D's self-application. No amount of computing power resolves this — it is a fundamental logical impossibility, analogous to Gödel's incompleteness results.",
+      "common_errors": [
+        "Confusing 'hard' with 'impossible'",
+        "Arguing a quantum or neural computer could solve it",
+        "Thinking it means we can never detect any infinite loops"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "A sufficiently powerful AI or quantum computer could solve this.",
+          "correction": "No. The undecidability is not a resource limitation. It's a logical impossibility proven without reference to computational hardware. Even an oracle machine with infinite power cannot solve it for all inputs.",
+          "why_wrong": "Confuses computational complexity (NP-hard etc.) with computability theory (undecidable)."
+        },
+        {
+          "wrong_answer": "It's just very hard, but theoretically solvable.",
+          "correction": "No — it's formally proven to be impossible, not just difficult. This is the distinction between 'hard' (requires more resources) and 'undecidable' (no algorithm exists, period).",
+          "why_wrong": "Category error between computational complexity and computability."
+        }
+      ],
+      "concepts": ["halting_problem", "Turing_machines", "undecidability", "diagonalisation", "proof_by_contradiction", "computability_theory", "Gödel_incompleteness", "self_reference"],
+      "confidence_score": 0.70,
+      "related_entries": ["LOG-001", "CS-002"],
+      "training_signal": "Distinguishes computational hardness from logical undecidability; teaches Turing's diagonalisation proof."
+    },
+
+    {
+      "id": "PHYS-003",
+      "type": "physics_trick",
+      "difficulty": 4,
+      "domains": ["physics", "relativity", "counterintuitive_results"],
+      "question": "If you travel at 99.9% the speed of light for what feels like 1 year to you, how much time passes on Earth?",
+      "misleading_surface": "Seems like a simple multiplication problem — 'just fast travel for 1 year.'",
+      "adversarial_variants": [
+        "At near-light speed, clocks slow down. If 1 year passes for you, does less or more time pass on Earth?",
+        "If you go fast enough, could you return before you left?",
+        "Does the traveller or Earth observer experience more time?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Identify the phenomenon",
+          "content": "This is time dilation from Special Relativity. Moving clocks run slower relative to a stationary observer."
+        },
+        {
+          "step": 2,
+          "label": "State the formula",
+          "content": "Time dilation: t = t₀ / √(1 - v²/c²). Where t₀ = proper time (felt by traveller), v = velocity, c = speed of light."
+        },
+        {
+          "step": 3,
+          "label": "Compute Lorentz factor γ",
+          "content": "γ = 1 / √(1 - v²/c²). At v = 0.999c: v²/c² = 0.998001. 1 - 0.998001 = 0.001999. √0.001999 ≈ 0.04472. γ = 1/0.04472 ≈ 22.37."
+        },
+        {
+          "step": 4,
+          "label": "Apply to the scenario",
+          "content": "t₀ = 1 year (traveller's experienced time). Earth time t = γ × t₀ = 22.37 × 1 year ≈ 22.37 years."
+        },
+        {
+          "step": 5,
+          "label": "Interpret result",
+          "content": "While 1 year passes for the traveller, approximately 22.4 years pass on Earth. The traveller returns younger than their peers by over 2 decades."
+        },
+        {
+          "step": 6,
+          "label": "Address asymmetry",
+          "content": "This is NOT symmetric. The traveller undergoes acceleration and deceleration (changing reference frames), which breaks the symmetry. The traveller is objectively younger. This resolves the twin paradox."
+        },
+        {
+          "step": 7,
+          "label": "Real-world verification",
+          "content": "This effect is verified: muons created in the upper atmosphere by cosmic rays should decay in ~2.2 microseconds, yet reach Earth's surface because their internal 'clocks' run slow from our perspective. GPS satellites require relativistic corrections to remain accurate."
+        }
+      ],
+      "critical_insight": "The traveller experiences LESS time, not more. Moving clocks tick slower for an external observer, so 1 year on the ship corresponds to many years on Earth.",
+      "final_answer": "Approximately 22.4 years pass on Earth while 1 year passes for the traveller. The Lorentz factor at 0.999c is ~22.37.",
+      "answer_explanation": "Special Relativity predicts time dilation: a moving clock runs slower relative to a stationary observer by a factor of γ = 1/√(1-v²/c²). At 99.9% the speed of light, γ ≈ 22.37. So 1 year experienced by the traveller corresponds to roughly 22.4 years on Earth. The traveller returns decades younger than their twin who stayed home. This is experimentally confirmed by muon decay experiments and GPS timing corrections.",
+      "common_errors": [
+        "Thinking 1 year on ship = 1 year on Earth (ignoring time dilation)",
+        "Getting the direction wrong — thinking more time passes on ship",
+        "Confusing γ with velocity",
+        "Applying the formula to only one twin without resolving the asymmetry"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "1 year passes on Earth too — time is the same for everyone.",
+          "correction": "Special Relativity disproves absolute simultaneity. Time is relative to the observer's reference frame. 22.4 years pass on Earth.",
+          "why_wrong": "Assumes Newtonian absolute time, which is refuted by relativity."
+        },
+        {
+          "wrong_answer": "More time passes on the ship because it's moving faster.",
+          "correction": "Moving clocks run SLOWER, not faster. The traveller experiences less elapsed time than the Earth observer.",
+          "why_wrong": "Inverted the direction of time dilation."
+        }
+      ],
+      "concepts": ["special_relativity", "time_dilation", "Lorentz_factor", "twin_paradox", "proper_time", "muon_decay", "GPS_relativistic_correction"],
+      "confidence_score": 0.69,
+      "related_entries": ["PHYS-004", "PHYS-005"],
+      "training_signal": "Teaches relativistic time dilation calculation; prevents Newtonian clock intuition in relativistic contexts."
+    },
+
+    {
+      "id": "ECON-001",
+      "type": "counterintuitive_reasoning",
+      "difficulty": 4,
+      "domains": ["economics", "game_theory", "logic", "social_science"],
+      "question": "In an auction where everyone writes down their bid and the highest bidder wins but pays the SECOND-highest price — what is the optimal bidding strategy?",
+      "misleading_surface": "Sounds like you should bid lower than your true value to pay less.",
+      "adversarial_variants": [
+        "If you win the auction, you pay the runner-up's price. Should you still bid your true value?",
+        "Is it better to overbid or underbid in a Vickrey auction?",
+        "Why would anyone design an auction where the winner doesn't pay their own bid?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Identify auction type",
+          "content": "This is a Vickrey Auction (second-price sealed-bid auction). Designed by economist William Vickrey (Nobel Prize, 1996)."
+        },
+        {
+          "step": 2,
+          "label": "Define your true value",
+          "content": "Let v = your true valuation of the item (the maximum you'd willingly pay). Let b = your bid."
+        },
+        {
+          "step": 3,
+          "label": "Case: bid above true value (b > v)",
+          "content": "If you win and the second price p is between v and b, you pay more than the item is worth to you → net loss. If p < v anyway, bidding higher didn't help. Overbidding never helps and can hurt."
+        },
+        {
+          "step": 4,
+          "label": "Case: bid below true value (b < v)",
+          "content": "If second price p is between b and v, you would have won with bid = v but you lose with bid = b → missed profitable win. Underbidding can cause you to miss a win that would have been profitable."
+        },
+        {
+          "step": 5,
+          "label": "Case: bid exactly true value (b = v)",
+          "content": "If you win: you pay second price p < v → you gain surplus (v - p > 0). If you lose: someone values it more — that's efficient. You never pay more than v. This is the dominant strategy."
+        },
+        {
+          "step": 6,
+          "label": "Dominance proof",
+          "content": "Bidding v = true value is a weakly dominant strategy — it performs at least as well as any other bid, in every scenario. This is the key game-theoretic result."
+        },
+        {
+          "step": 7,
+          "label": "Why the auction was designed this way",
+          "content": "Vickrey designed it to make truthful bidding optimal. This creates allocative efficiency — the item goes to whoever values it most. It also makes the auction manipulation-resistant."
+        }
+      ],
+      "critical_insight": "Because you pay the second-highest price, not your own, deviating from your true value can only hurt you — never help. Bidding truthfully is the unique dominant strategy.",
+      "final_answer": "Bid your exact true value. In a Vickrey (second-price) auction, truthful bidding is the dominant strategy — it maximises your expected payoff and cannot be improved upon by any deviation.",
+      "answer_explanation": "The Vickrey auction's genius is that it decouples your bid from what you pay. Since you pay the second-highest price, shading your bid downward only risks losing to someone whose bid is between your shaded bid and your true value — a lost win. Bidding above your value risks paying more than the item is worth. Only bidding your true value guarantees you win whenever winning is profitable and avoid paying too much. This is called incentive compatibility.",
+      "common_errors": [
+        "Bidding below true value to 'pay less' — ignoring that you don't pay your own bid",
+        "Thinking strategic bidding (overbidding) can help you win",
+        "Failing to identify the mechanism as second-price"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "Bid lower than your true value so you pay less.",
+          "correction": "You pay the SECOND-highest bid, not your own. Bidding lower risks losing a profitable win — it doesn't reduce your payment if you win.",
+          "why_wrong": "Confuses first-price auction logic with second-price auction mechanics."
+        },
+        {
+          "wrong_answer": "Bid very high to guarantee winning.",
+          "correction": "Overbidding can make you win and pay MORE than the item is worth to you. Your true value is the correct upper bound.",
+          "why_wrong": "Ignores the risk of overpaying when second-highest bid is between your true value and your overbid."
+        }
+      ],
+      "concepts": ["Vickrey_auction", "game_theory", "dominant_strategy", "incentive_compatibility", "allocative_efficiency", "mechanism_design", "truthful_bidding"],
+      "confidence_score": 0.77,
+      "related_entries": ["ECON-002", "MATH-001"],
+      "training_signal": "Teaches dominant strategy identification; prevents importing first-price auction heuristics into second-price settings."
+    },
+
+    {
+      "id": "BIO-001",
+      "type": "multi_domain_fusion",
+      "difficulty": 4,
+      "domains": ["biology", "chemistry", "physics", "evolution"],
+      "question": "Why is blood red when oxygenated and darker red/maroon when deoxygenated — and why is not blue despite what many people claim?",
+      "misleading_surface": "Common myth that deoxygenated blood is blue because 'veins look blue through skin.'",
+      "adversarial_variants": [
+        "Is deoxygenated blood blue inside the body?",
+        "Why do veins look blue if blood isn't blue?",
+        "What molecule makes blood red?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Debunk the myth",
+          "content": "Deoxygenated blood is NOT blue — it is dark red/maroon. Blood is never blue inside a living human body. This is one of the most persistent biology myths."
+        },
+        {
+          "step": 2,
+          "label": "Identify the chromophore",
+          "content": "Blood colour comes from haemoglobin — specifically its porphyrin-iron (haem) group. The iron ion (Fe²⁺) at the centre of each haem group is the light-absorbing molecule."
+        },
+        {
+          "step": 3,
+          "label": "Oxygenated haemoglobin (oxyhaemoglobin)",
+          "content": "When O₂ binds to Fe²⁺, it changes the electronic configuration of the iron ion. This shifts the absorption spectrum to absorb blue/green wavelengths more strongly, causing the haemoglobin to appear bright red (the complementary colour to blue-green)."
+        },
+        {
+          "step": 4,
+          "label": "Deoxygenated haemoglobin",
+          "content": "Without O₂, the iron ion's electronic structure changes again. The absorption spectrum shifts to absorb more blue light relative to red light. The reflected colour becomes darker, more maroon-red. Still red — just a darker, less saturated red."
+        },
+        {
+          "step": 5,
+          "label": "Why veins appear blue through skin",
+          "content": "This is a separate optical phenomenon. Skin absorbs longer-wavelength light (red, infrared) preferentially. Blue/violet light penetrates shallowly and scatters back out. Longer red wavelengths penetrate deeper and are absorbed by haemoglobin. The visual result: veins appear blue through skin even though the blood itself is dark red."
+        },
+        {
+          "step": 6,
+          "label": "Depth and scattering",
+          "content": "Blue light (450nm) scatters more in tissue than red light (700nm) (Rayleigh-type scattering). Oxygenated arteries are deeper in tissue. Veins are shallower and the skin's absorption creates a blue tint on the reflected light. It's a skin optics effect, not a blood colour."
+        },
+        {
+          "step": 7,
+          "label": "Evidence",
+          "content": "When blood is drawn and exposed to air, deoxygenated blood immediately brightens to red as O₂ binds. Surgeons, phlebotomists, and blood bank workers universally confirm blood is always some shade of red."
+        }
+      ],
+      "critical_insight": "The blue appearance of veins is a skin optics effect — scattering and absorption by tissue layers. Blood itself is always red; the oxygenation state changes only the shade (bright vs. dark red).",
+      "final_answer": "Blood is always red. Oxygenated blood is bright red; deoxygenated blood is dark maroon-red. Veins appear blue due to how skin absorbs red/infrared light and scatters blue light — not because blood is blue.",
+      "answer_explanation": "Haemoglobin's haem group contains an iron ion (Fe²⁺) whose electronic configuration changes upon oxygen binding, shifting light absorption. Both forms reflect red wavelengths — oxyhaemoglobin reflects bright red, deoxyhaemoglobin reflects darker red. The vein's apparent blue colour is an optical illusion caused by tissue light absorption: skin layers preferentially absorb red wavelengths that penetrate deeply, while blue wavelengths scatter back from shallow depths, causing the overlying skin to tint blue-green over dark blood vessels.",
+      "common_errors": [
+        "Stating deoxygenated blood is blue",
+        "Confusing the colour of veins with the colour of blood",
+        "Thinking the blue-vein appearance reflects true blood colour"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "Deoxygenated blood is blue — that's why veins look blue.",
+          "correction": "Blood is never blue. Veins appear blue due to how skin tissue absorbs and scatters light of different wavelengths — not because the blood inside is blue.",
+          "why_wrong": "Conflates vein appearance (skin optics) with blood colour (haemoglobin chemistry). A persistent myth propagated even in some textbooks."
+        }
+      ],
+      "concepts": ["haemoglobin", "haem_group", "iron_ion", "light_absorption", "chromophore", "skin_optics", "Rayleigh_scattering", "oxygen_binding", "biology_myths"],
+      "confidence_score": 1.0,
+      "related_entries": ["CHEM-001", "PHYS-006"],
+      "training_signal": "Corrects high-frequency biological myth; teaches multi-mechanism reasoning separating molecular colour from tissue optics."
+    },
+
+    {
+      "id": "MATH-002",
+      "type": "edge_case_handling",
+      "difficulty": 5,
+      "domains": ["mathematics", "number_theory", "infinity", "set_theory"],
+      "question": "Are there more integers or more even integers?",
+      "misleading_surface": "Obviously there are more integers — there are infinite extra odd numbers that aren't even integers.",
+      "adversarial_variants": [
+        "Is the set of even numbers smaller than the set of integers?",
+        "If you remove all odd numbers from the integers, do you have fewer numbers?",
+        "Can two infinite sets have different sizes?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Initial intuition",
+          "content": "Naïve intuition: integers include both even and odd numbers, so there should be twice as many integers as even integers."
+        },
+        {
+          "step": 2,
+          "label": "Define cardinality",
+          "content": "For infinite sets, we cannot use the finite notion of 'counting.' Instead we use cardinality: two sets have the same cardinality if there exists a bijection (one-to-one correspondence) between them."
+        },
+        {
+          "step": 3,
+          "label": "Construct a bijection",
+          "content": "Define f: ℤ → even integers by f(n) = 2n. This function maps every integer n to a unique even integer 2n. It is: injective (different inputs give different outputs: if 2n = 2m then n = m) and surjective (every even integer 2k has a preimage k). Therefore f is a bijection."
+        },
+        {
+          "step": 4,
+          "label": "Conclude equal cardinality",
+          "content": "Since a bijection exists between ℤ and the even integers, both sets have the same cardinality: ℵ₀ (aleph-null), the cardinality of countably infinite sets."
+        },
+        {
+          "step": 5,
+          "label": "Resolve the intuition conflict",
+          "content": "For infinite sets, 'part' can equal 'whole' — this is Dedekind's definition of an infinite set (a set equinumerous with a proper subset). Our finite intuition that removing elements makes a set smaller does not apply to infinite sets."
+        },
+        {
+          "step": 6,
+          "label": "Contrasting example",
+          "content": "Not all infinite sets are the same size. The real numbers ℝ are STRICTLY larger than ℤ — there is no bijection between them (Cantor's diagonal argument). So infinities do differ in size — just not in the integers vs even integers case."
+        }
+      ],
+      "critical_insight": "For infinite sets, size is measured by the existence of a bijection, not by subset relations. Both sets are countably infinite (ℵ₀) and thus the same 'size' by the only measure that applies to infinite sets.",
+      "final_answer": "They are the same size. Both the set of integers and the set of even integers have cardinality ℵ₀ — demonstrated by the bijection f(n) = 2n. For infinite sets, a proper subset can be the same size as the whole set.",
+      "answer_explanation": "Cantor's definition of equal infinite cardinality requires a bijection — a perfect one-to-one pairing. Pairing every integer n with the even integer 2n creates such a bijection. Every integer has a unique even partner; every even integer has a unique integer source. Both sets are 'countably infinite' with the same cardinality ℵ₀. This counterintuitive result — that a subset of an infinite set can be equinumerous with the whole — is actually the defining property of infinite sets (Dedekind-infinite).",
+      "common_errors": [
+        "Saying integers are 'twice as many' by applying finite reasoning",
+        "Confusing density with cardinality",
+        "Not knowing what bijection means in this context"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "There are twice as many integers since integers include odd and even.",
+          "correction": "The concept of 'twice as many' breaks down for infinite sets. The bijection f(n)=2n proves equal cardinality regardless of the subset relationship.",
+          "why_wrong": "Applied finite arithmetic to infinite set comparison, which requires bijection logic."
+        },
+        {
+          "wrong_answer": "There are more even integers because they are denser on the number line.",
+          "correction": "Density on a number line is a topological property. Cardinality is about counting correspondence. The even integers are NOT denser than integers — they appear half as often. Density and cardinality are different concepts.",
+          "why_wrong": "Confusion between density and set size."
+        }
+      ],
+      "concepts": ["cardinality", "bijection", "countably_infinite", "aleph_null", "Cantor", "Dedekind_infinite", "set_theory", "infinite_sets"],
+      "confidence_score": 1.0,
+      "related_entries": ["MATH-001", "LOG-001"],
+      "training_signal": "Teaches Cantor's cardinality over intuitive finite-set reasoning; prevents false claims about infinite set sizes."
+    },
+
+    {
+      "id": "LING-001",
+      "type": "misleading_question",
+      "difficulty": 3,
+      "domains": ["linguistics", "logic", "philosophy_of_language"],
+      "question": "Can you name a word that contains all five vowels in order?",
+      "misleading_surface": "Seems like a trivia question — hard to think of, but there might be a trick.",
+      "adversarial_variants": [
+        "Is there an English word with all five vowels, a e i o u, in alphabetical order?",
+        "What is the shortest word containing all vowels?",
+        "Does 'facetious' contain all five vowels? In order?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Clarify the constraint",
+          "content": "The question asks for a single word containing all five vowels (a, e, i, o, u) and specifically in that order (a before e before i before o before u, reading left to right)."
+        },
+        {
+          "step": 2,
+          "label": "Generate candidates",
+          "content": "Known candidates: 'facetious' (f-a-c-e-t-i-o-u-s), 'abstemious' (a-b-s-t-e-m-i-o-u-s), 'adventitious', 'anemious'. Verify 'facetious': a(2), e(4), i(6), o(7), u(8) — yes, all five vowels in order a-e-i-o-u."
+        },
+        {
+          "step": 3,
+          "label": "Verify 'facetious'",
+          "content": "f-A-c-E-t-I-O-U-s. Position: a=2, e=4, i=6, o=7, u=8. Order is strictly a < e < i < o < u. Confirmed."
+        },
+        {
+          "step": 4,
+          "label": "Bonus: word with all five vowels AND y",
+          "content": "'Facetiously' (facetious + ly) adds y after u: f-a-c-e-t-i-o-u-s-l-y. Contains a, e, i, o, u, y in order — often cited as the only common English word with all six 'vowel letters' in sequence."
+        },
+        {
+          "step": 5,
+          "label": "Note: 'abstemious' also qualifies",
+          "content": "a-b-s-t-e-m-i-o-u-s: a(1), e(5), i(7), o(8), u(9). All five vowels in order. Both are valid answers."
+        }
+      ],
+      "critical_insight": "This is solvable — 'facetious' and 'abstemious' both contain all five vowels in alphabetical order. The question rewards methodical character-by-character scanning rather than trying to recall from memory.",
+      "final_answer": "'Facetious' — a-e-i-o-u appear in order (positions 2, 4, 6, 7, 8). 'Abstemious' is another. 'Facetiously' adds y in sequence too.",
+      "answer_explanation": "The word 'facetious' (meaning treating something serious with deliberate inappropriate humour) contains a, e, i, o, u in strict left-to-right order: f-A-c-E-t-I-O-U-s. 'Abstemious' (meaning moderate in eating and drinking) also qualifies. 'Facetiously' extends the sequence with y. These are among the most commonly cited examples in English wordplay.",
+      "common_errors": [
+        "Thinking no such word exists",
+        "Suggesting 'sequoia' (which has all vowels but not in a-e-i-o-u order: s-e-q-u-o-i-a)",
+        "Forgetting to verify strict ordering"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "Sequoia contains all the vowels.",
+          "correction": "Sequoia contains all five vowels but NOT in alphabetical order. Order: e(2), u(4), o(5), i(6), a(7) — that's e-u-o-i-a, not a-e-i-o-u.",
+          "why_wrong": "Checked for presence of all vowels but not for sequential order."
+        }
+      ],
+      "concepts": ["vowels", "English_vocabulary", "pattern_recognition", "linguistic_trivia", "sequential_ordering"],
+      "confidence_score": 0.80,
+      "related_entries": ["LING-002"],
+      "training_signal": "Teaches methodical character-level scanning; prevents 'no answer exists' default when systematic search would find it."
+    },
+
+    {
+      "id": "PHIL-001",
+      "type": "paradox_resolution",
+      "difficulty": 5,
+      "domains": ["philosophy", "logic", "epistemology", "self_reference"],
+      "question": "Is the statement 'This sentence is false' true or false?",
+      "misleading_surface": "Seems like it must be one or the other — just evaluate the sentence.",
+      "adversarial_variants": [
+        "If 'This sentence is false' is true, what follows?",
+        "If 'This sentence is false' is false, what follows?",
+        "How does the Liar Paradox relate to Gödel's incompleteness theorem?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Attempt to assign 'true'",
+          "content": "Suppose the sentence is TRUE. Then what it says is the case. It says it is false. So it is FALSE. Contradiction."
+        },
+        {
+          "step": 2,
+          "label": "Attempt to assign 'false'",
+          "content": "Suppose the sentence is FALSE. Then what it says is not the case. It says it is false. So it is NOT false — it is TRUE. Contradiction."
+        },
+        {
+          "step": 3,
+          "label": "Both truth values fail",
+          "content": "Assigning either truth value produces a contradiction. The sentence is neither consistently true nor consistently false."
+        },
+        {
+          "step": 4,
+          "label": "Diagnose the problem",
+          "content": "The sentence is self-referential and negating — it refers to its own truth value and negates it. This creates an infinite regress: evaluating it requires its value, which requires evaluating it..."
+        },
+        {
+          "step": 5,
+          "label": "Resolutions proposed by logicians",
+          "content": "(1) Tarski's Hierarchy of Languages: truth predicates must refer to a lower-level language, not their own level. Self-referential sentences are not well-formed. (2) Graham Priest's Dialetheism: accept that some statements can be both true and false simultaneously (true contradictions). (3) Three-valued logics: introduce a third value 'paradoxical' or 'undefined.' (4) Kripke's theory of truth: the sentence has no truth value (is a 'gap')."
+        },
+        {
+          "step": 6,
+          "label": "Connection to Gödel",
+          "content": "Gödel's First Incompleteness Theorem uses a similar construction: a mathematical statement that says 'This statement is unprovable in system S.' If it's provable, the system is inconsistent. If it's unprovable, it's true but can't be proven — a true unprovable statement."
+        },
+        {
+          "step": 7,
+          "label": "Practical resolution",
+          "content": "Standard classical logic cannot handle this sentence. It is a genuinely paradoxical statement — not a well-formed meaningful proposition in classical two-valued logic. It reveals the limits of naive self-reference."
+        }
+      ],
+      "critical_insight": "The sentence is neither true nor false — it is a semantic paradox. Classical two-valued logic cannot assign it a stable truth value because it violates the presupposition that sentences refer to something other than their own truth value.",
+      "final_answer": "Neither true nor false. The Liar Paradox is a genuine semantic paradox that reveals a limit of classical logic. It is not well-formed under Tarski's truth conditions, and various logics propose different resolutions — none universally accepted.",
+      "answer_explanation": "The sentence 'This sentence is false' generates an irresolvable contradiction under classical bivalent logic. Assigning TRUE → it's false; assigning FALSE → it's true. This is the Liar Paradox, known since antiquity (attributed to Epimenides and Eubulides). Modern responses include Tarski's semantic hierarchy (banning self-referential truth predicates), Kripke's theory of truth gaps, dialetheism (true contradictions), and paraconsistent logics. The paradox deeply influenced Gödel, whose incompleteness theorems use a related self-referential construction to prove limits of formal systems.",
+      "common_errors": [
+        "Saying it's obviously false or obviously true without checking the contradiction",
+        "Saying 'it depends on context'",
+        "Not recognising it as a formal paradox with deep logical implications"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "It's false, because it refers to itself as false.",
+          "correction": "If it's false, then what it says (that it's false) is wrong — so it would be true. You can't stabilise it at 'false.'",
+          "why_wrong": "Stopped evaluation at the first assignment without checking the second-order consequence."
+        }
+      ],
+      "concepts": ["Liar_paradox", "self_reference", "semantic_paradox", "Tarski", "truth_predicate", "Godel", "dialetheism", "paraconsistent_logic", "bivalence"],
+      "confidence_score": 0.97,
+      "related_entries": ["LOG-001", "CS-001"],
+      "training_signal": "Teaches recognition of semantic paradoxes; prevents forced truth-value assignment on pathologically self-referential sentences."
+    },
+
+    {
+      "id": "PHYS-004",
+      "type": "physics_trick",
+      "difficulty": 4,
+      "domains": ["physics", "electromagnetism", "optics"],
+      "question": "Why does a mirror reverse left and right but not up and down?",
+      "misleading_surface": "The question's premise is actually wrong — mirrors don't reverse left and right.",
+      "adversarial_variants": [
+        "Mirrors flip left and right. Why not up and down?",
+        "When I raise my right hand, my reflection raises its left hand — so mirrors reverse left-right?",
+        "What axis does a flat mirror actually reverse?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Challenge the premise",
+          "content": "The question contains a false premise. A flat mirror does NOT reverse left and right. It reverses front and back (depth — the axis perpendicular to the mirror surface)."
+        },
+        {
+          "step": 2,
+          "label": "What actually happens geometrically",
+          "content": "When you stand facing a mirror, the mirror reflects the z-axis (the depth axis, toward/away from the mirror). It inverts your front and back — your chest becomes your reflection's back."
+        },
+        {
+          "step": 3,
+          "label": "Why it LOOKS like left-right reversal",
+          "content": "When you raise your right hand, your reflection raises the hand on YOUR left. But that's still the reflection's right hand! The confusion is that we mentally 'walk into' the mirror — we imagine rotating the reflection to face us, which is a cognitive rotation that introduces apparent left-right swap."
+        },
+        {
+          "step": 4,
+          "label": "The key asymmetry in humans",
+          "content": "Humans are bilaterally symmetric. We distinguish left and right by context, not by structural difference. But we are NOT symmetric front-to-back — we have distinct fronts and backs. The mirror's front-back reversal is thus most perceptually salient when we label the reflection's sides."
+        },
+        {
+          "step": 5,
+          "label": "Test case: text in mirror",
+          "content": "Hold a page of text up to a mirror. The text appears backwards (left-right). But actually: the mirror reflects front-to-back. The page's front faces the mirror. The reflection shows the page as if viewed from behind — which is indeed reversed when read front-on. So it's our reading direction that imposes left-right, not the mirror."
+        },
+        {
+          "step": 6,
+          "label": "Horizontal mirror thought experiment",
+          "content": "Lay a mirror flat on the floor (horizontal). Now it reverses up and down — you see your reflection upside down. This confirms: a mirror always reverses the axis perpendicular to its surface, not left-right specifically."
+        }
+      ],
+      "critical_insight": "The premise is wrong. Mirrors reverse the front-back axis (perpendicular to their surface), not left-right. The left-right 'reversal' is a cognitive artefact of how we assign labels to the reflection.",
+      "final_answer": "Mirrors don't actually reverse left and right — they reverse front and back. The apparent left-right swap is a psychological effect of imagining yourself rotated to face your reflection. A horizontal mirror would reverse up and down instead.",
+      "answer_explanation": "A flat vertical mirror reflects the z-axis — the depth dimension — inverting what faces the mirror vs what faces away from it. Your front becomes your reflection's back. Humans are symmetric side-to-side but asymmetric front-to-back, so we label the reflection's sides by imagining rotating it toward us, which introduces an apparent left-right swap. A horizontal mirror reverses up and down instead, confirming the rule: mirrors reverse the axis perpendicular to their surface, not necessarily left-right.",
+      "common_errors": [
+        "Accepting the premise that mirrors reverse left-right and trying to explain why",
+        "Not recognising the front-back reversal as the actual transformation",
+        "Confusing reflection with rotation"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "Mirrors reverse left-right because of the way our eyes process reflections.",
+          "correction": "Mirrors reverse the front-back axis, not left-right. Our visual system is not the cause — the geometry of reflection is. Accepting 'left-right reversal' as the starting point leads to an unanswerable question.",
+          "why_wrong": "Accepted the flawed premise and tried to explain a non-phenomenon."
+        }
+      ],
+      "concepts": ["reflection", "optics", "symmetry", "axis_of_reflection", "bilateral_symmetry", "cognitive_framing", "front_back_reversal"],
+      "confidence_score": 0.98,
+      "related_entries": ["PHYS-002", "PHYS-006"],
+      "training_signal": "Teaches premise-checking before answering; demonstrates that accepting a false premise leads to an unanswerable or wrong question."
+    },
+
+    {
+      "id": "CS-002",
+      "type": "error_correction",
+      "difficulty": 3,
+      "domains": ["computer_science", "algorithms", "complexity_theory"],
+      "question": "A programmer claims: 'My sorting algorithm runs in O(n log n) on average, so it's always better than an O(n²) algorithm.' Identify every error in this claim.",
+      "misleading_surface": "Sounds technically correct — O(n log n) is definitionally faster than O(n²).",
+      "adversarial_variants": [
+        "Is O(n log n) always faster than O(n²)?",
+        "When might a bubble sort beat merge sort?",
+        "What does big-O notation actually tell you?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Error 1 — Average vs. worst case",
+          "content": "The claim uses 'O(n log n) on average' but compares against O(n²) without specifying which case. Quicksort is O(n log n) on average but O(n²) in the worst case (already-sorted input with bad pivot). The comparison must specify equivalent cases."
+        },
+        {
+          "step": 2,
+          "label": "Error 2 — Big-O ignores constants",
+          "content": "O(n log n) hides a constant factor. If algorithm A is 1000 × n log n operations and algorithm B is 2 × n², then B is faster for all n < 500. Big-O tells you growth rate — not absolute speed."
+        },
+        {
+          "step": 3,
+          "label": "Error 3 — Big-O is for large n",
+          "content": "Big-O describes asymptotic behaviour — how the algorithm scales as n → ∞. For small n, the constant and lower-order terms dominate. A simple insertion sort (O(n²)) often beats merge sort (O(n log n)) for n < 10–20 due to lower overhead and better cache performance."
+        },
+        {
+          "step": 4,
+          "label": "Error 4 — 'Always better' ignores real-world constraints",
+          "content": "Algorithm performance also depends on: cache behaviour (merge sort requires O(n) auxiliary space with poor cache locality vs insertion sort which is in-place), hardware, whether the data is partially sorted, memory constraints (space complexity), and implementation overhead."
+        },
+        {
+          "step": 5,
+          "label": "Error 5 — Space complexity ignored",
+          "content": "Merge sort requires O(n) auxiliary space. If memory is constrained, an in-place O(n²) sort might be necessary. 'Better' depends on the full resource profile, not just time complexity."
+        },
+        {
+          "step": 6,
+          "label": "Error 6 — 'Always' is too absolute",
+          "content": "No algorithm is always better without qualification. The claim requires: same input distribution, same n range, same hardware, same auxiliary resource constraints."
+        }
+      ],
+      "critical_insight": "Big-O notation measures asymptotic growth rate only — it hides constants, restricts to large n, ignores case distinctions, and says nothing about space. 'Better' requires full context.",
+      "final_answer": "The claim contains at least 5 errors: (1) average-case vs. worst-case mismatch, (2) hidden constant factors, (3) big-O only applies for large n, (4) ignores space complexity, (5) real-world factors (cache, hardware) matter, (6) 'always' is an unjustifiable absolute.",
+      "answer_explanation": "Big-O notation is a powerful but limited tool. It describes asymptotic behaviour — as n grows very large — and suppresses constant factors and lower-order terms. O(n log n) is faster than O(n²) in the limit, but: constant factors may favour O(n²) for practical n; cases must be matched (average vs. average, worst vs. worst); space complexity may make O(n log n) algorithms impractical; cache performance, in-place behaviour, and hardware specifics matter. The claim conflates asymptotic notation with absolute performance, which is a category error common in beginner algorithmic analysis.",
+      "common_errors": [
+        "Accepting the claim as correct",
+        "Only identifying one error (usually the constant factor)",
+        "Not raising the case distinction (average vs. worst)"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "The claim is correct — O(n log n) is definitionally better than O(n²).",
+          "correction": "O(n log n) has better asymptotic growth, but 'always better' requires equal cases, comparable constants, large enough n, and equivalent space constraints. The claim is overstated.",
+          "why_wrong": "Conflated asymptotic dominance with universal practical superiority."
+        }
+      ],
+      "concepts": ["big_O_notation", "asymptotic_analysis", "time_complexity", "space_complexity", "sorting_algorithms", "cache_performance", "constant_factors", "worst_vs_average_case"],
+      "confidence_score": 0.75,
+      "related_entries": ["CS-001", "MATH-003"],
+      "training_signal": "Teaches nuanced big-O interpretation; prevents the constant-factor and case-mismatch errors."
+    },
+
+    {
+      "id": "PHYS-005",
+      "type": "synthetic_hard_case",
+      "difficulty": 5,
+      "domains": ["physics", "quantum_mechanics", "philosophy_of_science"],
+      "question": "If you measure a quantum particle's position precisely, what happens to knowledge of its momentum — and why?",
+      "misleading_surface": "Seems like a measurement precision question — get a better ruler.",
+      "adversarial_variants": [
+        "The uncertainty principle is just due to measurement disturbance, right?",
+        "Could a more careful measurement avoid the uncertainty trade-off?",
+        "Is quantum uncertainty a limit of our instruments or of nature?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "State Heisenberg's Uncertainty Principle",
+          "content": "Δx × Δp ≥ ℏ/2, where Δx = standard deviation of position, Δp = standard deviation of momentum, ℏ = reduced Planck constant. This is a fundamental limit."
+        },
+        {
+          "step": 2,
+          "label": "Clarify: not a measurement disturbance",
+          "content": "Common misconception: uncertainty is because measuring position 'kicks' the particle and disturbs momentum. This is the Heisenberg microscope thought experiment — historically important but not the actual reason. The uncertainty principle is deeper."
+        },
+        {
+          "step": 3,
+          "label": "Wave-particle duality explanation",
+          "content": "A quantum particle has a wavefunction ψ(x). Position is well-defined when the wavefunction is sharply peaked (narrow wave packet). Momentum is well-defined when the wavefunction has a single wavelength (monochromatic plane wave). A narrow spatial peak requires, by Fourier analysis, a superposition of MANY wavelengths — i.e., uncertain momentum."
+        },
+        {
+          "step": 4,
+          "label": "Fourier mathematics",
+          "content": "Position eigenstate: δ(x) — perfectly localised. Fourier transform: constant amplitude for all momenta. Every momentum is equally likely. Momentum eigenstate: e^{ikx} — one precise momentum (wavelength). Fourier transform: δ(k). This is not measurement error — it is the mathematical structure of wave mechanics."
+        },
+        {
+          "step": 5,
+          "label": "Consequence of perfect position measurement",
+          "content": "If Δx → 0 (perfect position precision), then Δp → ∞. The particle's momentum is completely undetermined — not unknown but unknown — it has no defined value. This is not ignorance; the particle is genuinely in a superposition of all momenta."
+        },
+        {
+          "step": 6,
+          "label": "Ontological vs. epistemological",
+          "content": "This is NOT an epistemic limitation (we don't know the value). In standard quantum mechanics (Copenhagen / most interpretations), the particle does not HAVE a definite momentum before measurement. It's an ontological feature of reality."
+        },
+        {
+          "step": 7,
+          "label": "Experimental confirmation",
+          "content": "Diffraction through a narrow slit: tighter slit = better known horizontal position → wider diffraction pattern = more uncertain transverse momentum. Directly measured. Electron microscopy requires accounting for this trade-off. Single-photon double-slit interference cannot be resolved with which-path knowledge without destroying interference."
+        }
+      ],
+      "critical_insight": "The uncertainty principle is not about measurement clumsiness — it is a fundamental property of wavefunctions. Position and momentum are conjugate variables related by the Fourier transform, and localising one mathematically forces spreading of the other.",
+      "final_answer": "Precisely measuring position makes momentum completely undefined (Δp → ∞). This is not measurement error — it reflects the Fourier-conjugate relationship between position and momentum wavefunctions. Localising a wave requires superimposing many frequencies.",
+      "answer_explanation": "Heisenberg's Uncertainty Principle (Δx·Δp ≥ ℏ/2) is rooted in the wave nature of quantum particles. Localising a wavefunction in position (small Δx) requires, by Fourier mathematics, contributions from a wide range of spatial frequencies (momenta), making Δp large. This is not a limit of measurement technology — it is a consequence of the wave-mechanical structure of reality. The historically popular 'measurement disturbance' narrative is misleading; the uncertainty exists prior to any measurement. Bell test experiments and quantum tomography confirm this interpretation.",
+      "common_errors": [
+        "Claiming uncertainty is due to measurement disturbance (Heisenberg microscope error)",
+        "Thinking better instruments could overcome the limit",
+        "Treating it as epistemic ignorance rather than ontological indefiniteness"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "The measuring instrument disturbs the particle, causing uncertainty.",
+          "correction": "While measurement can disturb a system, the uncertainty principle is not primarily about disturbance — it reflects the Fourier relationship between wavefunction representations. Even without disturbance, position-localised states have undefined momentum.",
+          "why_wrong": "Confuses the historical Heisenberg microscope argument (later refined/corrected) with the deeper mathematical origin."
+        }
+      ],
+      "concepts": ["Heisenberg_uncertainty_principle", "quantum_mechanics", "wavefunction", "Fourier_transform", "conjugate_variables", "wave_particle_duality", "Copenhagen_interpretation", "diffraction"],
+      "confidence_score": 0.93,
+      "related_entries": ["PHYS-003", "PHYS-006"],
+      "training_signal": "Corrects the disturbance-narrative misconception of HUP; teaches Fourier conjugate foundation."
+    },
+
+    {
+      "id": "ECON-002",
+      "type": "counterintuitive_reasoning",
+      "difficulty": 4,
+      "domains": ["economics", "game_theory", "social_science", "decision_theory"],
+      "question": "Two prisoners are separately offered: testify against your partner and go free (your partner gets 10 years); stay silent and split a 1-year sentence if your partner also stays silent; but if you stay silent while your partner testifies, you get 10 years. What should each prisoner do, and what does this reveal?",
+      "misleading_surface": "Cooperation seems obviously best — just stay silent together and both get 1 year.",
+      "adversarial_variants": [
+        "Both prisoners are rational and self-interested. What happens?",
+        "Could repeated play change the outcome?",
+        "What does the Prisoner's Dilemma reveal about cooperation?",
+        "Why do cartels struggle to maintain agreements?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Construct the payoff matrix",
+          "content": "Let Cooperate = stay silent, Defect = testify. Payoffs (Prisoner A, Prisoner B): [C,C] = (-1, -1); [C,D] = (-10, 0); [D,C] = (0, -10); [D,D] = (-5, -5). (Years in prison, so lower is better.)"
+        },
+        {
+          "step": 2,
+          "label": "Analyse from Prisoner A's perspective",
+          "content": "If B cooperates: A defects → 0 years, A cooperates → 1 year. Defecting is better (0 < 1). If B defects: A defects → 5 years, A cooperates → 10 years. Defecting is better (5 < 10)."
+        },
+        {
+          "step": 3,
+          "label": "Dominant strategy identified",
+          "content": "Defecting is better for A regardless of what B does. By symmetry, the same applies to B. Defecting is a dominant strategy for both."
+        },
+        {
+          "step": 4,
+          "label": "Nash Equilibrium",
+          "content": "The Nash Equilibrium is (Defect, Defect) — both serve 5 years. Neither can improve by unilaterally changing strategy, given the other's choice."
+        },
+        {
+          "step": 5,
+          "label": "Paradox",
+          "content": "Yet (Cooperate, Cooperate) gives both only 1 year — a Pareto superior outcome. Rational individual behaviour produces a collectively worse outcome. Individual rationality ≠ collective optimality."
+        },
+        {
+          "step": 6,
+          "label": "Real-world implications",
+          "content": "Arms races (both countries arm → mutual threat, worse than both disarming), cartel price-fixing (members defect by undercutting), climate agreements (nations emit more than optimal), advertising spending (both companies advertise heavily and neither gains market share)."
+        },
+        {
+          "step": 7,
+          "label": "Repeated games and cooperation",
+          "content": "In an iterated (repeated) Prisoner's Dilemma, cooperation can emerge. Axelrod's tournaments showed Tit-for-Tat (cooperate first, then mirror opponent's last move) performs best. Trust, reputation, and future payoffs change the incentive structure."
+        }
+      ],
+      "critical_insight": "Individual rationality produces collective irrationality. This is the core insight of the Prisoner's Dilemma — the dominant strategy equilibrium is Pareto inferior to the cooperative outcome.",
+      "final_answer": "Each prisoner should rationally defect — both end up with 5 years. The paradox reveals that self-interested individual rationality can produce outcomes that are collectively suboptimal. This is the Prisoner's Dilemma.",
+      "answer_explanation": "Game theory analysis shows defection is the dominant strategy for both players: regardless of the partner's choice, testifying gives a better personal outcome. Both defecting yields a Nash Equilibrium of 5 years each — worse than the 1 year each they'd get from mutual cooperation. This gap between individual rationality (5 years) and collective optimality (1 year) is the Prisoner's Dilemma. It models arms races, cartel instability, climate treaties, and any social situation where private incentives diverge from collective welfare.",
+      "common_errors": [
+        "Recommending cooperation without checking whether it's individually rational",
+        "Confusing Nash Equilibrium with optimal outcome",
+        "Not recognising the Pareto-dominant cooperative outcome"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "Both should stay silent — they'll both only get 1 year.",
+          "correction": "While (Cooperate, Cooperate) gives 1 year each, it is not the Nash Equilibrium. Both have individual incentives to deviate: if the partner is silent, you get 0 years by defecting. Without binding agreement, defection dominates.",
+          "why_wrong": "Confuses the cooperative optimum with individually rational behaviour."
+        }
+      ],
+      "concepts": ["Prisoner's_dilemma", "Nash_equilibrium", "dominant_strategy", "Pareto_efficiency", "game_theory", "collective_action_problem", "iterated_games", "Tit_for_Tat"],
+      "confidence_score": 0.76,
+      "related_entries": ["ECON-001", "MATH-001"],
+      "training_signal": "Teaches dominant strategy identification and the gap between individual rationality and collective optimality."
+    },
+
+    {
+      "id": "INFO-001",
+      "type": "multi_domain_fusion",
+      "difficulty": 5,
+      "domains": ["information_theory", "mathematics", "physics", "computer_science"],
+      "question": "What is entropy in information theory, and why is the word 'entropy' the same as in thermodynamics — coincidence or deep connection?",
+      "misleading_surface": "Looks like a terminology question — just define entropy in both fields.",
+      "adversarial_variants": [
+        "Are thermodynamic entropy and information entropy the same thing?",
+        "Did Shannon borrow the name from physics?",
+        "Can information be destroyed?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Define Shannon entropy",
+          "content": "Information entropy (Shannon, 1948): H(X) = -Σ p(xᵢ) log₂ p(xᵢ). Measures the average surprise or uncertainty in a probability distribution. High entropy = more uncertainty = more information conveyed per message."
+        },
+        {
+          "step": 2,
+          "label": "Define thermodynamic entropy",
+          "content": "Boltzmann entropy (1877): S = k_B × ln(W), where W = number of microstates compatible with the system's macrostate, k_B = Boltzmann constant. Measures disorder — more microstates = more entropy."
+        },
+        {
+          "step": 3,
+          "label": "The naming story",
+          "content": "Shannon needed a name for H(X). Von Neumann advised: 'Call it entropy. Firstly, your formula is the same as in statistical mechanics. Secondly, most people don't know what entropy really is, so you'll win all debates.' Shannon later confirmed the mathematical similarity was the true reason."
+        },
+        {
+          "step": 4,
+          "label": "Mathematical equivalence",
+          "content": "Gibbs entropy in stat mech: S = -k_B Σ p_i ln(p_i). Shannon entropy: H = -Σ p_i log₂(p_i). These are identical in form, differing only by the constant k_B and logarithm base. The base is a unit choice; k_B converts between energy/temperature units and information units."
+        },
+        {
+          "step": 5,
+          "label": "Physical interpretation of the connection",
+          "content": "A thermodynamic system with high entropy has more unknown microstate details — more information would be needed to fully specify it. Reducing thermodynamic entropy requires acquiring and discarding information about microstates. Erasing one bit of information dissipates k_B × T × ln(2) joules of heat (Landauer's principle, 1961)."
+        },
+        {
+          "step": 6,
+          "label": "Landauer's principle — concrete link",
+          "content": "Landauer's principle: logically irreversible computation (erasing a bit) must dissipate at least k_B T ln(2) ≈ 2.85 × 10⁻²¹ J at room temperature as heat. This has been experimentally confirmed. Information erasure has a thermodynamic cost — information entropy and thermodynamic entropy are physically linked."
+        },
+        {
+          "step": 7,
+          "label": "Maxwell's Demon",
+          "content": "Maxwell's Demon thought experiment: an entity that sorts molecules by speed could decrease thermodynamic entropy. Szilard (1929) showed the demon must measure and remember which molecules go where — and erasing that memory costs exactly enough entropy to compensate. Information acquisition and erasure are physically real thermodynamic acts."
+        },
+        {
+          "step": 8,
+          "label": "Deep connection confirmed",
+          "content": "The similarity is NOT coincidence. Boltzmann's stat-mech entropy and Shannon's information entropy are formally equivalent because both measure the same underlying thing: the number of distinguishable states compatible with incomplete information. Information theory and statistical mechanics are mathematically unified."
+        }
+      ],
+      "critical_insight": "The identical formula between Shannon and Boltzmann entropy is not accidental — they measure the same mathematical quantity (log of equiprobable microstates). Landauer's principle makes this connection physically real: erasing information costs thermodynamic entropy.",
+      "final_answer": "Deep connection, not coincidence. Boltzmann entropy (stat mech) and Shannon entropy (information theory) share the same mathematical form because they both count uncertainty over possible states. Landauer's principle physically links them: erasing one bit of information must dissipate k_B T ln(2) joules as heat.",
+      "answer_explanation": "Both entropies arise from the same formula: H = -Σ p_i log p_i. In thermodynamics, this counts uncertainty over microstates; in information theory, uncertainty over messages. Von Neumann explicitly noted this equivalence when Shannon named the quantity. The physical link is Landauer's principle (1961): logically irreversible bit erasure unavoidably dissipates heat equal to k_BT ln(2). This has been experimentally verified and demonstrates that information is a physical quantity. Maxwell's Demon thought experiment resolves via the same principle — the demon's memory erasure restores the entropy it removed from the gas.",
+      "common_errors": [
+        "Calling the name similarity a coincidence",
+        "Not knowing Landauer's principle",
+        "Not connecting Maxwell's Demon to information erasure"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "Shannon borrowed the name for poetic reasons — the concepts are unrelated.",
+          "correction": "The concepts share the identical mathematical formula. Landauer's principle proves a physical equivalence. Information erasure has measurable thermodynamic consequences.",
+          "why_wrong": "Treated the terminological similarity as superficial without examining the mathematical structure."
+        }
+      ],
+      "concepts": ["Shannon_entropy", "Boltzmann_entropy", "Landauer_principle", "Maxwell_demon", "information_theory", "statistical_mechanics", "thermodynamics", "microstates", "irreversibility"],
+      "confidence_score": 0.89,
+      "related_entries": ["PHYS-002", "CS-001"],
+      "training_signal": "Teaches the deep physical-mathematical equivalence between information and thermodynamic entropy; prevents superficial separation of the concepts."
+    },
+
+    {
+      "id": "MATH-003",
+      "type": "edge_case_handling",
+      "difficulty": 4,
+      "domains": ["mathematics", "arithmetic", "infinity"],
+      "question": "What is 0.999... (zero point nine repeating forever) — is it less than 1, equal to 1, or something else?",
+      "misleading_surface": "Clearly it's slightly less than 1 — it never quite reaches 1.",
+      "adversarial_variants": [
+        "Isn't 0.999... always approaching 1 but never getting there?",
+        "What is 1 - 0.999...?",
+        "Is 0.999... = 1 just a rounding convention?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Define the number",
+          "content": "0.999... denotes the infinite series 9/10 + 9/100 + 9/1000 + ... = Σ(n=1 to ∞) 9/10ⁿ"
+        },
+        {
+          "step": 2,
+          "label": "Apply geometric series formula",
+          "content": "This is a geometric series with first term a = 9/10 and ratio r = 1/10. Sum = a/(1-r) = (9/10)/(1 - 1/10) = (9/10)/(9/10) = 1. Exactly 1."
+        },
+        {
+          "step": 3,
+          "label": "Proof 2 — algebraic",
+          "content": "Let x = 0.999... Then 10x = 9.999... Subtract: 10x - x = 9.999... - 0.999... → 9x = 9 → x = 1."
+        },
+        {
+          "step": 4,
+          "label": "Proof 3 — difference argument",
+          "content": "What is 1 - 0.999...? If it's not 0, it must be some positive number ε. But 0.999... has nines in every decimal place to infinity — there is no room for ε to fit. For any proposed ε > 0, 0.999... is within ε of 1 because after enough decimal places, the series exceeds 1-ε. So 1 - 0.999... = 0."
+        },
+        {
+          "step": 5,
+          "label": "Proof 4 — thirds argument",
+          "content": "1/3 = 0.333... Multiply both sides by 3: 3 × 1/3 = 3 × 0.333... → 1 = 0.999..."
+        },
+        {
+          "step": 6,
+          "label": "Address the intuition",
+          "content": "The intuition 'it never reaches 1' confuses the process of writing decimal digits (which is sequential and never terminates) with the mathematical object (which is the limit of that sequence). The number is the limit, not the process. Infinity is not a process — it is a completed mathematical object."
+        },
+        {
+          "step": 7,
+          "label": "Real number axioms",
+          "content": "In the real numbers, two values are equal if and only if their difference is 0. The difference between 1 and 0.999... is 0. They are the same real number. This is a theorem, not a convention."
+        }
+      ],
+      "critical_insight": "0.999... is not approaching 1 — it IS 1. The infinite decimal representation defines the limit of a series, which equals 1 exactly. This is provable, not approximate.",
+      "final_answer": "0.999... = 1 exactly. This is mathematically proven by geometric series, algebraic manipulation, and the definition of real numbers. It is not approximate or a convention.",
+      "answer_explanation": "The infinite decimal 0.999... represents the limit of the series Σ 9/10ⁿ, which by the geometric series formula equals exactly 1. Multiple proofs confirm this: algebraically (10x - x = 9 → x = 1), via thirds (3 × 0.333... = 0.999... = 1), and by difference (1 - 0.999... = 0 by the Archimedean property of reals). The intuitive objection 'it never quite reaches 1' confuses the notation (a process of writing) with the mathematical object (a completed limit). In the real number system, 0.999... and 1 are two different representations of the same number.",
+      "common_errors": [
+        "Claiming it's infinitesimally less than 1",
+        "Accepting the 'process vs limit' confusion",
+        "Rejecting the algebraic proof on vague grounds"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "It's infinitesimally less than 1 — there's a tiny gap.",
+          "correction": "In the real number system, there are no infinitesimals. The difference is exactly 0. If you work in non-standard analysis (hyperreals), the statement needs reframing, but in standard reals, 0.999... = 1.",
+          "why_wrong": "Applies an informal notion of 'infinitesimal' which has no value in standard real analysis."
+        }
+      ],
+      "concepts": ["infinite_series", "geometric_series", "limits", "real_numbers", "decimal_representation", "Archimedean_property", "convergence"],
+      "confidence_score": 0.60,
+      "related_entries": ["MATH-001", "MATH-002"],
+      "training_signal": "Teaches the distinction between process (writing digits) and object (the limit); provides multiple proof strategies."
+    },
+
+    {
+      "id": "PHYS-006",
+      "type": "physics_trick",
+      "difficulty": 3,
+      "domains": ["physics", "optics", "astronomy"],
+      "question": "You look up at a star and see it shining brightly. Is it possible that the star no longer exists?",
+      "misleading_surface": "We can see it, so surely it exists.",
+      "adversarial_variants": [
+        "If we can observe something, does it necessarily exist right now?",
+        "How old is the light we see from stars?",
+        "Could we be watching a star die in real time from Earth?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Speed of light is finite",
+          "content": "Light travels at approximately 3 × 10⁸ m/s (299,792,458 m/s). It is fast but not instantaneous."
+        },
+        {
+          "step": 2,
+          "label": "Cosmic distances",
+          "content": "Nearby stars: 4–10 light-years away. Andromeda galaxy: ~2.5 million light-years. Objects observed at cosmological distances: billions of light-years."
+        },
+        {
+          "step": 3,
+          "label": "What light arrival means",
+          "content": "When you see light from a star 1,000 light-years away, you are seeing photons that LEFT the star 1,000 years ago. You are observing the star as it was 1,000 years in the past."
+        },
+        {
+          "step": 4,
+          "label": "Stellar lifetimes",
+          "content": "Massive stars can have lifetimes of only a few million years. A star 10,000 light-years away that was a massive young star 10,000 years ago may have since gone supernova and no longer exists."
+        },
+        {
+          "step": 5,
+          "label": "Definitive answer",
+          "content": "Yes — absolutely possible. The light you see represents the star's past state. The star may have exploded, collapsed into a black hole, or otherwise ceased to exist in the intervening time."
+        },
+        {
+          "step": 6,
+          "label": "Observational astronomy implication",
+          "content": "Astronomy is fundamentally the study of the past. Deep-field images from JWST show galaxies as they were 13 billion years ago. We cannot know the current state of any distant object — only its state when the light we're receiving was emitted."
+        },
+        {
+          "step": 7,
+          "label": "SN 1987A example",
+          "content": "Supernova 1987A was observed on Earth on February 23, 1987. The actual explosion occurred ~168,000 years earlier, when the light was emitted. For 168,000 years, the star had already been gone — but we didn't know it yet."
+        }
+      ],
+      "critical_insight": "Seeing an object tells you about its past, not its present. The look-back time for light from distant stars means we may be observing stars that have long since ceased to exist.",
+      "final_answer": "Yes. You are seeing light that left the star years, centuries, or millennia ago. The star could have since exploded or died — and the news just hasn't reached us yet. SN 1987A was 168,000 light-years away; we watched it explode 168,000 years after it actually happened.",
+      "answer_explanation": "Light has a finite speed (~3×10⁸ m/s). A star 1,000 light-years away is seen as it was 1,000 years ago. Massive stars can live only millions of years and end dramatically as supernovae. The star you see may have already gone supernova — its death-light simply hasn't arrived yet. Astronomy is inherently historical: we see the universe's past, not its present. SN 1987A is the canonical example: the explosion happened 168,000 years ago, but was observed on Earth in 1987.",
+      "common_errors": [
+        "Assuming observing something means it currently exists",
+        "Underestimating stellar distances and travel time of light",
+        "Not connecting finite light speed to look-back time"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "If we can see it, it must exist right now.",
+          "correction": "Seeing requires light to travel from the source to your eyes. For cosmic distances this takes millions of years. What you see is the past state — the source may no longer exist.",
+          "why_wrong": "Assumes instantaneous information transfer. In everyday life this is a reasonable shortcut, but over cosmic distances light travel time is vast."
+        }
+      ],
+      "concepts": ["speed_of_light", "look_back_time", "stellar_evolution", "supernova", "cosmic_distances", "light_years", "finite_signal_speed"],
+      "confidence_score": 0.70,
+      "related_entries": ["PHYS-003", "PHYS-007"],
+      "training_signal": "Teaches finite-speed-of-light consequences for observation; prevents presentism in astronomical observation."
+    },
+
+    {
+      "id": "BIO-002",
+      "type": "error_correction",
+      "difficulty": 3,
+      "domains": ["biology", "evolution", "common_misconceptions"],
+      "question": "A student claims: 'Evolution is just a theory, so it might not be true.' What errors does this statement contain?",
+      "misleading_surface": "Sounds like a reasonable epistemological point about scientific certainty.",
+      "adversarial_variants": [
+        "Is evolution a fact or a theory?",
+        "Can a scientific theory ever be proven?",
+        "Is 'just a theory' a valid scientific objection?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Error 1 — misuse of 'theory'",
+          "content": "In everyday language, 'theory' means a guess or hunch. In science, 'theory' means a well-substantiated, testable, repeatedly tested explanation of natural phenomena. Examples: Germ Theory (disease), Gravitational Theory, Atomic Theory. A scientific theory is one of the highest levels of scientific confidence."
+        },
+        {
+          "step": 2,
+          "label": "Error 2 — 'might not be true'",
+          "content": "Evolution is also a fact — it has been directly observed. Antibiotic resistance in bacteria, viral mutation (SARS-CoV-2 variants), finch beak changes in the Galápagos, nylonase (bacteria that evolved to digest nylon after 1935). These are empirical observations of evolution in real time."
+        },
+        {
+          "step": 3,
+          "label": "Error 3 — conflating certainty levels",
+          "content": "Scientific theories are not 100% certain in a philosophical sense — no empirical claim is. But 'might not be true' implies a significant probability of falsehood. Evolution has overwhelming evidential support from fossils, genetics, comparative anatomy, biogeography, direct observation, and molecular biology. Its probability of being false is negligible."
+        },
+        {
+          "step": 4,
+          "label": "Error 4 — ignoring evidence base",
+          "content": "The statement implies evolution is weakly supported. In fact, evolution is among the most thoroughly evidenced scientific propositions. The statement would be equally valid (and equally wrong) applied to germ theory or atomic theory."
+        },
+        {
+          "step": 5,
+          "label": "Error 5 — unfalsified predictions",
+          "content": "Evolution has made and had confirmed thousands of predictions: location of transitional fossils (Tiktaalik predicted in specific Canadian rock strata), endogenous retroviruses in identical positions in human and chimpanzee genomes, chromosome 2 fusion in humans, ENCODE data on junk DNA function."
+        }
+      ],
+      "critical_insight": "The statement contains a category error: colloquial 'theory' ≠ scientific 'theory.' A scientific theory is not weak — it is the strongest form of scientific knowledge. Evolution is additionally a directly observed fact.",
+      "final_answer": "Three errors: (1) 'theory' in science means a robust, tested explanation — not a guess; (2) evolution is also a directly observed fact; (3) 'might not be true' misrepresents the overwhelming evidential weight behind evolutionary biology.",
+      "answer_explanation": "In science, a 'theory' is not a hunch — it is a systematically tested, predictive, falsifiable explanation backed by extensive evidence. Evolution by natural selection meets all criteria. Furthermore, evolution has been directly observed (bacterial resistance, real-time species changes, viral evolution). The statement 'just a theory' commits a semantic equivocation — using the lay sense of 'theory' to cast doubt on a scientific theory, which is a category error. The same argument applied to germ theory or gravitation would be equally absurd.",
+      "common_errors": [
+        "Agreeing that 'just a theory' is a reasonable epistemic concern",
+        "Not distinguishing scientific theory from lay theory",
+        "Not citing direct observational evidence for evolution"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "They have a point — science is always uncertain, so evolution could be wrong.",
+          "correction": "Scientific uncertainty is a spectrum. Evolution has overwhelming evidence across multiple independent fields. 'Could be wrong' is true of all empirical claims but vastly overstates the likelihood for evolution.",
+          "why_wrong": "Conflates philosophical fallibilism (all empirical claims are technically uncertain) with practical scientific confidence (some claims are extraordinarily well-established)."
+        }
+      ],
+      "concepts": ["evolution", "scientific_theory_vs_hypothesis", "evidence_based_reasoning", "scientific_method", "natural_selection", "semantic_equivocation", "Tiktaalik", "antibiotic_resistance"],
+      "confidence_score": 0.80,
+      "related_entries": ["BIO-001", "PHIL-001"],
+      "training_signal": "Corrects semantic equivocation on 'theory'; teaches distinction between scientific theory and lay usage."
+    },
+
+    {
+      "id": "PHYS-007",
+      "type": "physics_trick",
+      "difficulty": 4,
+      "domains": ["physics", "fluid_dynamics", "pressure"],
+      "question": "You have a sealed, weightless, rigid container filled with a gas at high pressure. Does the container weigh more than if it contained air at atmospheric pressure?",
+      "misleading_surface": "The container is sealed and the gas mass doesn't change — so the weight is the same.",
+      "adversarial_variants": [
+        "Does a pressurised gas weigh more than the same gas unpressurised?",
+        "If I pump more air into a tyre, does the tyre weigh more?",
+        "Does a filled propane tank weigh the same as an empty one?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Distinguish between two scenarios",
+          "content": "Scenario A: same container, same gas mass, but higher pressure (compressed the gas). Scenario B: same container, added more gas molecules to reach higher pressure."
+        },
+        {
+          "step": 2,
+          "label": "Scenario A — same mass, compressed",
+          "content": "If the container holds the same number of gas molecules but compressed, the mass is identical. Weight = mg is unchanged. A pressurised rigid container of the same gas at higher pressure does NOT weigh more if you haven't added mass."
+        },
+        {
+          "step": 3,
+          "label": "Scenario B — more gas pumped in",
+          "content": "If higher pressure is achieved by pumping in MORE gas molecules, then the total mass increases. The container DOES weigh more — you've added mass."
+        },
+        {
+          "step": 4,
+          "label": "The tyre example",
+          "content": "Inflating a tyre adds air molecules. The tyre + air system gains mass equal to the mass of air added. A properly inflated tyre weighs more than a flat one. This is measurable (though the mass of air is small)."
+        },
+        {
+          "step": 5,
+          "label": "Relativistic correction",
+          "content": "At the level of E = mc², compressed gas also stores more energy (higher pressure = higher energy state), and by E = mc², this contributes a tiny additional mass. At practical pressures this effect is negligible (of order 10⁻¹⁴ fraction of total mass)."
+        },
+        {
+          "step": 6,
+          "label": "Empty vs. full propane tank",
+          "content": "An 'empty' propane tank (depressurised) contains mostly air at atmospheric pressure. A full tank contains liquefied propane, which is much denser. The full tank is substantially heavier due to the mass of the propane."
+        }
+      ],
+      "critical_insight": "The question depends on whether 'high pressure' means the same gas compressed (same mass, same weight) or more gas pumped in (more mass, more weight). Mass determines weight — pressure per se does not add weight unless it corresponds to added mass.",
+      "final_answer": "It depends. If the same mass of gas is just compressed, weight is unchanged. If more gas was added to achieve higher pressure, the container weighs more by the mass of gas added. Pressure alone doesn't determine weight — mass does.",
+      "answer_explanation": "Weight is proportional to mass (W = mg). Pressure describes force per unit area — not mass. A rigid container with the same gas just compressed to higher pressure has the same mass and thus the same weight. However, if gas was added to achieve higher pressure (like inflating a tyre), the total mass increases and the system is heavier. An inflated tyre genuinely weighs more than a flat tyre — the added air mass is real, though small.",
+      "common_errors": [
+        "Saying compressed gas always weighs the same as unpressurised gas, ignoring the added-mass scenario",
+        "Thinking pressure contributes directly to weight",
+        "Confusing compression of existing gas with addition of new gas"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "The weight is the same — it's the same container, just higher pressure.",
+          "correction": "Only if no new mass was added. If gas was pumped in to achieve higher pressure (as in a tyre), the system gains mass and weighs more.",
+          "why_wrong": "Assumes 'high pressure' means only compression of existing gas, not addition of more gas."
+        }
+      ],
+      "concepts": ["pressure_vs_mass", "fluid_dynamics", "ideal_gas_law", "buoyancy", "weight_and_mass", "tyre_inflation"],
+      "confidence_score": 0.87,
+      "related_entries": ["PHY-001", "PHYS-002"],
+      "training_signal": "Teaches distinction between pressure and mass; prevents conflation of thermodynamic state with weight."
+    },
+
+    {
+      "id": "LOG-002",
+      "type": "adversarial_robustness",
+      "difficulty": 4,
+      "domains": ["logic", "epistemology", "philosophy"],
+      "question": "Someone argues: 'Scientists have been wrong before — they said the Earth was flat, and later revised. So we can't trust scientific consensus on climate change.' Identify all logical errors.",
+      "misleading_surface": "Sounds like a reasonable appeal to scientific fallibility.",
+      "adversarial_variants": [
+        "Science changes its mind — so how can we trust it?",
+        "Scientific consensus has been wrong before. Doesn't that undermine it?",
+        "Isn't appealing to scientific consensus an appeal to authority?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Error 1 — False historical claim",
+          "content": "Scientists in the educated Western tradition did NOT claim the Earth is flat. The spherical Earth was known since ancient Greece (Eratosthenes calculated its circumference ~240 BCE). The flat-Earth belief was a popular misconception, not a scientific consensus that was revised."
+        },
+        {
+          "step": 2,
+          "label": "Error 2 — Tu quoque / whataboutism",
+          "content": "Pointing out that science has sometimes been wrong doesn't address the specific evidence for climate change. This is a tu quoque fallacy — answering a claim by pointing to the claimant's past errors rather than engaging with the evidence."
+        },
+        {
+          "step": 3,
+          "label": "Error 3 — Inductive fallacy",
+          "content": "That science has revised past claims does not imply we should distrust current well-supported claims. By this logic, we'd also distrust chemistry, medicine, and engineering. The argument proves too much."
+        },
+        {
+          "step": 4,
+          "label": "Error 4 — Ignores the evidence base",
+          "content": "The argument doesn't engage with the actual evidence for climate change (direct temperature measurements, satellite data, ice cores, CO₂ isotope signatures, ocean acidification, sea level rise, etc.). Scientific consensus is earned through evidence accumulation — it should be assessed by the evidence, not by analogy to unrelated historical cases."
+        },
+        {
+          "step": 5,
+          "label": "Error 5 — Conflates scientific self-correction with unreliability",
+          "content": "Science's ability to revise itself is its greatest strength, not a weakness. Revision happens when better evidence arrives. The mechanism of revision is what makes scientific knowledge reliable over time. Using revision as evidence against reliability inverts the logic."
+        },
+        {
+          "step": 6,
+          "label": "Error 6 — False equivalence",
+          "content": "Conflates a pre-scientific popular myth (flat Earth) with modern scientific claims that are backed by peer review, multiple independent methodologies, and thousands of researchers across dozens of countries. Not all claims have equivalent evidential standing."
+        }
+      ],
+      "critical_insight": "The argument fails on at least 6 counts: false premise, tu quoque fallacy, inductive fallacy, ignoring evidence, inverting the meaning of self-correction, and false equivalence. Self-correction is a feature, not a bug, of science.",
+      "final_answer": "The argument contains at least 6 errors: (1) false history (scientists didn't claim flat Earth), (2) tu quoque fallacy, (3) inductive fallacy (some errors ≠ all claims are suspect), (4) ignores climate evidence, (5) confuses self-correction with unreliability, (6) false equivalence between different quality claims.",
+      "answer_explanation": "The flat-Earth claim is historically false — the spherical Earth was known in antiquity. More importantly, even if scientists had once been wrong, that wouldn't imply current consensus on climate change is wrong without engaging the actual evidence. Scientific self-correction (revising claims when new evidence arrives) is its methodological strength. The argument is a rhetorical technique that avoids engaging with evidence by casting doubt on the institution of science as a whole — a form of galaxy-brained scepticism that, if applied consistently, would undermine all empirical knowledge.",
+      "common_errors": [
+        "Partially agreeing — 'well, science has been wrong sometimes'",
+        "Missing the false historical premise about flat Earth",
+        "Not identifying the self-correction inversion"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "They have a point — we shouldn't be overconfident in science since it changes.",
+          "correction": "Scientific fallibilism is true, but it does not imply equal distrust in all claims. Evidence quality matters. Climate science has overwhelming empirical support from independent methodologies. Fallibilism doesn't mean 'believe anything you want.'",
+          "why_wrong": "Accepts the rhetorical framing that fallibilism licenses targeted scepticism of specific well-supported claims."
+        }
+      ],
+      "concepts": ["logical_fallacies", "tu_quoque", "appeal_to_authority", "scientific_method", "scientific_consensus", "inductive_reasoning", "flat_earth_myth", "climate_science", "evidentialism"],
+      "confidence_score": 0.69,
+      "related_entries": ["BIO-002", "PHIL-001"],
+      "training_signal": "Teaches systematic fallacy identification; prevents rhetorical conflation of scientific fallibilism with licence for evidence denial."
+    },
+
+    {
+      "id": "CS-003",
+      "type": "multi_domain_fusion",
+      "difficulty": 5,
+      "domains": ["computer_science", "cryptography", "mathematics", "philosophy"],
+      "question": "Why is it easy to multiply two large prime numbers together, but computationally hard to recover those primes from the product?",
+      "misleading_surface": "Sounds like a symmetric problem — if multiplication is easy, maybe division is too.",
+      "adversarial_variants": [
+        "Could a quantum computer factor large numbers easily?",
+        "Is RSA encryption based on an unproven hardness assumption?",
+        "Is integer factorisation definitely hard — is that proven?",
+        "Why can't we just try all possible factors?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Asymmetry of multiplication vs factorisation",
+          "content": "Multiplying two primes p and q: n = p × q. A single arithmetic operation — O(log²n) bit complexity with fast algorithms. Factoring n back into p and q: the best known classical algorithm (General Number Field Sieve) runs in sub-exponential but super-polynomial time: exp(O((log n)^(1/3)(log log n)^(2/3)))."
+        },
+        {
+          "step": 2,
+          "label": "Why brute force fails",
+          "content": "A 2048-bit RSA number n has ~617 decimal digits. The number of primes to test up to √n is approximately √n / ln(√n). For a 2048-bit number, this is ~10^300 candidate primes. The universe's age × fastest computer makes testing all candidates impossible."
+        },
+        {
+          "step": 3,
+          "label": "Mathematical structure of the problem",
+          "content": "Factorisation has no known polynomial-time classical algorithm. The problem is believed to be in NP but not in P. However — crucially — this is NOT proven. We don't know if P = NP, and we don't have a proof that factoring is in NP-hard. The hardness is an empirical/conjectured observation."
+        },
+        {
+          "step": 4,
+          "label": "RSA security is based on a conjecture",
+          "content": "RSA's security relies on the conjecture that integer factorisation is hard for classical computers. If someone discovered a polynomial-time classical factoring algorithm, RSA would be immediately broken. This has not been proven impossible — it is the unproven assumption underlying most of modern public-key cryptography."
+        },
+        {
+          "step": 5,
+          "label": "Quantum computing changes this",
+          "content": "Shor's Algorithm (1994) is a quantum algorithm that factors integers in polynomial time: O((log n)³). A sufficiently large quantum computer running Shor's algorithm would break RSA. Current quantum computers cannot yet achieve this for cryptographic-scale n, but the threat is real — driving post-quantum cryptography research."
+        },
+        {
+          "step": 6,
+          "label": "Trapdoor function concept",
+          "content": "This asymmetry makes n = pq a trapdoor function: easy to compute forward (multiply), hard to invert (factor) without the private information (p and q). Trapdoor functions are the foundation of public-key cryptography."
+        },
+        {
+          "step": 7,
+          "label": "Known factoring records",
+          "content": "The largest RSA number factored was RSA-250 (829 bits, 250 decimal digits) in 2020, requiring ~2,700 CPU core-years. A 2048-bit key is exponentially harder — infeasible with known classical methods."
+        }
+      ],
+      "critical_insight": "The asymmetry is algorithmic: fast multiplication algorithms exist in polynomial time; no polynomial-time factoring algorithm is known classically. But this is CONJECTURED hardness, not proved. Quantum computing (Shor's algorithm) breaks the asymmetry.",
+      "final_answer": "Multiplication is a single operation (polynomial time). No polynomial classical factoring algorithm is known — the best takes sub-exponential time, making 2048-bit factoring take longer than the universe's age. However, this hardness is conjectured, not proven. Shor's quantum algorithm factors in polynomial time and threatens RSA.",
+      "answer_explanation": "The asymmetry between easy multiplication and hard factorisation stems from the lack of any known efficient classical factoring algorithm. It takes one multiplication to create n=pq, but recovering p and q from n requires trying exponentially many candidates (no shortcut is known classically). This makes n a trapdoor function. Critical caveat: the hardness is not mathematically proved — we don't know P ≠ NP. Shor's quantum algorithm (1994) shows that with a scalable quantum computer, factoring becomes polynomial. This drives post-quantum cryptographic research into lattice-based, hash-based, and other schemes not based on factoring.",
+      "common_errors": [
+        "Claiming factoring is provably hard (it's conjectured)",
+        "Not mentioning Shor's algorithm",
+        "Thinking brute force is 'close' to working"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "It's mathematically proven that factoring is hard.",
+          "correction": "It is not proven. We conjecture it's hard (no known polynomial algorithm), but proving factoring is not in P would require proving P ≠ NP, which is an unsolved Millennium Prize Problem.",
+          "why_wrong": "Conflates 'no known efficient algorithm' with 'provably hard.' These are very different epistemically."
+        },
+        {
+          "wrong_answer": "A quantum computer can't break RSA.",
+          "correction": "Shor's algorithm (1994) provides a polynomial-time quantum factoring algorithm. A sufficiently powerful quantum computer would break RSA. This is a known and serious threat being addressed by post-quantum cryptography standards.",
+          "why_wrong": "Ignores the well-known quantum threat to RSA."
+        }
+      ],
+      "concepts": ["RSA_cryptography", "integer_factorisation", "trapdoor_function", "Shor_algorithm", "quantum_computing", "complexity_theory", "P_vs_NP", "public_key_cryptography", "number_theory"],
+      "confidence_score": 0.98,
+      "related_entries": ["CS-001", "MATH-002"],
+      "training_signal": "Teaches the distinction between conjectured and proved hardness; introduces Shor's algorithm and post-quantum cryptography."
+    },
+
+    {
+      "id": "CHEM-002",
+      "type": "synthetic_hard_case",
+      "difficulty": 4,
+      "domains": ["chemistry", "physics", "biology", "toxicology"],
+      "question": "Is water H₂O dangerous? Can you die from drinking too much water?",
+      "misleading_surface": "Water is universally 'safe' — this seems like a joke question.",
+      "adversarial_variants": [
+        "Is there a lethal dose of water?",
+        "What is water intoxication?",
+        "Why does drinking too much water kill people?",
+        "What is the LD50 of water for humans?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Paracelsus principle",
+          "content": "'The dose makes the poison.' Every substance is toxic at some dose. Water is no exception."
+        },
+        {
+          "step": 2,
+          "label": "Define hyponatraemia",
+          "content": "Drinking excessive water can cause hyponatraemia — abnormally low blood sodium concentration. Normal serum sodium: 135–145 mmol/L. Below ~120 mmol/L becomes life-threatening."
+        },
+        {
+          "step": 3,
+          "label": "Mechanism of toxicity",
+          "content": "Excess water dilutes extracellular sodium. Cells respond by absorbing water via osmosis to equalise concentration. Brain cells swell. Cerebral oedema causes headache, confusion, seizures, coma, brainstem herniation, and death."
+        },
+        {
+          "step": 4,
+          "label": "Dosage at which water becomes lethal",
+          "content": "The human kidney can excrete ~0.8–1 L of water per hour. Drinking faster than this can overwhelm renal clearance. Acute water intoxication can occur with ~3–4+ litres consumed in a short period (minutes to 1–2 hours), particularly in contexts that also cause sodium loss (marathon running, MDMA use)."
+        },
+        {
+          "step": 5,
+          "label": "LD50 estimate",
+          "content": "The LD50 of water for humans is estimated at ~90 g/kg body weight. For a 70kg person, this is ~6.3 litres — but this assumes rapid intake. Real fatal cases have occurred at lower volumes in certain conditions."
+        },
+        {
+          "step": 6,
+          "label": "Real-world cases",
+          "content": "Jennifer Strange died in 2007 after a 'Hold Your Wee for a Wii' contest (drinking ~6L without urinating). Athletes in endurance events (Boston Marathon) have died from hyponatraemia from over-hydration. Military recruits have died from excessive water consumption during training."
+        },
+        {
+          "step": 7,
+          "label": "Practical implication",
+          "content": "Water is safe under normal drinking patterns. The kidneys safely handle typical intake. Danger arises only from extreme rapid intake or conditions (exercise-induced sodium loss, certain medications) that impair sodium regulation."
+        }
+      ],
+      "critical_insight": "Water is dangerous only at extreme doses or in specific contexts. Paracelsus's principle applies: the dose makes the poison. Water intoxication (hyponatraemia) is real, documented, and lethal.",
+      "final_answer": "Yes — drinking too much water too quickly can be fatal. Excess water dilutes blood sodium (hyponatraemia), causing brain cells to swell. The condition is called water intoxication and has killed people in endurance events and drinking contests.",
+      "answer_explanation": "Water intoxication results from hyponatraemia: excessive water consumption dilutes sodium in the blood below safe levels, triggering osmotic water influx into cells. Brain swelling causes cerebral oedema, leading to neurological failure and death. This is not a theoretical risk — multiple deaths have been documented. The kidney can excrete only ~0.8-1 L/hour; faster intake risks this condition. Paracelsus's principle (the dose makes the poison) applies universally, including to water.",
+      "common_errors": [
+        "Dismissing the question as absurd",
+        "Not knowing about hyponatraemia",
+        "Overestimating the kidney's capacity to handle rapid water intake"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "No — water is safe to drink, always.",
+          "correction": "Water is safe within normal consumption ranges. Rapid intake of several litres can cause hyponatraemia and death. Documented deaths exist from water intoxication.",
+          "why_wrong": "Violated Paracelsus principle; treated safety at normal doses as universal safety."
+        }
+      ],
+      "concepts": ["hyponatraemia", "water_intoxication", "osmosis", "Paracelsus_principle", "LD50", "renal_clearance", "cerebral_oedema", "electrolyte_balance"],
+      "confidence_score": 0.60,
+      "related_entries": ["BIO-001", "CHEM-001"],
+      "training_signal": "Applies Paracelsus principle to a substance assumed universally safe; teaches dose-dependence of toxicity."
+    },
+
+    {
+      "id": "MATH-004",
+      "type": "counterintuitive_reasoning",
+      "difficulty": 5,
+      "domains": ["mathematics", "probability", "statistics"],
+      "question": "In a room of just 23 people, what is the probability that at least two share a birthday? Most people guess very low — what is the actual answer and why?",
+      "misleading_surface": "23 people vs 365 days — odds seem very low that any two match.",
+      "adversarial_variants": [
+        "How many people do you need in a room for a 50% chance of a shared birthday?",
+        "If there are 23 people and 365 days, shouldn't the chance be about 23/365 ≈ 6%?",
+        "Why does the birthday paradox work?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Reframe the calculation",
+          "content": "Instead of computing P(at least one match), compute P(NO match) and subtract from 1. This is almost always easier for 'at least one' problems."
+        },
+        {
+          "step": 2,
+          "label": "Count the pairs",
+          "content": "23 people create C(23,2) = 23×22/2 = 253 unique pairs. Each pair is a potential birthday match. The true question: what's the probability that across 253 pairs, none share a birthday?"
+        },
+        {
+          "step": 3,
+          "label": "Compute P(no match) step by step",
+          "content": "Person 1: any birthday — 365/365. Person 2: any except person 1's — 364/365. Person 3: any except persons 1 and 2 — 363/365. Continue: P(no match) = (365/365) × (364/365) × (363/365) × ... × (343/365)"
+        },
+        {
+          "step": 4,
+          "label": "Calculate numerically",
+          "content": "P(no match) = ∏(k=0 to 22) (365-k)/365 = 365!/((365-23)! × 365²³). Computing: ≈ 0.4927. So P(no match) ≈ 49.27%."
+        },
+        {
+          "step": 5,
+          "label": "Final probability",
+          "content": "P(at least one match) = 1 - 0.4927 = 0.5073 ≈ 50.7%. With just 23 people, there is more than a 50% chance that two share a birthday."
+        },
+        {
+          "step": 6,
+          "label": "Why intuition fails",
+          "content": "People intuitively estimate P(someone matches MY birthday) = 22/365 ≈ 6%. But the question is whether ANY two people match, not whether someone matches one specific person. With 253 pairs, each with a ~1/365 chance of matching, many opportunities exist."
+        },
+        {
+          "step": 7,
+          "label": "Key numbers",
+          "content": "23 people → 50% chance. 30 people → 70% chance. 50 people → 97% chance. 70 people → 99.9% chance. By 57 people: >99% probability. This growth rate surprises almost everyone."
+        }
+      ],
+      "critical_insight": "The number of pairs grows quadratically with the number of people. 23 people give 253 pairs, each a matching opportunity. Intuition underestimates because it thinks linearly, not combinatorially.",
+      "final_answer": "~50.7% — with 23 people, there is over a 50% chance of a shared birthday. Intuition fails because it counts people linearly, missing the 253 pairwise opportunities for a match.",
+      "answer_explanation": "The Birthday Problem works by computing the complement: P(no match) = (365/365)(364/365)(363/365)...(343/365) ≈ 0.493. So P(match) ≈ 50.7%. The counterintuitive result follows from the number of pairs: 23 people create 253 pairs, each with approximately 1/365 chance of matching. The intuitive error is thinking linearly about one person's birthday vs all others (~6%) rather than combinatorially about all pairs.",
+      "common_errors": [
+        "Estimating ~6% by thinking about one person vs 365 days",
+        "Not computing the complement probability",
+        "Thinking 23/365 directly answers the question"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "About 6% — 23 people and 365 days, so 23/365.",
+          "correction": "23/365 estimates the chance that one specific person matches one other specific person. The question is about any match among 23 people — which involves 253 pairs, giving ~50.7% probability.",
+          "why_wrong": "Computed the wrong probability — P(person A matches person B) rather than P(any pair matches in the group)."
+        }
+      ],
+      "concepts": ["birthday_paradox", "combinatorics", "probability", "complement_rule", "pairs", "counterintuitive_probability", "binomial_coefficients"],
+      "confidence_score": 0.70,
+      "related_entries": ["MATH-001", "MATH-002"],
+      "training_signal": "Teaches complement probability strategy; corrects linear-vs-quadratic intuition for pair counting."
+    },
+
+    {
+      "id": "PHYS-008",
+      "type": "synthetic_hard_case",
+      "difficulty": 5,
+      "domains": ["physics", "thermodynamics", "materials_science", "counterintuitive"],
+      "question": "If you heat a rubber band and then stretch it, it actually pulls HARDER, not less. And releasing tension makes it heat up, while releasing an already-heated stretched rubber band makes it cool. How and why?",
+      "misleading_surface": "Heat makes things expand and relax — so a heated rubber band should pull less.",
+      "adversarial_variants": [
+        "Does a rubber band get weaker when heated?",
+        "Why is rubber's elastic behaviour the opposite of most materials?",
+        "What happens to entropy when you stretch rubber?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Rubber's mechanical anomaly",
+          "content": "Most materials (metals, glass) expand when heated — their elastic modulus decreases (they soften). Rubber is anomalous: its tensile force at fixed extension INCREASES with temperature. This is called thermoelastic inversion."
+        },
+        {
+          "step": 2,
+          "label": "Molecular structure of rubber",
+          "content": "Rubber consists of long polymer chains (polyisoprene). At rest, the chains are randomly coiled — a high-entropy disordered state. Stretching forces the chains into aligned, ordered configurations — a low-entropy state."
+        },
+        {
+          "step": 3,
+          "label": "Entropy-driven elasticity",
+          "content": "Unlike a metal spring (energy-stored elasticity), rubber's elasticity is entropy-driven. The restoring force comes from the thermodynamic tendency to return to maximum entropy (random coil). F ∝ T × (dS/dL), where S = entropy and L = extension. At higher temperature T, the entropic restoring force is proportionally larger."
+        },
+        {
+          "step": 4,
+          "label": "Thermodynamic equation",
+          "content": "For a rubber band: (∂F/∂T)_L = -T(∂²A/∂L∂T) > 0 under standard rubber conditions, where A = Helmholtz free energy. The tension increases with temperature — confirmed experimentally."
+        },
+        {
+          "step": 5,
+          "label": "Stretching releases heat",
+          "content": "Stretching rubber reduces entropy (orders the chains). The Second Law requires compensating: entropy flows out as heat. So stretching → heat released. You can verify by rapidly stretching a rubber band and pressing it to your lip — it warms."
+        },
+        {
+          "step": 6,
+          "label": "Releasing tension cools",
+          "content": "Releasing a stretched rubber band allows chains to randomise. The entropy of chains increases — heat must be absorbed from the surroundings. So releasing → cooling. A rapidly released rubber band feels cool against the lip."
+        },
+        {
+          "step": 7,
+          "label": "Contrast with ideal gas",
+          "content": "This is thermodynamically analogous to an ideal gas: compressing (like stretching rubber) heats it; expanding (like releasing rubber) cools it. In both cases, the system exchanges heat with the environment to maintain thermodynamic equilibrium."
+        }
+      ],
+      "critical_insight": "Rubber's elasticity is entropy-driven, not energy-driven like metal springs. Higher temperature → stronger entropic restoring force → higher tension. Stretching orders chains (entropy decreases → heat released); releasing allows disorder (entropy increases → heat absorbed).",
+      "final_answer": "Rubber's elasticity is driven by entropy, not stored energy. Heating increases the entropic restoring force, making the rubber pull harder. Stretching releases heat (entropy decreases); releasing makes it cool (entropy increases). This is analogous to the heating/cooling of an ideal gas under compression/expansion.",
+      "answer_explanation": "Unlike metallic springs where stored strain energy drives elasticity, rubber is an entropy spring. Its polymer chains are randomly coiled at rest (high entropy). Stretching orders them (lower entropy), and the thermodynamic drive to return to maximum entropy creates the restoring force. Since this force is proportional to temperature (F ∝ kT per chain), higher temperature means stronger pull — the opposite of metals. The Gough-Joule effect (discovered 1805) describes the heat release upon stretching and cooling upon releasing, confirmed by touching a stretched rubber band to your lip.",
+      "common_errors": [
+        "Predicting rubber weakens when heated (confusing with metals)",
+        "Not knowing rubber elasticity is entropy-driven",
+        "Missing the Gough-Joule thermal effects"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "Heat makes the rubber softer and it would pull less hard.",
+          "correction": "This is correct for metals but the opposite for rubber. Rubber's elasticity is entropic — higher temperature amplifies the entropic restoring force, increasing tension.",
+          "why_wrong": "Applied metal-spring intuition to an entropy-spring system."
+        }
+      ],
+      "concepts": ["rubber_elasticity", "entropy_spring", "thermoelastic_inversion", "Gough-Joule_effect", "polymer_physics", "entropy_driven_forces", "thermodynamics"],
+      "confidence_score": 0.86,
+      "related_entries": ["PHYS-002", "CHEM-001"],
+      "training_signal": "Introduces entropy-driven forces as distinct from energy-driven forces; teaches thermoelastic anomalies."
+    },
+
+    {
+      "id": "ECON-003",
+      "type": "counterintuitive_reasoning",
+      "difficulty": 4,
+      "domains": ["economics", "logic", "decision_theory"],
+      "question": "You've already spent $500 on a non-refundable concert ticket. On the day, you feel sick. A friend offers you a free ticket to a different show you'd enjoy more. Should the $500 influence your decision to go to the first show?",
+      "misleading_surface": "You spent $500 — you should go to get your money's worth.",
+      "adversarial_variants": [
+        "Should sunk costs affect future decisions?",
+        "If you've already paid for something non-refundable, should you go even if you'd rather not?",
+        "Isn't it wasteful to not use something you paid for?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Define sunk cost",
+          "content": "A sunk cost is money already spent that cannot be recovered regardless of future decisions. The $500 is gone whether you go to the concert or stay home — it is irrelevant to the forward-looking decision."
+        },
+        {
+          "step": 2,
+          "label": "Forward-looking decision framework",
+          "content": "Rational decisions should be based on future costs and benefits, not past irreversible costs. The question is: 'Given where I am now, what will make me better off going forward?'"
+        },
+        {
+          "step": 3,
+          "label": "Compare the marginal options",
+          "content": "Option A: Go to Concert 1 (sick, would rather be elsewhere). Cost: feeling miserable while sick. Benefit: concert (but you'd prefer the other show). Option B: Go to Concert 2 (free, prefer it). Cost: zero additional cost. Benefit: better show. Ignore the $500 — it doesn't change between options."
+        },
+        {
+          "step": 4,
+          "label": "Sunk cost fallacy",
+          "content": "Choosing Concert 1 because of the $500 is the sunk cost fallacy — letting an irrecoverable past cost influence a future decision where it is irrelevant. This leads to making choices based on history rather than expected future value."
+        },
+        {
+          "step": 5,
+          "label": "Correct answer",
+          "content": "Go to Concert 2. The $500 is gone regardless. Your decision should maximise the enjoyment/wellbeing of the rest of the day. Not going to Concert 1 doesn't 'waste' the $500 any more than going to Concert 1 'reclaims' it."
+        },
+        {
+          "step": 6,
+          "label": "Real-world pervasiveness",
+          "content": "Sunk cost fallacy drives: continuing failing projects because of prior investment ('we've come too far to quit'), holding losing stocks too long, staying in bad relationships ('I've put years into this'), escalation of commitment in military campaigns."
+        },
+        {
+          "step": 7,
+          "label": "Emotional vs. rational accounting",
+          "content": "Humans use 'mental accounting' — we emotionally bracket the $500 as 'reserved' for Concert 1. Rational accounting treats money as fungible — the $500 is simply gone and equivalent to never having had it."
+        }
+      ],
+      "critical_insight": "The $500 is a sunk cost — it is the same whether you go to Concert 1 or not. It is irrelevant to the forward-looking choice. Always ignore sunk costs when making decisions about the future.",
+      "final_answer": "No — the $500 should not influence your decision. It is a sunk cost, spent regardless of what you do now. Rational choice: go to Concert 2, which will make you better off. Going to Concert 1 because you paid $500 is the sunk cost fallacy.",
+      "answer_explanation": "Sunk costs are irreversible and therefore economically irrelevant to forward-looking decisions. The $500 is gone whether you attend Concert 1 or not — it cannot be recovered. The rational decision compares what each option offers going forward: Concert 2 is free and more enjoyable. The feeling that you 'should' use what you paid for is the sunk cost fallacy — a documented cognitive bias that leads to suboptimal choices. Rational actors treat sunk costs as zero in their decision calculus.",
+      "common_errors": [
+        "Saying you should go to Concert 1 to not 'waste' the money",
+        "Not identifying the sunk cost fallacy",
+        "Treating the $500 as a future cost that can be saved or lost"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "You should go to Concert 1 — you paid $500 for it.",
+          "correction": "The $500 is already spent and cannot be recovered. It is equally 'wasted' regardless of which concert you attend. The relevant question is which concert makes you better off today.",
+          "why_wrong": "Classic sunk cost fallacy — treating an irrecoverable past cost as relevant to a current choice."
+        }
+      ],
+      "concepts": ["sunk_cost_fallacy", "rational_decision_making", "marginal_analysis", "mental_accounting", "opportunity_cost", "prospect_theory", "behavioral_economics"],
+      "confidence_score": 0.80,
+      "related_entries": ["ECON-001", "ECON-002"],
+      "training_signal": "Teaches correct sunk cost identification and exclusion from decision analysis."
+    },
+
+    {
+      "id": "ASTRO-001",
+      "type": "multi_domain_fusion",
+      "difficulty": 5,
+      "domains": ["astronomy", "physics", "philosophy_of_science", "cosmology"],
+      "question": "What is at the centre of a black hole, and do we actually know?",
+      "misleading_surface": "Physics should tell us what's there — we can calculate it.",
+      "adversarial_variants": [
+        "Is there a singularity at the centre of a black hole?",
+        "Have we observed what's inside a black hole?",
+        "Does General Relativity correctly describe the black hole interior?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "What General Relativity predicts",
+          "content": "General Relativity (GR) predicts a gravitational singularity at the centre of a black hole: a point (or ring for rotating black holes) of infinite density and zero volume where spacetime curvature diverges to infinity. This emerges from Schwarzschild's solution (1916)."
+        },
+        {
+          "step": 2,
+          "label": "The singularity theorems",
+          "content": "Penrose-Hawking Singularity Theorems (1965–1970) prove that singularities must form under GR given certain energy conditions. This is a mathematical result within GR."
+        },
+        {
+          "step": 3,
+          "label": "Is the singularity physically real?",
+          "content": "Most physicists believe the singularity is NOT a physical reality but a mathematical artefact indicating GR breaks down. When curvature reaches Planck-scale (length ~1.6 × 10⁻³⁵ m), quantum gravitational effects must dominate — but we have no validated theory of quantum gravity."
+        },
+        {
+          "step": 4,
+          "label": "Observational impossibility",
+          "content": "The event horizon is a one-way boundary. No information from inside a black hole can reach an external observer. We cannot observe the interior, not even in principle under classical physics. The interior is causally disconnected from us."
+        },
+        {
+          "step": 5,
+          "label": "Alternative proposals",
+          "content": "Loop quantum gravity suggests a 'quantum bounce' replaces the singularity — Planck-density matter rebounds. String theory suggests extended objects (strings, branes) that have finite size even in extreme conditions. Fuzzball solutions in string theory replace the singularity with a quantum 'fuzz' of strings. None are experimentally confirmed."
+        },
+        {
+          "step": 6,
+          "label": "Hawking radiation and information paradox",
+          "content": "Hawking (1974) showed black holes emit thermal radiation and eventually evaporate. This raises the information paradox: does information that falls into a black hole get destroyed? If yes, it violates quantum mechanics (unitarity). If no, how does it escape? This is unresolved — one of the deepest open problems in physics."
+        },
+        {
+          "step": 7,
+          "label": "Honest epistemic summary",
+          "content": "GR predicts a singularity. GR is almost certainly wrong there (breaks down at Planck scales). Quantum gravity should apply but we have no confirmed theory of it. We cannot observe the interior. We genuinely do not know what's at the centre of a black hole."
+        }
+      ],
+      "critical_insight": "GR predicts a singularity, but this prediction is self-undermining — it indicates GR's own breakdown. We do not have the physics to describe the interior at Planck scales, and we cannot observe it. The honest answer is: we don't know.",
+      "final_answer": "We don't actually know. GR predicts a singularity (infinite density), but most physicists believe this is GR breaking down, not a real physical object. We lack a confirmed quantum gravity theory that could replace the prediction, and we cannot observe the interior. This is genuinely unresolved.",
+      "answer_explanation": "General Relativity predicts a mathematical singularity at black hole centres — infinite density, zero volume. But this prediction is self-defeating: it signals GR's own failure at extreme curvatures. Quantum gravity effects should dominate below Planck-scale distances (~10⁻³⁵ m), but we have no experimentally confirmed quantum gravity theory. Loop quantum gravity and string theory offer candidate descriptions (quantum bounce, fuzzballs) but remain unverified. The event horizon prevents any direct observation. The Hawking information paradox adds further fundamental unresolved physics. The intellectually honest answer is that we do not know what is at the centre of a black hole.",
+      "common_errors": [
+        "Confidently asserting 'there's a singularity' without caveat",
+        "Not knowing GR breaks down at Planck scales",
+        "Thinking we have observational access to black hole interiors"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "There is a singularity — a point of infinite density.",
+          "correction": "GR predicts this, but almost all physicists believe the singularity is a mathematical artefact of GR's breakdown, not a physical object. We have no theory that correctly describes the interior.",
+          "why_wrong": "Stated GR's prediction as physical fact, ignoring GR's known incompleteness at quantum scales."
+        }
+      ],
+      "concepts": ["black_holes", "singularity", "General_Relativity", "Planck_scale", "quantum_gravity", "loop_quantum_gravity", "Hawking_radiation", "information_paradox", "event_horizon", "epistemic_humility"],
+      "confidence_score": 0.91,
+      "related_entries": ["PHYS-003", "PHYS-005"],
+      "training_signal": "Teaches epistemic humility in frontier physics; distinguishes mathematical prediction from physical reality; models 'we don't know' answers appropriately."
+    },
+
+    {
+      "id": "NEURO-001",
+      "type": "error_correction",
+      "difficulty": 3,
+      "domains": ["neuroscience", "psychology", "biology", "common_misconceptions"],
+      "question": "A popular article claims: 'You only use 10% of your brain — the other 90% is dormant.' How many errors does this contain and what does the neuroscience actually say?",
+      "misleading_surface": "It's a widely repeated claim — maybe it has some truth to it.",
+      "adversarial_variants": [
+        "Is it true we only use 10% of our brains?",
+        "What would happen if we could use 100% of our brain?",
+        "Where did the 10% brain myth come from?"
+      ],
+      "reasoning_steps": [
+        {
+          "step": 1,
+          "label": "Error 1 — Completely false claim",
+          "content": "The 10% claim is false. There is no credible scientific source for this figure. It does not appear in any peer-reviewed neuroscience literature as an established fact."
+        },
+        {
+          "step": 2,
+          "label": "Error 2 — fMRI and PET evidence",
+          "content": "Neuroimaging (fMRI, PET scans) shows brain activity throughout the entire brain, varying by task. Over the course of a day, essentially all brain regions are active. Even during sleep, large portions of the brain are active (memory consolidation, autonomic regulation, dreaming)."
+        },
+        {
+          "step": 3,
+          "label": "Error 3 — Evolutionary argument",
+          "content": "The human brain consumes ~20% of the body's energy despite being ~2% of body mass — the most energy-expensive organ. Evolution would not maintain a metabolically costly organ of which 90% is perpetually dormant. This is a strong evolutionary argument against the claim."
+        },
+        {
+          "step": 4,
+          "label": "Error 4 — Brain damage evidence",
+          "content": "If 90% of the brain were unused, damage to those regions should be harmless. In reality, damage to virtually any brain region causes specific functional deficits. There is no 'safe' region to damage."
+        },
+        {
+          "step": 5,
+          "label": "Error 5 — 'Dormant' misrepresentation",
+          "content": "Even neurons not firing in a given moment are actively maintaining resting membrane potential, synthesising proteins, regulating synaptic connections. 'Dormant' implies inactivity — neurons are biochemically active even at rest."
+        },
+        {
+          "step": 6,
+          "label": "Origin of the myth",
+          "content": "Likely origins: misquotation of William James ('humans meet only a small part of their potential'), misinterpretation of glial cell research (90% of brain cells are glial, not neurons — confused with '90% unused'), early misreadings of lobotomy outcomes, and self-help industry appeal."
+        },
+        {
+          "step": 7,
+          "label": "What IS true",
+          "content": "Not all neurons fire simultaneously (that would be a seizure). Different tasks recruit different networks. Neuroplasticity means the brain can strengthen used pathways and prune unused ones. There is individual variation in cognitive capacity. None of this implies 90% dormancy."
+        }
+      ],
+      "critical_insight": "The 10% claim is thoroughly false across multiple independent lines of evidence: neuroimaging, evolutionary biology, brain damage studies, and metabolic cost. It is a myth with no credible scientific origin.",
+      "final_answer": "Completely false. Neuroimaging shows the entire brain is active across tasks. Evolution would eliminate a 90%-dormant energy-expensive organ. Brain damage to any region causes deficits. The claim has no peer-reviewed scientific basis.",
+      "answer_explanation": "The 10% brain myth is one of the most persistent neuroscience misconceptions. Multiple lines of evidence refute it: (1) fMRI/PET imaging shows distributed activity throughout the brain; (2) the brain uses 20% of the body's energy — evolutionary pressure would eliminate dormant tissue; (3) focal brain damage impairs specific functions, suggesting all regions serve purposes; (4) neurons are biochemically active even when not firing. The myth likely derives from misquotation of William James and misinterpretation of glial cell proportions.",
+      "common_errors": [
+        "Accepting the claim as possibly true",
+        "Saying 'not all neurons fire at once' and treating this as partial validation",
+        "Not identifying the evolutionary argument"
+      ],
+      "error_correction_pairs": [
+        {
+          "wrong_answer": "It's probably somewhat true — we don't fire all neurons at once.",
+          "correction": "Not firing all neurons simultaneously is correct (that's a seizure), but is completely different from 90% dormancy. Over time, all regions are active. The 10% claim implies permanent dormancy, which is false.",
+          "why_wrong": "Confused momentary differential activation with global dormancy."
+        }
+      ],
+      "concepts": ["neuroscience", "brain_activity", "fMRI", "neuroplasticity", "10_percent_myth", "evolutionary_biology", "metabolic_cost", "neuroimaging"],
+      "confidence_score": 0.67,
+      "related_entries": ["BIO-001", "BIO-002"],
+      "training_signal": "Corrects a high-frequency neuroscience myth using multiple independent converging lines of evidence."
+    }
+
+  ],
+
+  "training_recommendations": {
+    "use_for_sft": true,
+    "use_for_rlhf": true,
+    "use_for_reward_model": true,
+    "suggested_sampling_strategy": "Weight harder entries (difficulty 4-5) at 2x during training to push reasoning ceiling",
+    "augmentation_suggestions": [
+      "Generate adversarial variants for each entry using the adversarial_variants field",
+      "Train on error_correction_pairs as negative → positive examples",
+      "Use reasoning_steps as chain-of-thought supervision signal",
+      "Mix domain combinations to prevent domain-specific overfit"
+    ],
+    "evaluation_targets": [
+      "Does the model check premises before answering misleading questions?",
+      "Does the model distinguish 'hard' from 'impossible' in computability questions?",
+      "Does the model apply unit conversion before comparing quantities?",
+      "Does the model identify sunk costs and exclude them correctly?",
+      "Does the model express appropriate uncertainty on genuinely open questions?"
+    ]
+  }
+}

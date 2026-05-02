@@ -1,0 +1,10171 @@
+{
+  "version": "1.0",
+  "truncation": null,
+  "padding": null,
+  "added_tokens": [
+    {
+      "id": 0,
+      "content": "[PAD]",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 1,
+      "content": "[UNK]",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 2,
+      "content": "<|bos|>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 3,
+      "content": "<|eot|>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 4,
+      "content": "<|system|>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 5,
+      "content": "<|user|>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 6,
+      "content": "<|assistant|>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    }
+  ],
+  "normalizer": null,
+  "pre_tokenizer": {
+    "type": "ByteLevel",
+    "add_prefix_space": false,
+    "trim_offsets": true,
+    "use_regex": true
+  },
+  "post_processor": {
+    "type": "ByteLevel",
+    "add_prefix_space": true,
+    "trim_offsets": false,
+    "use_regex": true
+  },
+  "decoder": {
+    "type": "ByteLevel",
+    "add_prefix_space": true,
+    "trim_offsets": true,
+    "use_regex": true
+  },
+  "model": {
+    "type": "BPE",
+    "dropout": null,
+    "unk_token": null,
+    "continuing_subword_prefix": null,
+    "end_of_word_suffix": null,
+    "fuse_unk": false,
+    "byte_fallback": true,
+    "ignore_merges": false,
+    "vocab": {
+      "[PAD]": 0,
+      "[UNK]": 1,
+      "<|bos|>": 2,
+      "<|eot|>": 3,
+      "<|system|>": 4,
+      "<|user|>": 5,
+      "<|assistant|>": 6,
+      "!": 7,
+      "\"": 8,
+      "#": 9,
+      "$": 10,
+      "%": 11,
+      "&": 12,
+      "'": 13,
+      "(": 14,
+      ")": 15,
+      "*": 16,
+      "+": 17,
+      ",": 18,
+      "-": 19,
+      ".": 20,
+      "/": 21,
+      "0": 22,
+      "1": 23,
+      "2": 24,
+      "3": 25,
+      "4": 26,
+      "5": 27,
+      "6": 28,
+      "7": 29,
+      "8": 30,
+      "9": 31,
+      ":": 32,
+      ";": 33,
+      "<": 34,
+      "=": 35,
+      ">": 36,
+      "?": 37,
+      "@": 38,
+      "A": 39,
+      "B": 40,
+      "C": 41,
+      "D": 42,
+      "E": 43,
+      "F": 44,
+      "G": 45,
+      "H": 46,
+      "I": 47,
+      "J": 48,
+      "K": 49,
+      "L": 50,
+      "M": 51,
+      "N": 52,
+      "O": 53,
+      "P": 54,
+      "Q": 55,
+      "R": 56,
+      "S": 57,
+      "T": 58,
+      "U": 59,
+      "V": 60,
+      "W": 61,
+      "X": 62,
+      "Y": 63,
+      "Z": 64,
+      "[": 65,
+      "\\": 66,
+      "]": 67,
+      "^": 68,
+      "_": 69,
+      "`": 70,
+      "a": 71,
+      "b": 72,
+      "c": 73,
+      "d": 74,
+      "e": 75,
+      "f": 76,
+      "g": 77,
+      "h": 78,
+      "i": 79,
+      "j": 80,
+      "k": 81,
+      "l": 82,
+      "m": 83,
+      "n": 84,
+      "o": 85,
+      "p": 86,
+      "q": 87,
+      "r": 88,
+      "s": 89,
+      "t": 90,
+      "u": 91,
+      "v": 92,
+      "w": 93,
+      "x": 94,
+      "y": 95,
+      "z": 96,
+      "{": 97,
+      "|": 98,
+      "}": 99,
+      "~": 100,
+      "¡": 101,
+      "¢": 102,
+      "£": 103,
+      "¤": 104,
+      "¥": 105,
+      "¦": 106,
+      "§": 107,
+      "¨": 108,
+      "©": 109,
+      "ª": 110,
+      "«": 111,
+      "¬": 112,
+      "®": 113,
+      "¯": 114,
+      "°": 115,
+      "±": 116,
+      "²": 117,
+      "³": 118,
+      "´": 119,
+      "µ": 120,
+      "¶": 121,
+      "·": 122,
+      "¸": 123,
+      "¹": 124,
+      "º": 125,
+      "»": 126,
+      "¼": 127,
+      "½": 128,
+      "¾": 129,
+      "¿": 130,
+      "À": 131,
+      "Á": 132,
+      "Â": 133,
+      "Ã": 134,
+      "Ä": 135,
+      "Å": 136,
+      "Æ": 137,
+      "Ç": 138,
+      "È": 139,
+      "É": 140,
+      "Ê": 141,
+      "Ë": 142,
+      "Ì": 143,
+      "Í": 144,
+      "Î": 145,
+      "Ï": 146,
+      "Ð": 147,
+      "Ñ": 148,
+      "Ò": 149,
+      "Ó": 150,
+      "Ô": 151,
+      "Õ": 152,
+      "Ö": 153,
+      "×": 154,
+      "Ø": 155,
+      "Ù": 156,
+      "Ú": 157,
+      "Û": 158,
+      "Ü": 159,
+      "Ý": 160,
+      "Þ": 161,
+      "ß": 162,
+      "à": 163,
+      "á": 164,
+      "â": 165,
+      "ã": 166,
+      "ä": 167,
+      "å": 168,
+      "æ": 169,
+      "ç": 170,
+      "è": 171,
+      "é": 172,
+      "ê": 173,
+      "ë": 174,
+      "ì": 175,
+      "í": 176,
+      "î": 177,
+      "ï": 178,
+      "ð": 179,
+      "ñ": 180,
+      "ò": 181,
+      "ó": 182,
+      "ô": 183,
+      "õ": 184,
+      "ö": 185,
+      "÷": 186,
+      "ø": 187,
+      "ù": 188,
+      "ú": 189,
+      "û": 190,
+      "ü": 191,
+      "ý": 192,
+      "þ": 193,
+      "ÿ": 194,
+      "Ā": 195,
+      "ā": 196,
+      "Ă": 197,
+      "ă": 198,
+      "Ą": 199,
+      "ą": 200,
+      "Ć": 201,
+      "ć": 202,
+      "Ĉ": 203,
+      "ĉ": 204,
+      "Ċ": 205,
+      "ċ": 206,
+      "Č": 207,
+      "č": 208,
+      "Ď": 209,
+      "ď": 210,
+      "Đ": 211,
+      "đ": 212,
+      "Ē": 213,
+      "ē": 214,
+      "Ĕ": 215,
+      "ĕ": 216,
+      "Ė": 217,
+      "ė": 218,
+      "Ę": 219,
+      "ę": 220,
+      "Ě": 221,
+      "ě": 222,
+      "Ĝ": 223,
+      "ĝ": 224,
+      "Ğ": 225,
+      "ğ": 226,
+      "Ġ": 227,
+      "ġ": 228,
+      "Ģ": 229,
+      "ģ": 230,
+      "Ĥ": 231,
+      "ĥ": 232,
+      "Ħ": 233,
+      "ħ": 234,
+      "Ĩ": 235,
+      "ĩ": 236,
+      "Ī": 237,
+      "ī": 238,
+      "Ĭ": 239,
+      "ĭ": 240,
+      "Į": 241,
+      "į": 242,
+      "İ": 243,
+      "ı": 244,
+      "Ĳ": 245,
+      "ĳ": 246,
+      "Ĵ": 247,
+      "ĵ": 248,
+      "Ķ": 249,
+      "ķ": 250,
+      "ĸ": 251,
+      "Ĺ": 252,
+      "ĺ": 253,
+      "Ļ": 254,
+      "ļ": 255,
+      "Ľ": 256,
+      "ľ": 257,
+      "Ŀ": 258,
+      "ŀ": 259,
+      "Ł": 260,
+      "ł": 261,
+      "Ń": 262,
+      "Ġo": 263,
+      "sh": 264,
+      "ng": 265,
+      "shi": 266,
+      "ta": 267,
+      "wa": 268,
+      "ĠO": 269,
+      "ti": 270,
+      "ya": 271,
+      "nd": 272,
+      "la": 273,
+      "li": 274,
+      "Ġti": 275,
+      "na": 276,
+      "ma": 277,
+      "tashi": 278,
+      "Ġotashi": 279,
+      "ha": 280,
+      "ku": 281,
+      "ing": 282,
+      "lo": 283,
+      "Ġ'": 284,
+      "mb": 285,
+      "nga": 286,
+      "pi": 287,
+      "ka": 288,
+      "Ġm": 289,
+      "va": 290,
+      "ingi": 291,
+      "mu": 292,
+      "Ġp": 293,
+      "le": 294,
+      "fa": 295,
+      "ĠE": 296,
+      "shik": 297,
+      "me": 298,
+      "Ġe": 299,
+      "Ġnga": 300,
+      "ipi": 301,
+      "Ġngaipi": 302,
+      "no": 303,
+      "ve": 304,
+      "Ġli": 305,
+      "nya": 306,
+      "ko": 307,
+      "Ningi": 308,
+      "Ningifa": 309,
+      "Ġi": 310,
+      "nge": 311,
+      "Ġa": 312,
+      "fi": 313,
+      "ndi": 314,
+      "Ġna": 315,
+      "ĠmO": 316,
+      "nyama": 317,
+      "wanyama": 318,
+      "Ġomu": 319,
+      "ye": 320,
+      "nda": 321,
+      "shikwanyama": 322,
+      "sha": 323,
+      "to": 324,
+      "lu": 325,
+      "we": 326,
+      "te": 327,
+      "di": 328,
+      "mbo": 329,
+      "tu": 330,
+      "Ġ(": 331,
+      "ne": 332,
+      "ewa": 333,
+      "he": 334,
+      "yo": 335,
+      "Ġ+": 336,
+      "Ġs": 337,
+      "'.": 338,
+      "ni": 339,
+      "Ġya": 340,
+      "Ġpo": 341,
+      "Ġu": 342,
+      "ĠA": 343,
+      "hu": 344,
+      "ngo": 345,
+      "ĠEewa": 346,
+      "Ġka": 347,
+      "handi": 348,
+      "ĠmOshikwanyama": 349,
+      "nhu": 350,
+      "Ġoshi": 351,
+      "sa": 352,
+      "ĠAme": 353,
+      "ula": 354,
+      "Ġko": 355,
+      "es": 356,
+      "Ġd": 357,
+      "Ġlo": 358,
+      "ngelo": 359,
+      "Ġyo": 360,
+      "ĠmOshi": 361,
+      "Ġha": 362,
+      "Ġc": 363,
+      "shangelo": 364,
+      "lisa": 365,
+      "ingilisa": 366,
+      "dina": 367,
+      "ĠmOshiingilisa": 368,
+      "lya": 369,
+      "Ġno": 370,
+      "Ġva": 371,
+      "mba": 372,
+      "po": 373,
+      "un": 374,
+      "ke": 375,
+      "ĠN": 376,
+      "Ġova": 377,
+      "Ġoku": 378,
+      "Ġmo": 379,
+      "Ġomushangelo": 380,
+      "mwe": 381,
+      "sho": 382,
+      "fe": 383,
+      "an": 384,
+      "ss": 385,
+      "ĠI": 386,
+      "Ġnawa": 387,
+      "bj": 388,
+      "pe": 389,
+      "tive": 390,
+      "ec": 391,
+      "Ġ-": 392,
+      "Ġoi": 393,
+      "..": 394,
+      "wo": 395,
+      "ĠOnda": 396,
+      "ho": 397,
+      "Ġota": 398,
+      "mi": 399,
+      "pa": 400,
+      "ect": 401,
+      "ĠOshi": 402,
+      "on": 403,
+      "ĠT": 404,
+      "Ġn": 405,
+      "ngi": 406,
+      "fima": 407,
+      "bject": 408,
+      "Ġwa": 409,
+      "ĠOshikwanyama": 410,
+      "ĠOhandi": 411,
+      "ro": 412,
+      "ĠOtashi": 413,
+      "or": 414,
+      "Ġto": 415,
+      "Ġou": 416,
+      "kulu": 417,
+      "Ġsu": 418,
+      "Ġk": 419,
+      "kulya": 420,
+      "Ġâ": 421,
+      "Ġsha": 422,
+      "shike": 423,
+      "ĨĴ": 424,
+      "ĠâĨĴ": 425,
+      "ele": 426,
+      "Ġpe": 427,
+      "Ġee": 428,
+      "ĠY": 429,
+      "Ġla": 430,
+      "Ġme": 431,
+      "Ġpa": 432,
+      "hee": 433,
+      "Ġuya": 434,
+      "Ġt": 435,
+      "ĠNa": 436,
+      "Edina": 437,
+      "al": 438,
+      "be": 439,
+      "Ġnge": 440,
+      "Onda": 441,
+      "ki": 442,
+      "Ġoha": 443,
+      "ndo": 444,
+      "Ġhala": 445,
+      "ja": 446,
+      "re": 447,
+      "Ġku": 448,
+      "ĠOku": 449,
+      "vali": 450,
+      "wi": 451,
+      "ĠK": 452,
+      "Ġve": 453,
+      "nde": 454,
+      "Ġin": 455,
+      "Ġkala": 456,
+      "Ġyou": 457,
+      ".:": 458,
+      "ive": 459,
+      "ĠM": 460,
+      "Ġshi": 461,
+      "ĠP": 462,
+      "Ġohandi": 463,
+      "she": 464,
+      "ngu": 465,
+      "ĠOva": 466,
+      "lass": 467,
+      "longo": 468,
+      "Ġile": 469,
+      "fimbo": 470,
+      "Ġclass": 471,
+      "Ġnoun": 472,
+      "do": 473,
+      "umbo": 474,
+      "Ġwo": 475,
+      "kwa": 476,
+      "Ġta": 477,
+      "Ġye": 478,
+      "fiku": 479,
+      "Ġpeni": 480,
+      "ĠOmu": 481,
+      "ĠEhee": 482,
+      "ĠYe": 483,
+      "hi": 484,
+      "Ġf": 485,
+      "tatu": 486,
+      "ans": 487,
+      "bi": 488,
+      "mo": 489,
+      "vo": 490,
+      "Ġle": 491,
+      "Ġdo": 492,
+      "elela": 493,
+      "Ġoma": 494,
+      "ĠOma": 495,
+      "Ġpro": 496,
+      "Ġoshifima": 497,
+      "Ġcon": 498,
+      "da": 499,
+      "ombo": 500,
+      "ĠOve": 501,
+      "kamba": 502,
+      "ĠTa": 503,
+      "Omu": 504,
+      "mbi": 505,
+      "popi": 506,
+      "lwa": 507,
+      "ĠL": 508,
+      "Ġho": 509,
+      "Ġonda": 510,
+      "shikombo": 511,
+      "nene": 512,
+      "nima": 513,
+      "ngobe": 514,
+      "kulunhu": 515,
+      "cor": 516,
+      "ĠOha": 517,
+      "ndu": 518,
+      "Ġconcor": 519,
+      "Ġconcord": 520,
+      "ctive": 521,
+      "dha": 522,
+      "res": 523,
+      "ĠS": 524,
+      "Ġobject": 525,
+      "noun": 526,
+      "Ġomupopi": 527,
+      "Ġovanhu": 528,
+      "ndonga": 529,
+      "Ġpronoun": 530,
+      "fu": 531,
+      "mwa": 532,
+      "Ġne": 533,
+      "Ġlya": 534,
+      "meva": 535,
+      "Ġsubject": 536,
+      "kambadha": 537,
+      ").": 538,
+      "Na": 539,
+      "Oku": 540,
+      "lye": 541,
+      "oo": 542,
+      "st": 543,
+      "sive": 544,
+      "ĠV": 545,
+      "ĠOi": 546,
+      "Ġekambadha": 547,
+      "lula": 548,
+      "Ġunene": 549,
+      "Ġhole": 550,
+      "Ġekambadhalo": 551,
+      "ife": 552,
+      "ngli": 553,
+      "tative": 554,
+      "mbwa": 555,
+      "mbelela": 556,
+      "Ġpu": 557,
+      "ĠkO": 558,
+      "nglish": 559,
+      "Oshikwanyama": 560,
+      "ĠH": 561,
+      "Ġte": 562,
+      "Ġke": 563,
+      "Ġshike": 564,
+      "Ġomi": 565,
+      "tango": 566,
+      "ĠEnglish": 567,
+      "nona": 568,
+      "ee": 569,
+      "Ġfi": 570,
+      "Ġdi": 571,
+      "Ġoka": 572,
+      "hat": 573,
+      "Ġefimbo": 574,
+      "Oshi": 575,
+      "What": 576,
+      "dula": 577,
+      "nt": 578,
+      "Ġwe": 579,
+      "Ġsho": 580,
+      "nghe": 581,
+      "wafe": 582,
+      "ingula": 583,
+      "Ġomunhu": 584,
+      "Ġposs": 585,
+      "essive": 586,
+      "ingular": 587,
+      "Ġpossessive": 588,
+      "imba": 589,
+      "ns": 590,
+      "rb": 591,
+      "ral": 592,
+      "rans": 593,
+      "ule": 594,
+      "xa": 595,
+      "kola": 596,
+      "fikola": 597,
+      "lural": 598,
+      "Ġstative": 599,
+      "Ġdja": 600,
+      "mbali": 601,
+      "ulu": 602,
+      "Ġg": 603,
+      "Ġfa": 604,
+      "kombo": 605,
+      "Wa": 606,
+      "eme": 607,
+      "fwa": 608,
+      "ll": 609,
+      "ow": 610,
+      "oku": 611,
+      "okulya": 612,
+      "ri": 613,
+      "Ġopo": 614,
+      "late": 615,
+      "liki": 616,
+      "meme": 617,
+      "Ġare": 618,
+      "ĠKa": 619,
+      "Trans": 620,
+      "ĠF": 621,
+      "liwa": 622,
+      "mati": 623,
+      "maliwa": 624,
+      "Ġam": 625,
+      "Ġumwe": 626,
+      "Ġdule": 627,
+      "Ġhafa": 628,
+      "Ġvavali": 629,
+      "Ġoikulya": 630,
+      "Ġnha": 631,
+      "Ġnyo": 632,
+      "Ġthe": 633,
+      "Ġvele": 634,
+      "nghelo": 635,
+      "Translate": 636,
+      "ana": 637,
+      "ent": 638,
+      "mbwe": 639,
+      "Ġactive": 640,
+      "Ġnatango": 641,
+      "....": 642,
+      "Ġeedula": 643,
+      "resent": 644,
+      "fuma": 645,
+      "ood": 646,
+      "Ġtu": 647,
+      "Ġove": 648,
+      "ĠOu": 649,
+      "ĠOwa": 650,
+      "ĠOka": 651,
+      "ndja": 652,
+      "nawa": 653,
+      "ĠEdina": 654,
+      "tola": 655,
+      "Ġlongo": 656,
+      "ĠIt": 657,
+      "Ġmean": 658,
+      "Ġpaife": 659,
+      "ĠMeme": 660,
+      "Ġdoes": 661,
+      "mwameme": 662,
+      "Ġnena": 663,
+      "Ta": 664,
+      "ning": 665,
+      "ra": 666,
+      "vi": 667,
+      "Ġma": 668,
+      "Ġmbali": 669,
+      "Ġowa": 670,
+      "Ġokwa": 671,
+      "Ġomeva": 672,
+      "Ġombelela": 673,
+      "ĠOta": 674,
+      "mano": 675,
+      "Ġedina": 676,
+      "Ġiha": 677,
+      "Ġlonga": 678,
+      "Ġyoye": 679,
+      "Ġotai": 680,
+      "mibi": 681,
+      "past": 682,
+      "ĠTangi": 683,
+      "ĠVo": 684,
+      "Ġpumbwa": 685,
+      "mibia": 686,
+      "',": 687,
+      ".'": 688,
+      "Ok": 689,
+      "Otashi": 690,
+      "Ohandi": 691,
+      "eli": 692,
+      "enge": 693,
+      "ge": 694,
+      "up": 695,
+      "ume": 696,
+      "Ġvo": 697,
+      "Ġof": 698,
+      "Ġon": 699,
+      "Ġondi": 700,
+      "Ġoshikombo": 701,
+      "ngwa": 702,
+      "Ġefiku": 703,
+      "Ġis": 704,
+      "Ġkonima": 705,
+      "Ġlongi": 706,
+      "shona": 707,
+      "Ġmeans": 708,
+      "ĠNaa": 709,
+      "ĠNatu": 710,
+      "wiimba": 711,
+      "Ġwoku": 712,
+      "Ġfya": 713,
+      "Ġlele": 714,
+      "nduka": 715,
+      "ĠFye": 716,
+      "How": 717,
+      "Oma": 718,
+      "at": 719,
+      "ay": 720,
+      "bor": 721,
+      "nye": 722,
+      "ou": 723,
+      "se": 724,
+      "Ġ5": 725,
+      "Ġfe": 726,
+      "ndj": 727,
+      "nandi": 728,
+      "kuta": 729,
+      "mbula": 730,
+      "Ġmu": 731,
+      "ĠEe": 732,
+      "Ġita": 733,
+      "Ġimwe": 734,
+      "Ġomulongo": 735,
+      "Ġpopi": 736,
+      "Ġlombwe": 737,
+      "dinate": 738,
+      "Ġmona": 739,
+      "pena": 740,
+      "Ġwange": 741,
+      "Ġsubor": 742,
+      "Ġomilongo": 743,
+      "eling": 744,
+      "Ġwokukuta": 745,
+      "Ġfeeling": 746,
+      "Ġsubordinate": 747,
+      "?'": 748,
+      "Ova": 749,
+      "Pula": 750,
+      "nu": 751,
+      "ry": 752,
+      "Ġpi": 753,
+      "Ġndi": 754,
+      "Ġhe": 755,
+      "Ġlye": 756,
+      "ĠOto": 757,
+      "longi": 758,
+      "ngapi": 759,
+      "kati": 760,
+      "Ġplural": 761,
+      "leka": 762,
+      "lende": 763,
+      "luka": 764,
+      "Ġsingular": 765,
+      "pelende": 766,
+      "woi": 767,
+      "ĠOshifima": 768,
+      "ĠOshindonga": 769,
+      "roup": 770,
+      "wiliki": 771,
+      "ĠOvanhu": 772,
+      "Okwiimba": 773,
+      "Ġlongifwa": 774,
+      ".)": 775,
+      "Ka": 776,
+      "Owa": 777,
+      "Oto": 778,
+      "ga": 779,
+      "gh": 780,
+      "ina": 781,
+      "ini": 782,
+      "oshi": 783,
+      "present": 784,
+      "wambo": 785,
+      "ĠOte": 786,
+      "mane": 787,
+      "inga": 788,
+      "longa": 789,
+      "longwa": 790,
+      "ngaipi": 791,
+      "Ġembo": 792,
+      "Ġeke": 793,
+      "shakati": 794,
+      "pond": 795,
+      "unctive": 796,
+      "bjunctive": 797,
+      "Ġsubjunctive": 798,
+      "Ġkwafe": 799,
+      "Ġngeenge": 800,
+      "ĠMo": 801,
+      "ĠLu": 802,
+      "ĠkOshakati": 803,
+      "Ġnhatu": 804,
+      "ĠOunona": 805,
+      "wilikina": 806,
+      "Ame": 807,
+      "He": 808,
+      "Oha": 809,
+      "Res": 810,
+      "ch": 811,
+      "group": 812,
+      "kwanyama": 813,
+      "mp": 814,
+      "omu": 815,
+      "yi": 816,
+      "Ġb": 817,
+      "Ġoto": 818,
+      "Ġolye": 819,
+      "Ġonghelo": 820,
+      "ĠOsho": 821,
+      "yali": 822,
+      "hala": 823,
+      "kuki": 824,
+      "Ġpwilikina": 825,
+      "Ġngapi": 826,
+      "Ġit": 827,
+      "Ġinandi": 828,
+      "Ġavali": 829,
+      "luko": 830,
+      "wer": 831,
+      "tual": 832,
+      "tulula": 833,
+      "nena": 834,
+      "Ġsi": 835,
+      "Ġuhala": 836,
+      "Ġoshipelende": 837,
+      "Ġkofikola": 838,
+      "ĠNye": 839,
+      "Ġokulya": 840,
+      "...": 841,
+      "pangelo": 842,
+      "Ġounona": 843,
+      "Ġpatulula": 844,
+      "Ġverb": 845,
+      "ngulula": 846,
+      "bitual": 847,
+      "Ġlesha": 848,
+      "Omushangelo": 849,
+      "mbiya": 850,
+      "Ġdima": 851,
+      "nswer": 852,
+      "Ġnyola": 853,
+      "nute": 854,
+      "ght": 855,
+      "Ġekende": 856,
+      "ĠLungulula": 857,
+      "Respond": 858,
+      "Good": 859,
+      "Ou": 860,
+      "Shi": 861,
+      "ar": 862,
+      "gee": 863,
+      "ila": 864,
+      "ome": 865,
+      "the": 866,
+      "Ġbe": 867,
+      "ngula": 868,
+      "Ġeshi": 869,
+      "Ġlimwe": 870,
+      "kotola": 871,
+      "Ġashike": 872,
+      "shamane": 873,
+      "lutu": 874,
+      "hema": 875,
+      "Ġsay": 876,
+      "Ġkaume": 877,
+      "Ġhabitual": 878,
+      "Ġoikombo": 879,
+      "Ġwaye": 880,
+      "Ġlanda": 881,
+      "ree": 882,
+      "ĠPa": 883,
+      "ĠPlural": 884,
+      "dola": 885,
+      "dokotola": 886,
+      "Ġwomu": 887,
+      "his": 888,
+      "ĠTate": 889,
+      "ĠSingular": 890,
+      "Namibia": 891,
+      "ĠVe": 892,
+      "okuya": 893,
+      "ĠNaave": 894,
+      "Ġpita": 895,
+      "ĠMoShi": 896,
+      "geenge": 897,
+      "ĠMoShikwanyama": 898,
+      "ashi": 899,
+      "du": 900,
+      "el": 901,
+      "twe": 902,
+      "yu": 903,
+      "ĠWa": 904,
+      "Ġonawa": 905,
+      "ĠOndi": 906,
+      "ĠOmi": 907,
+      "ĠOshikombo": 908,
+      "yaxa": 909,
+      "landa": 910,
+      "Ġtila": 911,
+      "han": 912,
+      "hamano": 913,
+      "ingwa": 914,
+      "mbe": 915,
+      "kado": 916,
+      "Ġiwa": 917,
+      "Ġand": 918,
+      "Ġapa": 919,
+      "Ġanswer": 920,
+      "Ġnaini": 921,
+      "Ġomuwoi": 922,
+      "ndaxa": 923,
+      "tenya": 924,
+      "dimo": 925,
+      "heyali": 926,
+      "Ġyange": 927,
+      "Ġoshinima": 928,
+      "Ġda": 929,
+      "Ġloye": 930,
+      "ĠmOshindonga": 931,
+      "Ġnomu": 932,
+      "Ġmomu": 933,
+      "ssive": 934,
+      "Ġoimaliwa": 935,
+      "Ġotava": 936,
+      "Ġningwa": 937,
+      "Ġoukuki": 938,
+      "Ġlangu": 939,
+      "all": 940,
+      "ĠKo": 941,
+      "Ġshii": 942,
+      "ĠPo": 943,
+      "ĠOmafuma": 944,
+      "day": 945,
+      "ĠOikombo": 946,
+      "Ġfika": 947,
+      "Oshindonga": 948,
+      "Ġwell": 949,
+      "Ġgo": 950,
+      "Ġnyoko": 951,
+      "rai": 952,
+      "ĠEengobe": 953,
+      "lukaku": 954,
+      "gative": 955,
+      "mple": 956,
+      "Ġsimple": 957,
+      "kadona": 958,
+      "Ġlangua": 959,
+      "Eti": 960,
+      "aa": 961,
+      "alu": 962,
+      "ce": 963,
+      "eshe": 964,
+      "ia": 965,
+      "ova": 966,
+      "pu": 967,
+      "tya": 968,
+      "uya": 969,
+      "uto": 970,
+      "xt": 971,
+      "Ġomo": 972,
+      "Ġondja": 973,
+      "tala": 974,
+      "tano": 975,
+      "ĠOmeva": 976,
+      "ĠOngaipi": 977,
+      "ting": 978,
+      "loka": 979,
+      "leni": 980,
+      "ĠEshi": 981,
+      "mesho": 982,
+      "Ġex": 983,
+      "Ġefima": 984,
+      "nowe": 985,
+      "veshe": 986,
+      "kosha": 987,
+      "Ġivali": 988,
+      "fitola": 989,
+      "ndilo": 990,
+      "Ġnanga": 991,
+      "ter": 992,
+      "diko": 993,
+      "hetatu": 994,
+      "Ġuliki": 995,
+      "Ġloloka": 996,
+      "Ġyoku": 997,
+      "Ġhanduka": 998,
+      "Ġcan": 999,
+      "Ġnova": 1000,
+      "Ġvange": 1001,
+      "Ġvatatu": 1002,
+      "ĠIno": 1003,
+      "Ġshaashi": 1004,
+      "ĠYes": 1005,
+      "Ġpassive": 1006,
+      "Ġtrai": 1007,
+      "ndoka": 1008,
+      "ĠKwafe": 1009,
+      "eekulu": 1010,
+      "Ġokaana": 1011,
+      "Ġgree": 1012,
+      "Ġnhano": 1013,
+      "Tate": 1014,
+      "ndju": 1015,
+      "ĠPaife": 1016,
+      "Ġondjala": 1017,
+      "nowele": 1018,
+      "Ġulikile": 1019,
+      "Eewa": 1020,
+      "Ha": 1021,
+      "Ondi": 1022,
+      "alo": 1023,
+      "ck": 1024,
+      "efimbo": 1025,
+      "ita": 1026,
+      "ion": 1027,
+      "ice": 1028,
+      "lyo": 1029,
+      "mha": 1030,
+      "onghelo": 1031,
+      "so": 1032,
+      "twi": 1033,
+      "ux": 1034,
+      "xux": 1035,
+      "Ġ...": 1036,
+      "Ġor": 1037,
+      "Ġola": 1038,
+      "Ġoshike": 1039,
+      "Ġongobe": 1040,
+      "Ġopena": 1041,
+      "ĠOmbelela": 1042,
+      "ndele": 1043,
+      "liya": 1044,
+      "lika": 1045,
+      "kunda": 1046,
+      "mbu": 1047,
+      "mbinga": 1048,
+      "Ġpula": 1049,
+      "Ġpresent": 1050,
+      "leke": 1051,
+      "ĠEfiku": 1052,
+      "meka": 1053,
+      "venduka": 1054,
+      "Ġas": 1055,
+      "Ġava": 1056,
+      "Ġame": 1057,
+      "Ġoshita": 1058,
+      "Ġkou": 1059,
+      "Ġde": 1060,
+      "Ġnosho": 1061,
+      "Ġnoluko": 1062,
+      "Ġvamwe": 1063,
+      "ĠNdokotola": 1064,
+      "ĠNgeenge": 1065,
+      "ĠTe": 1066,
+      "Ġtondoka": 1067,
+      "Ġeeng": 1068,
+      "Ġlaye": 1069,
+      "Ġtwa": 1070,
+      "Ġthis": 1071,
+      "ĠNamibia": 1072,
+      "kifa": 1073,
+      "Ġohatu": 1074,
+      "red": 1075,
+      "Ġkuta": 1076,
+      "Ġkula": 1077,
+      "shendja": 1078,
+      "dolo": 1079,
+      "Ġtali": 1080,
+      "Ġtameka": 1081,
+      "Ġyetu": 1082,
+      "biila": 1083,
+      "ĠTambula": 1084,
+      "mbidi": 1085,
+      "lwashike": 1086,
+      "ĠLi": 1087,
+      "ĠLo": 1088,
+      "nduda": 1089,
+      "resia": 1090,
+      "ĠOikulya": 1091,
+      "ĠkOvenduka": 1092,
+      "ĠHee": 1093,
+      "Ġkeumbo": 1094,
+      "Ġfine": 1095,
+      "Ġwete": 1096,
+      "ria": 1097,
+      "Ġthem": 1098,
+      "Tangi": 1099,
+      "Ġmanga": 1100,
+      "Ġvoye": 1101,
+      "Ġvoice": 1102,
+      "Ġitandi": 1103,
+      "Ġlombwela": 1104,
+      "Ġlombwelwa": 1105,
+      "ther": 1106,
+      "ĠVerb": 1107,
+      "hank": 1108,
+      "Ġnomushamane": 1109,
+      "Ġgoat": 1110,
+      "ovanhu": 1111,
+      "Ġnangale": 1112,
+      "alom": 1113,
+      "mhadi": 1114,
+      "ĠHeeno": 1115,
+      "-'": 1116,
+      "Can": 1117,
+      "Oi": 1118,
+      "Oka": 1119,
+      "Re": 1120,
+      "af": 1121,
+      "ak": 1122,
+      "ach": 1123,
+      "aria": 1124,
+      "ca": 1125,
+      "dhi": 1126,
+      "ep": 1127,
+      "for": 1128,
+      "ilula": 1129,
+      "kwe": 1130,
+      "nwa": 1131,
+      "ok": 1132,
+      "ota": 1133,
+      "oma": 1134,
+      "oka": 1135,
+      "pya": 1136,
+      "rt": 1137,
+      "rning": 1138,
+      "th": 1139,
+      "us": 1140,
+      "Ġ=": 1141,
+      "ĠB": 1142,
+      "Ġnda": 1143,
+      "Ġ....": 1144,
+      "Ġinga": 1145,
+      "Ġoko": 1146,
+      "Ġote": 1147,
+      "Ġosho": 1148,
+      "Ġovo": 1149,
+      "Ġonowele": 1150,
+      "shiwambo": 1151,
+      "tandi": 1152,
+      "ĠOnde": 1153,
+      "ĠOmo": 1154,
+      "ĠOnawa": 1155,
+      "tivali": 1156,
+      "laka": 1157,
+      "namu": 1158,
+      "hafa": 1159,
+      "hangu": 1160,
+      "kuni": 1161,
+      "lodu": 1162,
+      "mbulu": 1163,
+      "shikwi": 1164,
+      "Ġeto": 1165,
+      "Ġeumbo": 1166,
+      "Ġliwa": 1167,
+      "kofa": 1168,
+      "kono": 1169,
+      "Ġitatu": 1170,
+      "Ġamwe": 1171,
+      "Ġaveshe": 1172,
+      "fila": 1173,
+      "Ġnale": 1174,
+      "Ġomumati": 1175,
+      "tono": 1176,
+      "ten": 1177,
+      "tens": 1178,
+      "dite": 1179,
+      "neko": 1180,
+      "neumbo": 1181,
+      "Ġse": 1182,
+      "Ġspe": 1183,
+      "Ġposhi": 1184,
+      "Ġudite": 1185,
+      "Ġkoma": 1186,
+      "Ġkofitola": 1187,
+      "Ġyolutu": 1188,
+      "Ġovakulunhu": 1189,
+      "Ġmombiya": 1190,
+      "Ġmorning": 1191,
+      "hono": 1192,
+      "milongo": 1193,
+      "ĠTu": 1194,
+      "ĠTresia": 1195,
+      "Ġoufila": 1196,
+      "Ġeengobe": 1197,
+      "Ġlange": 1198,
+      "Ġlandele": 1199,
+      "Ġmeme": 1200,
+      "Ġshimwe": 1201,
+      "ĠOvakulunhu": 1202,
+      "ĠOvamwameme": 1203,
+      "Ġtate": 1204,
+      "Ġyeni": 1205,
+      "ĠOmunhu": 1206,
+      "ĠOmukulunhu": 1207,
+      "Ġfro": 1208,
+      "ĠOmaumbo": 1209,
+      "dahafa": 1210,
+      "ĠSalom": 1211,
+      "mwaina": 1212,
+      "mwaalu": 1213,
+      "Ġnegative": 1214,
+      "Nawa": 1215,
+      "ĠkOshikwi": 1216,
+      "ĠHow": 1217,
+      "Ġteelela": 1218,
+      "Ġominute": 1219,
+      "Ġshoku": 1220,
+      "okuuya": 1221,
+      "ĠKandi": 1222,
+      "vike": 1223,
+      "ĠOtali": 1224,
+      "Ġofewa": 1225,
+      "ĠNaame": 1226,
+      "Ġhetatu": 1227,
+      "ĠOmiti": 1228,
+      "Ġdata": 1229,
+      "Ġmomushangelo": 1230,
+      "Ġlanguage": 1231,
+      "Ġextens": 1232,
+      "Ġefimaneko": 1233,
+      "Ġgreeting": 1234,
+      "xuxwa": 1235,
+      "Ġoshitaaf": 1236,
+      "Ġeenghono": 1237,
+      "Ġtwalwa": 1238,
+      "dolopa": 1239,
+      "Ġ........": 1240,
+      "Ġingapi": 1241,
+      "ĠOmolwashike": 1242,
+      "Ġetotono": 1243,
+      "Ġspeak": 1244,
+      "ĠkOshikwiyu": 1245,
+      "Ġextension": 1246,
+      "Ġoshitaafula": 1247,
+      "':": 1248,
+      "30": 1249,
+      "Ehee": 1250,
+      "Kwafe": 1251,
+      "Meekulu": 1252,
+      "Owe": 1253,
+      "Oho": 1254,
+      "Ongaipi": 1255,
+      "Ye": 1256,
+      "ai": 1257,
+      "andaxa": 1258,
+      "akono": 1259,
+      "bec": 1260,
+      "ed": 1261,
+      "et": 1262,
+      "ela": 1263,
+      "fo": 1264,
+      "fewa": 1265,
+      "good": 1266,
+      "ishe": 1267,
+      "ject": 1268,
+      "lp": 1269,
+      "lvi": 1270,
+      "mon": 1271,
+      "nha": 1272,
+      "osa": 1273,
+      "opo": 1274,
+      "rs": 1275,
+      "soo": 1276,
+      "stative": 1277,
+      "thi": 1278,
+      "ues": 1279,
+      "xita": 1280,
+      "ylvi": 1281,
+      "ĠD": 1282,
+      "ĠJ": 1283,
+      "Ġtashi": 1284,
+      "Ġhu": 1285,
+      "ĠRe": 1286,
+      "Ġoya": 1287,
+      "Ġolu": 1288,
+      "Ġoke": 1289,
+      "Ġombwa": 1290,
+      "Ġonghe": 1291,
+      "Ġoshendja": 1292,
+      "Ġomhadi": 1293,
+      "ngry": 1294,
+      "shipangelo": 1295,
+      "ĠOo": 1296,
+      "ĠOlo": 1297,
+      "ĠOhema": 1298,
+      "tion": 1299,
+      "nding": 1300,
+      "lashi": 1301,
+      "naakono": 1302,
+      "mana": 1303,
+      "mangu": 1304,
+      "kumana": 1305,
+      "Ġpewa": 1306,
+      "lekwa": 1307,
+      "leep": 1308,
+      "lexita": 1309,
+      "fana": 1310,
+      "ĠEumbo": 1311,
+      "Ġeli": 1312,
+      "Ġeno": 1313,
+      "Ġeat": 1314,
+      "Ġetivali": 1315,
+      "noni": 1316,
+      "nongo": 1317,
+      "veli": 1318,
+      "verb": 1319,
+      "Ġlinene": 1320,
+      "konaakono": 1321,
+      "Ġimbi": 1322,
+      "ngela": 1323,
+      "ngeleka": 1324,
+      "Ġatatu": 1325,
+      "fika": 1326,
+      "ndifa": 1327,
+      "Ġnatu": 1328,
+      "Ġomukulunhu": 1329,
+      "Ġomushona": 1330,
+      "yenye": 1331,
+      "teleka": 1332,
+      "Ġpokumana": 1333,
+      "Ġkamwe": 1334,
+      "Ġoshikulu": 1335,
+      "Ġkova": 1336,
+      "Ġkonena": 1337,
+      "Ġkomesho": 1338,
+      "Ġkombinga": 1339,
+      "Ġkoshipangelo": 1340,
+      "Ġlomu": 1341,
+      "Ġlook": 1342,
+      "Ġlomangu": 1343,
+      "Ġyoshikombo": 1344,
+      "Ġyongobe": 1345,
+      "Ġyoshiwambo": 1346,
+      "Ġhamano": 1347,
+      "Ġvashona": 1348,
+      "kelwa": 1349,
+      "ĠNdahafa": 1350,
+      "Ġovamwaina": 1351,
+      "Ġokuya": 1352,
+      "Ġokuka": 1353,
+      "Ġokuning": 1354,
+      "fele": 1355,
+      "pending": 1356,
+      "Ġotali": 1357,
+      "Ġotamu": 1358,
+      "Ġotayi": 1359,
+      "paa": 1360,
+      "ĠTula": 1361,
+      "Ġtokelwa": 1362,
+      "Ġoufiku": 1363,
+      "Ġouleke": 1364,
+      "Ġmedimo": 1365,
+      "Ġpast": 1366,
+      "Ġpasive": 1367,
+      "ĠNandi": 1368,
+      "ĠPilula": 1369,
+      "kwao": 1370,
+      "Ġtava": 1371,
+      "Ġfye": 1372,
+      "Ġlear": 1373,
+      "Ġproject": 1374,
+      "ĠLya": 1375,
+      "ĠSha": 1376,
+      "ĠShi": 1377,
+      "ĠSylvi": 1378,
+      "futa": 1379,
+      "Nandi": 1380,
+      "Natu": 1381,
+      "ook": 1382,
+      "Ġpuka": 1383,
+      "ĠHel": 1384,
+      "Ġteleka": 1385,
+      "Ġtext": 1386,
+      "Ġtelekwa": 1387,
+      "Ġfike": 1388,
+      "ulukifa": 1389,
+      "ris": 1390,
+      "ĠKala": 1391,
+      "Ġtuu": 1392,
+      "ĠOkaana": 1393,
+      "nyenye": 1394,
+      "ought": 1395,
+      "Ġpopifwa": 1396,
+      "Kandi": 1397,
+      "Ġkwafela": 1398,
+      "Ġbought": 1399,
+      "ĠKoto": 1400,
+      "Ġtraining": 1401,
+      "ndjuwo": 1402,
+      "liyambi": 1403,
+      "mbuda": 1404,
+      "Ġask": 1405,
+      "Ġdepending": 1406,
+      "ĠLiina": 1407,
+      "kunino": 1408,
+      "Ġsees": 1409,
+      "Ġposhiyaxa": 1410,
+      "becca": 1411,
+      "soondaxa": 1412,
+      "ĠRebecca": 1413,
+      "Ġonghela": 1414,
+      "Ġenota": 1415,
+      "nongononi": 1416,
+      "Ġoshikulungu": 1417,
+      "Ġlomanguluko": 1418,
+      "Ġokuninga": 1419,
+      "ĠSylvia": 1420,
+      "'t": 1421,
+      "Eshi": 1422,
+      "Eta": 1423,
+      "Efiku": 1424,
+      "Fi": 1425,
+      "Ino": 1426,
+      "Itandi": 1427,
+      "Meme": 1428,
+      "Ndokotola": 1429,
+      "Ngeenge": 1430,
+      "Oo": 1431,
+      "Ota": 1432,
+      "Oshikombo": 1433,
+      "Omeva": 1434,
+      "Ohema": 1435,
+      "Say": 1436,
+      "Te": 1437,
+      "Thank": 1438,
+      "come": 1439,
+      "dja": 1440,
+      "dge": 1441,
+      "del": 1442,
+      "ef": 1443,
+      "eve": 1444,
+      "enda": 1445,
+      "emba": 1446,
+      "go": 1447,
+      "ges": 1448,
+      "in": 1449,
+      "iti": 1450,
+      "ld": 1451,
+      "lf": 1452,
+      "nyo": 1453,
+      "om": 1454,
+      "ona": 1455,
+      "oko": 1456,
+      "pye": 1457,
+      "pula": 1458,
+      "ppe": 1459,
+      "ques": 1460,
+      "rri": 1461,
+      "si": 1462,
+      "stala": 1463,
+      "twa": 1464,
+      "two": 1465,
+      "ua": 1466,
+      "usa": 1467,
+      "ust": 1468,
+      "use": 1469,
+      "yulu": 1470,
+      "Ġ\"": 1471,
+      "Ġ/": 1472,
+      "Ġ2": 1473,
+      "Ġni": 1474,
+      "Ġhandi": 1475,
+      "Ġwi": 1476,
+      "Ġnde": 1477,
+      "Ġshe": 1478,
+      "ĠGood": 1479,
+      "Ġques": 1480,
+      "Ġoo": 1481,
+      "Ġoli": 1482,
+      "Ġolo": 1483,
+      "Ġosha": 1484,
+      "Ġowe": 1485,
+      "Ġodi": 1486,
+      "Ġotu": 1487,
+      "Ġone": 1488,
+      "Ġoyo": 1489,
+      "Ġongula": 1490,
+      "Ġobiila": 1491,
+      "Ġonduda": 1492,
+      "Ġother": 1493,
+      "shu": 1494,
+      "shele": 1495,
+      "nghu": 1496,
+      "shii": 1497,
+      "shilongo": 1498,
+      "tako": 1499,
+      "ĠOshik": 1500,
+      "ĠOtu": 1501,
+      "ĠOpo": 1502,
+      "ĠOngobe": 1503,
+      "ĠOmbali": 1504,
+      "ĠOpena": 1505,
+      "ndred": 1506,
+      "lifi": 1507,
+      "lixa": 1508,
+      "lilonga": 1509,
+      "likosha": 1510,
+      "nai": 1511,
+      "maka": 1512,
+      "mall": 1513,
+      "malaka": 1514,
+      "hauto": 1515,
+      "kula": 1516,
+      "kundu": 1517,
+      "kutwi": 1518,
+      "Ġ'-": 1519,
+      "ngala": 1520,
+      "pila": 1521,
+      "kadi": 1522,
+      "lelo": 1523,
+      "ĠEti": 1524,
+      "ĠEnda": 1525,
+      "mesa": 1526,
+      "Ġeta": 1527,
+      "Ġekwa": 1528,
+      "Ġemo": 1529,
+      "Ġetango": 1530,
+      "Ġepu": 1531,
+      "Ġelelo": 1532,
+      "Ġngaa": 1533,
+      "now": 1534,
+      "vees": 1535,
+      "Ġliwe": 1536,
+      "Ġlikosha": 1537,
+      "Ġino": 1538,
+      "Ġinai": 1539,
+      "ngeki": 1540,
+      "Ġal": 1541,
+      "Ġat": 1542,
+      "Ġahamano": 1543,
+      "Ġappe": 1544,
+      "Ġnaa": 1545,
+      "ĠmOwambo": 1546,
+      "Ġomuti": 1547,
+      "Ġomundilo": 1548,
+      "wena": 1549,
+      "text": 1550,
+      "ned": 1551,
+      "you": 1552,
+      "Ġswe": 1553,
+      "nika": 1554,
+      "nivees": 1555,
+      "Ġpope": 1556,
+      "Ġoshimaliwa": 1557,
+      "Ġoshikunino": 1558,
+      "Ġkombo": 1559,
+      "Ġkolukaku": 1560,
+      "esemba": 1561,
+      "Ġdulu": 1562,
+      "Ġdana": 1563,
+      "Ġyomu": 1564,
+      "Ġhandu": 1565,
+      "Ġcome": 1566,
+      "Ġvaye": 1567,
+      "Ġvane": 1568,
+      "Ġvangapi": 1569,
+      "Ġvahamano": 1570,
+      "Ġvaheyali": 1571,
+      "Ġvatano": 1572,
+      "Ġvahetatu": 1573,
+      "Ġovana": 1574,
+      "Ġovamati": 1575,
+      "Ġovamwameme": 1576,
+      "Ġovalongwa": 1577,
+      "Ġokukofa": 1578,
+      "Ġmofor": 1579,
+      "Ġmodel": 1580,
+      "Ġmonika": 1581,
+      "mwedi": 1582,
+      "anua": 1583,
+      "ĠIta": 1584,
+      "ĠIla": 1585,
+      "ĠInda": 1586,
+      "ĠIto": 1587,
+      "pepe": 1588,
+      "Ġoii": 1589,
+      "Ġotaa": 1590,
+      "Ġotaka": 1591,
+      "pangela": 1592,
+      "Ġnu": 1593,
+      "Ġningi": 1594,
+      "Ġnyenye": 1595,
+      "Ġwater": 1596,
+      "kulukadi": 1597,
+      "Ġpediko": 1598,
+      "Ġeedola": 1599,
+      "ĠYou": 1600,
+      "Ġlande": 1601,
+      "bela": 1602,
+      "Ġngeye": 1603,
+      "ndodo": 1604,
+      "Ġkutya": 1605,
+      "ĠKeshe": 1606,
+      "Ġvery": 1607,
+      "Ġyour": 1608,
+      "ĠMeekulu": 1609,
+      "ĠMaria": 1610,
+      "Ġshinya": 1611,
+      "ĠOvalongi": 1612,
+      "ĠOvalongwa": 1613,
+      "ĠOmulongi": 1614,
+      "Ġfu": 1615,
+      "Ġfor": 1616,
+      "Ġomaumbo": 1617,
+      "Ġomafuma": 1618,
+      "Ġcontext": 1619,
+      "dali": 1620,
+      "Omukulunhu": 1621,
+      "mbilixa": 1622,
+      "ĠOhatu": 1623,
+      "ĠHaa": 1624,
+      "Ġteka": 1625,
+      "Ġkeshe": 1626,
+      "Ġkefimbo": 1627,
+      "Ġomiti": 1628,
+      "Ġdile": 1629,
+      "Ġdimwe": 1630,
+      "Oshivike": 1631,
+      "nty": 1632,
+      "okulonga": 1633,
+      "ĠKape": 1634,
+      "mwamememati": 1635,
+      "mwamemekadona": 1636,
+      "vili": 1637,
+      "Ġmake": 1638,
+      "Ġihau": 1639,
+      "geno": 1640,
+      "Ġoften": 1641,
+      "set": 1642,
+      "ndje": 1643,
+      "ndjila": 1644,
+      "mbulau": 1645,
+      "Ġmuch": 1646,
+      "Ġitano": 1647,
+      "Ovalongwa": 1648,
+      "Ovaneumbo": 1649,
+      "Ġlyeni": 1650,
+      "oshinima": 1651,
+      "Ohatu": 1652,
+      "omutenya": 1653,
+      "Ġba": 1654,
+      "ars": 1655,
+      "ĠVenya": 1656,
+      "mbesa": 1657,
+      "ally": 1658,
+      "Ġfikame": 1659,
+      "Ġlanguages": 1660,
+      "Ġnovakulunhu": 1661,
+      "Ġnovamwamememati": 1662,
+      "Ġtrained": 1663,
+      "likana": 1664,
+      "Ġkoufiku": 1665,
+      "Ġkounivees": 1666,
+      "ĠTeka": 1667,
+      "ĠLombwe": 1668,
+      "Oikulya": 1669,
+      "dhina": 1670,
+      "Ġotee": 1671,
+      "Ġfrom": 1672,
+      "Ġdataset": 1673,
+      "Ġ.........": 1674,
+      "nhano": 1675,
+      "tions": 1676,
+      "ĠHello": 1677,
+      "rismesa": 1678,
+      "Etata": 1679,
+      "eff": 1680,
+      "rridge": 1681,
+      "stalata": 1682,
+      "Ġnight": 1683,
+      "Ġquestions": 1684,
+      "makaya": 1685,
+      "Ġekwafo": 1686,
+      "Ġemofi": 1687,
+      "Ġepuka": 1688,
+      "Ġliwete": 1689,
+      "ngekida": 1690,
+      "Ġappears": 1691,
+      "Ġpopepi": 1692,
+      "Ġmoform": 1693,
+      "Ġlandela": 1694,
+      "ĠHaame": 1695,
+      "Ġkouniveesiti": 1696,
+      "!'": 1697,
+      "\":": 1698,
+      "Aho": 1699,
+      "Answer": 1700,
+      "Ban": 1701,
+      "Desemba": 1702,
+      "Ee": 1703,
+      "Enda": 1704,
+      "Eumbo": 1705,
+      "Ekonaakono": 1706,
+      "Fulukifa": 1707,
+      "Give": 1708,
+      "Hi": 1709,
+      "Inda": 1710,
+      "Janua": 1711,
+      "Jeff": 1712,
+      "Keshe": 1713,
+      "Koma": 1714,
+      "Lya": 1715,
+      "Mo": 1716,
+      "Maria": 1717,
+      "Ne": 1718,
+      "Ngo": 1719,
+      "Ngeno": 1720,
+      "Ove": 1721,
+      "Otu": 1722,
+      "Ope": 1723,
+      "Oshike": 1724,
+      "Ongu": 1725,
+      "Okwa": 1726,
+      "Olye": 1727,
+      "Ombelela": 1728,
+      "Ongula": 1729,
+      "Omilongo": 1730,
+      "Osoondaxa": 1731,
+      "Ovili": 1732,
+      "Pa": 1733,
+      "Pe": 1734,
+      "Tu": 1735,
+      "Tula": 1736,
+      "ab": 1737,
+      "ame": 1738,
+      "aluka": 1739,
+      "afana": 1740,
+      "bo": 1741,
+      "bye": 1742,
+      "bota": 1743,
+      "book": 1744,
+      "ci": 1745,
+      "clo": 1746,
+      "cho": 1747,
+      "de": 1748,
+      "dh": 1749,
+      "dl": 1750,
+      "ei": 1751,
+      "eewa": 1752,
+      "edula": 1753,
+      "each": 1754,
+      "ffi": 1755,
+      "fye": 1756,
+      "fombo": 1757,
+      "gs": 1758,
+      "gus": 1759,
+      "hing": 1760,
+      "iwa": 1761,
+      "ifa": 1762,
+      "ins": 1763,
+      "just": 1764,
+      "kwiimba": 1765,
+      "lcome": 1766,
+      "mhu": 1767,
+      "ny": 1768,
+      "nja": 1769,
+      "oc": 1770,
+      "ol": 1771,
+      "oha": 1772,
+      "ove": 1773,
+      "ongo": 1774,
+      "oun": 1775,
+      "opa": 1776,
+      "omeme": 1777,
+      "ohan": 1778,
+      "pp": 1779,
+      "pres": 1780,
+      "pyu": 1781,
+      "ring": 1782,
+      "rst": 1783,
+      "rus": 1784,
+      "su": 1785,
+      "some": 1786,
+      "tha": 1787,
+      "tsa": 1788,
+      "tho": 1789,
+      "try": 1790,
+      "thank": 1791,
+      "ul": 1792,
+      "uku": 1793,
+      "uka": 1794,
+      "unda": 1795,
+      "unongononi": 1796,
+      "Ġ8": 1797,
+      "ĠW": 1798,
+      "Ġlu": 1799,
+      "Ġngo": 1800,
+      "Ġhee": 1801,
+      "Ġbi": 1802,
+      "Ġres": 1803,
+      "Ġonyama": 1804,
+      "Ġofikola": 1805,
+      "Ġoyi": 1806,
+      "Ġombiya": 1807,
+      "Ġohema": 1808,
+      "Ġodola": 1809,
+      "Ġolukaku": 1810,
+      "Ġombidi": 1811,
+      "Ġonamu": 1812,
+      "Ġomwaalu": 1813,
+      "Ġoxuxwa": 1814,
+      "Ġombuda": 1815,
+      "Ġondjila": 1816,
+      "ĠoHi": 1817,
+      "Ġokwiimba": 1818,
+      "shina": 1819,
+      "shinima": 1820,
+      "shipu": 1821,
+      "tay": 1822,
+      "ĠOk": 1823,
+      "ĠOlu": 1824,
+      "ĠOwe": 1825,
+      "ĠOho": 1826,
+      "ĠOkwa": 1827,
+      "ĠOvo": 1828,
+      "ĠOlye": 1829,
+      "ĠOkwe": 1830,
+      "ĠOxuxwa": 1831,
+      "tiliya": 1832,
+      "tiona": 1833,
+      "lai": 1834,
+      "langa": 1835,
+      "laula": 1836,
+      "landifa": 1837,
+      "lima": 1838,
+      "linga": 1839,
+      "lipi": 1840,
+      "lini": 1841,
+      "lingu": 1842,
+      "litsa": 1843,
+      "Ġtired": 1844,
+      "nate": 1845,
+      "nanghu": 1846,
+      "nangala": 1847,
+      "nashipu": 1848,
+      "haimba": 1849,
+      "loshi": 1850,
+      "lomakaya": 1851,
+      "longekida": 1852,
+      "lobota": 1853,
+      "mbele": 1854,
+      "kala": 1855,
+      "kami": 1856,
+      "mushe": 1857,
+      "mukunda": 1858,
+      "lenge": 1859,
+      "ĠEfe": 1860,
+      "ĠEfimbo": 1861,
+      "ĠEfuma": 1862,
+      "ĠEkonaakono": 1863,
+      "mee": 1864,
+      "mena": 1865,
+      "Ġea": 1866,
+      "Ġeka": 1867,
+      "Ġenda": 1868,
+      "Ġedimo": 1869,
+      "Ġediko": 1870,
+      "Ġeach": 1871,
+      "Ġedhina": 1872,
+      "Ġefombo": 1873,
+      "Ġngahe": 1874,
+      "Ġngaho": 1875,
+      "vela": 1876,
+      "Ġlinya": 1877,
+      "Ġlito": 1878,
+      "Ġlike": 1879,
+      "Ġlindju": 1880,
+      "Ġlilongekida": 1881,
+      "nyala": 1882,
+      "nyasha": 1883,
+      "kom": 1884,
+      "kopi": 1885,
+      "komba": 1886,
+      "Ġihandi": 1887,
+      "Ġilaula": 1888,
+      "ngeenge": 1889,
+      "Ġan": 1890,
+      "Ġadi": 1891,
+      "Ġane": 1892,
+      "Ġaluka": 1893,
+      "Ġaina": 1894,
+      "Ġaheyali": 1895,
+      "Ġaeshe": 1896,
+      "Ġatala": 1897,
+      "Ġatano": 1898,
+      "Ġahetatu": 1899,
+      "Ġaishe": 1900,
+      "Ġangry": 1901,
+      "five": 1902,
+      "fini": 1903,
+      "filinga": 1904,
+      "Ġname": 1905,
+      "Ġnaye": 1906,
+      "Ġnanhano": 1907,
+      "Ġomulongi": 1908,
+      "Ġomutwe": 1909,
+      "Ġomukadona": 1910,
+      "Ġomumwamemekadona": 1911,
+      "toma": 1912,
+      "lungu": 1913,
+      "wel": 1914,
+      "teya": 1915,
+      "tete": 1916,
+      "dipaa": 1917,
+      "mbodi": 1918,
+      "tushe": 1919,
+      "negative": 1920,
+      "hele": 1921,
+      "help": 1922,
+      "yoko": 1923,
+      "yovi": 1924,
+      "Ġsing": 1925,
+      "Ġspo": 1926,
+      "Ġsleep": 1927,
+      "Ġsmall": 1928,
+      "nini": 1929,
+      "Ġyavo": 1930,
+      "Ġyaverb": 1931,
+      "Ġyambulau": 1932,
+      "Ġpou": 1933,
+      "Ġpopye": 1934,
+      "ngolo": 1935,
+      "Ġkandi": 1936,
+      "Ġkape": 1937,
+      "Ġkatiliya": 1938,
+      "Ġoshilongo": 1939,
+      "Ġoshimon": 1940,
+      "Ġoshiveli": 1941,
+      "Ġoshinyenye": 1942,
+      "samane": 1943,
+      "Ġkolu": 1944,
+      "Ġkokamba": 1945,
+      "Ġkongula": 1946,
+      "Ġkodolopa": 1947,
+      "Ġdula": 1948,
+      "Ġdon": 1949,
+      "Ġlova": 1950,
+      "Ġlopangelo": 1951,
+      "Ġyoverb": 1952,
+      "Ġyoomeme": 1953,
+      "Ġhad": 1954,
+      "Ġhapp": 1955,
+      "Ġcoun": 1956,
+      "Ġnoshi": 1957,
+      "Ġnomi": 1958,
+      "Ġnovo": 1959,
+      "Ġnobiila": 1960,
+      "Ġnombidi": 1961,
+      "Ġnounongononi": 1962,
+      "Ġvakwao": 1963,
+      "mbapila": 1964,
+      "poosa": 1965,
+      "porridge": 1966,
+      "ken": 1967,
+      "ĠNe": 1968,
+      "ĠNyoko": 1969,
+      "Ġokulanda": 1970,
+      "Ġokutwi": 1971,
+      "Ġokunwa": 1972,
+      "Ġokuteleka": 1973,
+      "Ġokuvela": 1974,
+      "Ġmongula": 1975,
+      "ĠmoNamibia": 1976,
+      "mweenda": 1977,
+      "mwenyo": 1978,
+      "fela": 1979,
+      "ĠIha": 1980,
+      "ĠInandi": 1981,
+      "ĠIngapi": 1982,
+      "ĠItandi": 1983,
+      "ĠInamu": 1984,
+      "per": 1985,
+      "peke": 1986,
+      "Ġoiwa": 1987,
+      "Ġoishe": 1988,
+      "Ġoimbodi": 1989,
+      "holi": 1990,
+      "hongi": 1991,
+      "Ġotau": 1992,
+      "Ġotadi": 1993,
+      "minute": 1994,
+      "paleke": 1995,
+      "ĠOshiyaxa": 1996,
+      "ĠOshimbulu": 1997,
+      "Ġnhee": 1998,
+      "ngiini": 1999,
+      "Ġwas": 2000,
+      "Ġwana": 2001,
+      "Ġwant": 2002,
+      "Ġwapaleke": 2003,
+      "Ġtold": 2004,
+      "kulupe": 2005,
+      "ĠkOnda": 2006,
+      "ĠkEti": 2007,
+      "Ġknow": 2008,
+      "Ġklini": 2009,
+      "Ġeembwa": 2010,
+      "Ġeembinga": 2011,
+      "Ġeenyala": 2012,
+      "ĠlaNamibia": 2013,
+      "Ġlandifa": 2014,
+      "Ġthi": 2015,
+      "Ġthing": 2016,
+      "ĠNawa": 2017,
+      "ĠNaye": 2018,
+      "Ġngeno": 2019,
+      "Ġohashi": 2020,
+      "ndoma": 2021,
+      "really": 2022,
+      "ĠKomutenya": 2023,
+      "ĠKuku": 2024,
+      "Ġvenya": 2025,
+      "Ġvetatu": 2026,
+      "Ġinfini": 2027,
+      "ĠMaa": 2028,
+      "ĠMbela": 2029,
+      "Ġshilai": 2030,
+      "ĠPe": 2031,
+      "ĠPula": 2032,
+      "ĠPet": 2033,
+      "Ġwove": 2034,
+      "Ġwoye": 2035,
+      "Ġwotete": 2036,
+      "kwafela": 2037,
+      "Ġtaa": 2038,
+      "Ġtala": 2039,
+      "Ġtambula": 2040,
+      "Ġtambu": 2041,
+      "Ġyes": 2042,
+      "Ġyefimbo": 2043,
+      "ĠOmuti": 2044,
+      "Ġfood": 2045,
+      "Ġfoc": 2046,
+      "mosho": 2047,
+      "momukunda": 2048,
+      "Ġleshele": 2049,
+      "Ġdopa": 2050,
+      "Ġdolutu": 2051,
+      "Ġomalodu": 2052,
+      "Ġomaandaxa": 2053,
+      "ĠOmambo": 2054,
+      "ĠOmahangu": 2055,
+      "ĠOmalodu": 2056,
+      "ĠTakami": 2057,
+      "Omutenya": 2058,
+      "mbinja": 2059,
+      "Ġhope": 2060,
+      "ĠOhauto": 2061,
+      "fudo": 2062,
+      "Ġneumbo": 2063,
+      "Ġneed": 2064,
+      "ĠVa": 2065,
+      "ĠOimaliwa": 2066,
+      "ĠOifilinga": 2067,
+      "Ġpulwa": 2068,
+      "ĠkOnanghu": 2069,
+      "ĠHa": 2070,
+      "ĠHai": 2071,
+      "Ġomishona": 2072,
+      "Ġokalexita": 2073,
+      "Ġokakopi": 2074,
+      "Oshifima": 2075,
+      "Ġwelcome": 2076,
+      "Ġshoshona": 2077,
+      "Ġshort": 2078,
+      "xam": 2079,
+      "Ġgive": 2080,
+      "Ġgroup": 2081,
+      "rin": 2082,
+      "ĠFrans": 2083,
+      "ĠFulukifa": 2084,
+      "Ġthere": 2085,
+      "Ġtuwa": 2086,
+      "Ġtula": 2087,
+      "Ġtuye": 2088,
+      "ĠOkandjuwo": 2089,
+      "ndjauka": 2090,
+      "Ġmana": 2091,
+      "Ġmapyu": 2092,
+      "ĠOtayi": 2093,
+      "Ġihai": 2094,
+      "Ġihamano": 2095,
+      "Okrismesa": 2096,
+      "Ġonwa": 2097,
+      "Ġlongifa": 2098,
+      "Omafuma": 2099,
+      "our": 2100,
+      "out": 2101,
+      "self": 2102,
+      "ĠEepena": 2103,
+      "Ġpopifa": 2104,
+      "Ġmonafana": 2105,
+      "nulo": 2106,
+      "Ġher": 2107,
+      "Ġheyali": 2108,
+      "Ġhelp": 2109,
+      "Kala": 2110,
+      "Kaume": 2111,
+      "Amelika": 2112,
+      "Ohauto": 2113,
+      "mpt": 2114,
+      "omunhu": 2115,
+      "Goodbye": 2116,
+      "Oufiku": 2117,
+      "Ġwomukulunhu": 2118,
+      "twenty": 2119,
+      "ĠOmilongo": 2120,
+      "Ġmomukunda": 2121,
+      "ĠPopi": 2122,
+      "ĠPongapi": 2123,
+      "Etine": 2124,
+      "ĠEshina": 2125,
+      "Ġexpres": 2126,
+      "Ġefimano": 2127,
+      "Ġyokulikosha": 2128,
+      "Ġyokunangala": 2129,
+      "Tatekulu": 2130,
+      "Hasho": 2131,
+      "itava": 2132,
+      "lyoka": 2133,
+      "Ġ...?": 2134,
+      "Ġavangapi": 2135,
+      "ĠTeelela": 2136,
+      "Oikombo": 2137,
+      "kweva": 2138,
+      "otalu": 2139,
+      "okaume": 2140,
+      "thing": 2141,
+      "Ġokofi": 2142,
+      "Ġokondoma": 2143,
+      "mbulukweva": 2144,
+      "Ġkomahangu": 2145,
+      "Ġkomalobota": 2146,
+      "ĠTuka": 2147,
+      "Ġfrogs": 2148,
+      "Ġ..........": 2149,
+      "aima": 2150,
+      "ets": 2151,
+      "opolifi": 2152,
+      "thima": 2153,
+      "ĠDon": 2154,
+      "Ġhungry": 2155,
+      "Ġkovakulunhu": 2156,
+      "Ġlomulongi": 2157,
+      "paasa": 2158,
+      "Ġlearning": 2159,
+      "ĠShaalu": 2160,
+      "ĠShinya": 2161,
+      "Fika": 2162,
+      "Teelela": 2163,
+      "every": 2164,
+      "usand": 2165,
+      "Ġ21": 2166,
+      "Ġwinya": 2167,
+      "Ġndee": 2168,
+      "Ġsheumbo": 2169,
+      "Ġowela": 2170,
+      "shuna": 2171,
+      "shiinda": 2172,
+      "ĠOshikwa": 2173,
+      "malakalanga": 2174,
+      "Ġalso": 2175,
+      "Ġnaave": 2176,
+      "Ġsweets": 2177,
+      "Ġhandukifa": 2178,
+      "Ġovanafikola": 2179,
+      "Ġoiimati": 2180,
+      "Omukulunhufikola": 2181,
+      "Ġback": 2182,
+      "Ahowe": 2183,
+      "Bantu": 2184,
+      "Eengobe": 2185,
+      "Komatango": 2186,
+      "Ngolyoka": 2187,
+      "Openi": 2188,
+      "Onguloshi": 2189,
+      "clock": 2190,
+      "chool": 2191,
+      "dly": 2192,
+      "guste": 2193,
+      "ohanna": 2194,
+      "rsty": 2195,
+      "Ġheeno": 2196,
+      "Ġbilingu": 2197,
+      "Ġonamunate": 2198,
+      "ĠoHileni": 2199,
+      "tional": 2200,
+      "nashipundi": 2201,
+      "mbelewa": 2202,
+      "Ġngahelipi": 2203,
+      "Ġlindjuu": 2204,
+      "Ġadishe": 2205,
+      "Ġainai": 2206,
+      "Ġatalala": 2207,
+      "Ġspoken": 2208,
+      "Ġkatiliyana": 2209,
+      "Ġoshimonwa": 2210,
+      "Ġhappy": 2211,
+      "Ġcountry": 2212,
+      "Ġnovowel": 2213,
+      "ĠkOndangwa": 2214,
+      "ĠkEtilashi": 2215,
+      "Ġkliniki": 2216,
+      "Ġthirsty": 2217,
+      "Ġinfinitive": 2218,
+      "ĠMaalitsa": 2219,
+      "ĠPetrus": 2220,
+      "Ġtambulwa": 2221,
+      "ĠkOnanghulo": 2222,
+      "Ġbilingual": 2223
+    },
+    "merges": [
+      [
+        "Ġ",
+        "o"
+      ],
+      [
+        "s",
+        "h"
+      ],
+      [
+        "n",
+        "g"
+      ],
+      [
+        "sh",
+        "i"
+      ],
+      [
+        "t",
+        "a"
+      ],
+      [
+        "w",
+        "a"
+      ],
+      [
+        "Ġ",
+        "O"
+      ],
+      [
+        "t",
+        "i"
+      ],
+      [
+        "y",
+        "a"
+      ],
+      [
+        "n",
+        "d"
+      ],
+      [
+        "l",
+        "a"
+      ],
+      [
+        "l",
+        "i"
+      ],
+      [
+        "Ġ",
+        "ti"
+      ],
+      [
+        "n",
+        "a"
+      ],
+      [
+        "m",
+        "a"
+      ],
+      [
+        "ta",
+        "shi"
+      ],
+      [
+        "Ġo",
+        "tashi"
+      ],
+      [
+        "h",
+        "a"
+      ],
+      [
+        "k",
+        "u"
+      ],
+      [
+        "i",
+        "ng"
+      ],
+      [
+        "l",
+        "o"
+      ],
+      [
+        "Ġ",
+        "'"
+      ],
+      [
+        "m",
+        "b"
+      ],
+      [
+        "ng",
+        "a"
+      ],
+      [
+        "p",
+        "i"
+      ],
+      [
+        "k",
+        "a"
+      ],
+      [
+        "Ġ",
+        "m"
+      ],
+      [
+        "v",
+        "a"
+      ],
+      [
+        "ing",
+        "i"
+      ],
+      [
+        "m",
+        "u"
+      ],
+      [
+        "Ġ",
+        "p"
+      ],
+      [
+        "l",
+        "e"
+      ],
+      [
+        "f",
+        "a"
+      ],
+      [
+        "Ġ",
+        "E"
+      ],
+      [
+        "shi",
+        "k"
+      ],
+      [
+        "m",
+        "e"
+      ],
+      [
+        "Ġ",
+        "e"
+      ],
+      [
+        "Ġ",
+        "nga"
+      ],
+      [
+        "i",
+        "pi"
+      ],
+      [
+        "Ġnga",
+        "ipi"
+      ],
+      [
+        "n",
+        "o"
+      ],
+      [
+        "v",
+        "e"
+      ],
+      [
+        "Ġ",
+        "li"
+      ],
+      [
+        "n",
+        "ya"
+      ],
+      [
+        "k",
+        "o"
+      ],
+      [
+        "N",
+        "ingi"
+      ],
+      [
+        "Ningi",
+        "fa"
+      ],
+      [
+        "Ġ",
+        "i"
+      ],
+      [
+        "ng",
+        "e"
+      ],
+      [
+        "Ġ",
+        "a"
+      ],
+      [
+        "f",
+        "i"
+      ],
+      [
+        "nd",
+        "i"
+      ],
+      [
+        "Ġ",
+        "na"
+      ],
+      [
+        "Ġm",
+        "O"
+      ],
+      [
+        "nya",
+        "ma"
+      ],
+      [
+        "wa",
+        "nyama"
+      ],
+      [
+        "Ġo",
+        "mu"
+      ],
+      [
+        "y",
+        "e"
+      ],
+      [
+        "nd",
+        "a"
+      ],
+      [
+        "shik",
+        "wanyama"
+      ],
+      [
+        "sh",
+        "a"
+      ],
+      [
+        "t",
+        "o"
+      ],
+      [
+        "l",
+        "u"
+      ],
+      [
+        "w",
+        "e"
+      ],
+      [
+        "t",
+        "e"
+      ],
+      [
+        "d",
+        "i"
+      ],
+      [
+        "mb",
+        "o"
+      ],
+      [
+        "t",
+        "u"
+      ],
+      [
+        "Ġ",
+        "("
+      ],
+      [
+        "n",
+        "e"
+      ],
+      [
+        "e",
+        "wa"
+      ],
+      [
+        "h",
+        "e"
+      ],
+      [
+        "y",
+        "o"
+      ],
+      [
+        "Ġ",
+        "+"
+      ],
+      [
+        "Ġ",
+        "s"
+      ],
+      [
+        "'",
+        "."
+      ],
+      [
+        "n",
+        "i"
+      ],
+      [
+        "Ġ",
+        "ya"
+      ],
+      [
+        "Ġp",
+        "o"
+      ],
+      [
+        "Ġ",
+        "u"
+      ],
+      [
+        "Ġ",
+        "A"
+      ],
+      [
+        "h",
+        "u"
+      ],
+      [
+        "ng",
+        "o"
+      ],
+      [
+        "ĠE",
+        "ewa"
+      ],
+      [
+        "Ġ",
+        "ka"
+      ],
+      [
+        "ha",
+        "ndi"
+      ],
+      [
+        "ĠmO",
+        "shikwanyama"
+      ],
+      [
+        "n",
+        "hu"
+      ],
+      [
+        "Ġo",
+        "shi"
+      ],
+      [
+        "s",
+        "a"
+      ],
+      [
+        "ĠA",
+        "me"
+      ],
+      [
+        "u",
+        "la"
+      ],
+      [
+        "Ġ",
+        "ko"
+      ],
+      [
+        "e",
+        "s"
+      ],
+      [
+        "Ġ",
+        "d"
+      ],
+      [
+        "Ġ",
+        "lo"
+      ],
+      [
+        "nge",
+        "lo"
+      ],
+      [
+        "Ġ",
+        "yo"
+      ],
+      [
+        "ĠmO",
+        "shi"
+      ],
+      [
+        "Ġ",
+        "ha"
+      ],
+      [
+        "Ġ",
+        "c"
+      ],
+      [
+        "sha",
+        "ngelo"
+      ],
+      [
+        "li",
+        "sa"
+      ],
+      [
+        "ingi",
+        "lisa"
+      ],
+      [
+        "di",
+        "na"
+      ],
+      [
+        "ĠmOshi",
+        "ingilisa"
+      ],
+      [
+        "l",
+        "ya"
+      ],
+      [
+        "Ġ",
+        "no"
+      ],
+      [
+        "Ġ",
+        "va"
+      ],
+      [
+        "mb",
+        "a"
+      ],
+      [
+        "p",
+        "o"
+      ],
+      [
+        "u",
+        "n"
+      ],
+      [
+        "k",
+        "e"
+      ],
+      [
+        "Ġ",
+        "N"
+      ],
+      [
+        "Ġo",
+        "va"
+      ],
+      [
+        "Ġo",
+        "ku"
+      ],
+      [
+        "Ġm",
+        "o"
+      ],
+      [
+        "Ġomu",
+        "shangelo"
+      ],
+      [
+        "m",
+        "we"
+      ],
+      [
+        "sh",
+        "o"
+      ],
+      [
+        "f",
+        "e"
+      ],
+      [
+        "a",
+        "n"
+      ],
+      [
+        "s",
+        "s"
+      ],
+      [
+        "Ġ",
+        "I"
+      ],
+      [
+        "Ġna",
+        "wa"
+      ],
+      [
+        "b",
+        "j"
+      ],
+      [
+        "p",
+        "e"
+      ],
+      [
+        "ti",
+        "ve"
+      ],
+      [
+        "e",
+        "c"
+      ],
+      [
+        "Ġ",
+        "-"
+      ],
+      [
+        "Ġo",
+        "i"
+      ],
+      [
+        ".",
+        "."
+      ],
+      [
+        "w",
+        "o"
+      ],
+      [
+        "ĠO",
+        "nda"
+      ],
+      [
+        "h",
+        "o"
+      ],
+      [
+        "Ġo",
+        "ta"
+      ],
+      [
+        "m",
+        "i"
+      ],
+      [
+        "p",
+        "a"
+      ],
+      [
+        "ec",
+        "t"
+      ],
+      [
+        "ĠO",
+        "shi"
+      ],
+      [
+        "o",
+        "n"
+      ],
+      [
+        "Ġ",
+        "T"
+      ],
+      [
+        "Ġ",
+        "n"
+      ],
+      [
+        "ng",
+        "i"
+      ],
+      [
+        "fi",
+        "ma"
+      ],
+      [
+        "bj",
+        "ect"
+      ],
+      [
+        "Ġ",
+        "wa"
+      ],
+      [
+        "ĠO",
+        "shikwanyama"
+      ],
+      [
+        "ĠO",
+        "handi"
+      ],
+      [
+        "r",
+        "o"
+      ],
+      [
+        "ĠO",
+        "tashi"
+      ],
+      [
+        "o",
+        "r"
+      ],
+      [
+        "Ġ",
+        "to"
+      ],
+      [
+        "Ġo",
+        "u"
+      ],
+      [
+        "ku",
+        "lu"
+      ],
+      [
+        "Ġs",
+        "u"
+      ],
+      [
+        "Ġ",
+        "k"
+      ],
+      [
+        "ku",
+        "lya"
+      ],
+      [
+        "Ġ",
+        "â"
+      ],
+      [
+        "Ġ",
+        "sha"
+      ],
+      [
+        "shik",
+        "e"
+      ],
+      [
+        "Ĩ",
+        "Ĵ"
+      ],
+      [
+        "Ġâ",
+        "ĨĴ"
+      ],
+      [
+        "e",
+        "le"
+      ],
+      [
+        "Ġp",
+        "e"
+      ],
+      [
+        "Ġe",
+        "e"
+      ],
+      [
+        "Ġ",
+        "Y"
+      ],
+      [
+        "Ġ",
+        "la"
+      ],
+      [
+        "Ġm",
+        "e"
+      ],
+      [
+        "Ġp",
+        "a"
+      ],
+      [
+        "he",
+        "e"
+      ],
+      [
+        "Ġu",
+        "ya"
+      ],
+      [
+        "Ġ",
+        "t"
+      ],
+      [
+        "ĠN",
+        "a"
+      ],
+      [
+        "E",
+        "dina"
+      ],
+      [
+        "a",
+        "l"
+      ],
+      [
+        "b",
+        "e"
+      ],
+      [
+        "Ġ",
+        "nge"
+      ],
+      [
+        "O",
+        "nda"
+      ],
+      [
+        "k",
+        "i"
+      ],
+      [
+        "Ġo",
+        "ha"
+      ],
+      [
+        "nd",
+        "o"
+      ],
+      [
+        "Ġha",
+        "la"
+      ],
+      [
+        "j",
+        "a"
+      ],
+      [
+        "r",
+        "e"
+      ],
+      [
+        "Ġ",
+        "ku"
+      ],
+      [
+        "ĠO",
+        "ku"
+      ],
+      [
+        "va",
+        "li"
+      ],
+      [
+        "w",
+        "i"
+      ],
+      [
+        "Ġ",
+        "K"
+      ],
+      [
+        "Ġ",
+        "ve"
+      ],
+      [
+        "nd",
+        "e"
+      ],
+      [
+        "Ġi",
+        "n"
+      ],
+      [
+        "Ġka",
+        "la"
+      ],
+      [
+        "Ġyo",
+        "u"
+      ],
+      [
+        ".",
+        ":"
+      ],
+      [
+        "i",
+        "ve"
+      ],
+      [
+        "Ġ",
+        "M"
+      ],
+      [
+        "Ġ",
+        "shi"
+      ],
+      [
+        "Ġ",
+        "P"
+      ],
+      [
+        "Ġo",
+        "handi"
+      ],
+      [
+        "sh",
+        "e"
+      ],
+      [
+        "ng",
+        "u"
+      ],
+      [
+        "ĠO",
+        "va"
+      ],
+      [
+        "la",
+        "ss"
+      ],
+      [
+        "lo",
+        "ngo"
+      ],
+      [
+        "Ġi",
+        "le"
+      ],
+      [
+        "fi",
+        "mbo"
+      ],
+      [
+        "Ġc",
+        "lass"
+      ],
+      [
+        "Ġno",
+        "un"
+      ],
+      [
+        "d",
+        "o"
+      ],
+      [
+        "u",
+        "mbo"
+      ],
+      [
+        "Ġ",
+        "wo"
+      ],
+      [
+        "k",
+        "wa"
+      ],
+      [
+        "Ġ",
+        "ta"
+      ],
+      [
+        "Ġ",
+        "ye"
+      ],
+      [
+        "fi",
+        "ku"
+      ],
+      [
+        "Ġpe",
+        "ni"
+      ],
+      [
+        "ĠO",
+        "mu"
+      ],
+      [
+        "ĠE",
+        "hee"
+      ],
+      [
+        "ĠY",
+        "e"
+      ],
+      [
+        "h",
+        "i"
+      ],
+      [
+        "Ġ",
+        "f"
+      ],
+      [
+        "ta",
+        "tu"
+      ],
+      [
+        "an",
+        "s"
+      ],
+      [
+        "b",
+        "i"
+      ],
+      [
+        "m",
+        "o"
+      ],
+      [
+        "v",
+        "o"
+      ],
+      [
+        "Ġ",
+        "le"
+      ],
+      [
+        "Ġd",
+        "o"
+      ],
+      [
+        "ele",
+        "la"
+      ],
+      [
+        "Ġo",
+        "ma"
+      ],
+      [
+        "ĠO",
+        "ma"
+      ],
+      [
+        "Ġp",
+        "ro"
+      ],
+      [
+        "Ġoshi",
+        "fima"
+      ],
+      [
+        "Ġc",
+        "on"
+      ],
+      [
+        "d",
+        "a"
+      ],
+      [
+        "o",
+        "mbo"
+      ],
+      [
+        "ĠO",
+        "ve"
+      ],
+      [
+        "ka",
+        "mba"
+      ],
+      [
+        "ĠT",
+        "a"
+      ],
+      [
+        "O",
+        "mu"
+      ],
+      [
+        "mb",
+        "i"
+      ],
+      [
+        "po",
+        "pi"
+      ],
+      [
+        "l",
+        "wa"
+      ],
+      [
+        "Ġ",
+        "L"
+      ],
+      [
+        "Ġ",
+        "ho"
+      ],
+      [
+        "Ġo",
+        "nda"
+      ],
+      [
+        "shik",
+        "ombo"
+      ],
+      [
+        "ne",
+        "ne"
+      ],
+      [
+        "ni",
+        "ma"
+      ],
+      [
+        "ngo",
+        "be"
+      ],
+      [
+        "kulu",
+        "nhu"
+      ],
+      [
+        "c",
+        "or"
+      ],
+      [
+        "ĠO",
+        "ha"
+      ],
+      [
+        "nd",
+        "u"
+      ],
+      [
+        "Ġcon",
+        "cor"
+      ],
+      [
+        "Ġconcor",
+        "d"
+      ],
+      [
+        "c",
+        "tive"
+      ],
+      [
+        "d",
+        "ha"
+      ],
+      [
+        "r",
+        "es"
+      ],
+      [
+        "Ġ",
+        "S"
+      ],
+      [
+        "Ġo",
+        "bject"
+      ],
+      [
+        "no",
+        "un"
+      ],
+      [
+        "Ġomu",
+        "popi"
+      ],
+      [
+        "Ġova",
+        "nhu"
+      ],
+      [
+        "ndo",
+        "nga"
+      ],
+      [
+        "Ġpro",
+        "noun"
+      ],
+      [
+        "f",
+        "u"
+      ],
+      [
+        "m",
+        "wa"
+      ],
+      [
+        "Ġ",
+        "ne"
+      ],
+      [
+        "Ġ",
+        "lya"
+      ],
+      [
+        "me",
+        "va"
+      ],
+      [
+        "Ġsu",
+        "bject"
+      ],
+      [
+        "kamba",
+        "dha"
+      ],
+      [
+        ")",
+        "."
+      ],
+      [
+        "N",
+        "a"
+      ],
+      [
+        "O",
+        "ku"
+      ],
+      [
+        "l",
+        "ye"
+      ],
+      [
+        "o",
+        "o"
+      ],
+      [
+        "s",
+        "t"
+      ],
+      [
+        "s",
+        "ive"
+      ],
+      [
+        "Ġ",
+        "V"
+      ],
+      [
+        "ĠO",
+        "i"
+      ],
+      [
+        "Ġe",
+        "kambadha"
+      ],
+      [
+        "lu",
+        "la"
+      ],
+      [
+        "Ġu",
+        "nene"
+      ],
+      [
+        "Ġho",
+        "le"
+      ],
+      [
+        "Ġekambadha",
+        "lo"
+      ],
+      [
+        "i",
+        "fe"
+      ],
+      [
+        "ng",
+        "li"
+      ],
+      [
+        "ta",
+        "tive"
+      ],
+      [
+        "mb",
+        "wa"
+      ],
+      [
+        "mb",
+        "elela"
+      ],
+      [
+        "Ġp",
+        "u"
+      ],
+      [
+        "Ġk",
+        "O"
+      ],
+      [
+        "ngli",
+        "sh"
+      ],
+      [
+        "O",
+        "shikwanyama"
+      ],
+      [
+        "Ġ",
+        "H"
+      ],
+      [
+        "Ġ",
+        "te"
+      ],
+      [
+        "Ġ",
+        "ke"
+      ],
+      [
+        "Ġ",
+        "shike"
+      ],
+      [
+        "Ġo",
+        "mi"
+      ],
+      [
+        "ta",
+        "ngo"
+      ],
+      [
+        "ĠE",
+        "nglish"
+      ],
+      [
+        "no",
+        "na"
+      ],
+      [
+        "e",
+        "e"
+      ],
+      [
+        "Ġ",
+        "fi"
+      ],
+      [
+        "Ġ",
+        "di"
+      ],
+      [
+        "Ġo",
+        "ka"
+      ],
+      [
+        "ha",
+        "t"
+      ],
+      [
+        "Ġe",
+        "fimbo"
+      ],
+      [
+        "O",
+        "shi"
+      ],
+      [
+        "W",
+        "hat"
+      ],
+      [
+        "d",
+        "ula"
+      ],
+      [
+        "n",
+        "t"
+      ],
+      [
+        "Ġ",
+        "we"
+      ],
+      [
+        "Ġ",
+        "sho"
+      ],
+      [
+        "ng",
+        "he"
+      ],
+      [
+        "wa",
+        "fe"
+      ],
+      [
+        "ing",
+        "ula"
+      ],
+      [
+        "Ġomu",
+        "nhu"
+      ],
+      [
+        "Ġpo",
+        "ss"
+      ],
+      [
+        "es",
+        "sive"
+      ],
+      [
+        "ingula",
+        "r"
+      ],
+      [
+        "Ġposs",
+        "essive"
+      ],
+      [
+        "i",
+        "mba"
+      ],
+      [
+        "n",
+        "s"
+      ],
+      [
+        "r",
+        "b"
+      ],
+      [
+        "r",
+        "al"
+      ],
+      [
+        "r",
+        "ans"
+      ],
+      [
+        "u",
+        "le"
+      ],
+      [
+        "x",
+        "a"
+      ],
+      [
+        "ko",
+        "la"
+      ],
+      [
+        "fi",
+        "kola"
+      ],
+      [
+        "lu",
+        "ral"
+      ],
+      [
+        "Ġs",
+        "tative"
+      ],
+      [
+        "Ġd",
+        "ja"
+      ],
+      [
+        "mba",
+        "li"
+      ],
+      [
+        "u",
+        "lu"
+      ],
+      [
+        "Ġ",
+        "g"
+      ],
+      [
+        "Ġ",
+        "fa"
+      ],
+      [
+        "ko",
+        "mbo"
+      ],
+      [
+        "W",
+        "a"
+      ],
+      [
+        "e",
+        "me"
+      ],
+      [
+        "f",
+        "wa"
+      ],
+      [
+        "l",
+        "l"
+      ],
+      [
+        "o",
+        "w"
+      ],
+      [
+        "o",
+        "ku"
+      ],
+      [
+        "o",
+        "kulya"
+      ],
+      [
+        "r",
+        "i"
+      ],
+      [
+        "Ġo",
+        "po"
+      ],
+      [
+        "la",
+        "te"
+      ],
+      [
+        "li",
+        "ki"
+      ],
+      [
+        "me",
+        "me"
+      ],
+      [
+        "Ġa",
+        "re"
+      ],
+      [
+        "ĠK",
+        "a"
+      ],
+      [
+        "T",
+        "rans"
+      ],
+      [
+        "Ġ",
+        "F"
+      ],
+      [
+        "li",
+        "wa"
+      ],
+      [
+        "ma",
+        "ti"
+      ],
+      [
+        "ma",
+        "liwa"
+      ],
+      [
+        "Ġa",
+        "m"
+      ],
+      [
+        "Ġu",
+        "mwe"
+      ],
+      [
+        "Ġd",
+        "ule"
+      ],
+      [
+        "Ġha",
+        "fa"
+      ],
+      [
+        "Ġva",
+        "vali"
+      ],
+      [
+        "Ġoi",
+        "kulya"
+      ],
+      [
+        "Ġn",
+        "ha"
+      ],
+      [
+        "Ġn",
+        "yo"
+      ],
+      [
+        "Ġt",
+        "he"
+      ],
+      [
+        "Ġve",
+        "le"
+      ],
+      [
+        "nghe",
+        "lo"
+      ],
+      [
+        "Trans",
+        "late"
+      ],
+      [
+        "a",
+        "na"
+      ],
+      [
+        "e",
+        "nt"
+      ],
+      [
+        "mb",
+        "we"
+      ],
+      [
+        "Ġa",
+        "ctive"
+      ],
+      [
+        "Ġna",
+        "tango"
+      ],
+      [
+        "..",
+        ".."
+      ],
+      [
+        "Ġee",
+        "dula"
+      ],
+      [
+        "res",
+        "ent"
+      ],
+      [
+        "fu",
+        "ma"
+      ],
+      [
+        "oo",
+        "d"
+      ],
+      [
+        "Ġ",
+        "tu"
+      ],
+      [
+        "Ġo",
+        "ve"
+      ],
+      [
+        "ĠO",
+        "u"
+      ],
+      [
+        "ĠO",
+        "wa"
+      ],
+      [
+        "ĠO",
+        "ka"
+      ],
+      [
+        "nd",
+        "ja"
+      ],
+      [
+        "na",
+        "wa"
+      ],
+      [
+        "ĠE",
+        "dina"
+      ],
+      [
+        "to",
+        "la"
+      ],
+      [
+        "Ġlo",
+        "ngo"
+      ],
+      [
+        "ĠI",
+        "t"
+      ],
+      [
+        "Ġme",
+        "an"
+      ],
+      [
+        "Ġpa",
+        "ife"
+      ],
+      [
+        "ĠM",
+        "eme"
+      ],
+      [
+        "Ġdo",
+        "es"
+      ],
+      [
+        "mwa",
+        "meme"
+      ],
+      [
+        "Ġne",
+        "na"
+      ],
+      [
+        "T",
+        "a"
+      ],
+      [
+        "n",
+        "ing"
+      ],
+      [
+        "r",
+        "a"
+      ],
+      [
+        "v",
+        "i"
+      ],
+      [
+        "Ġ",
+        "ma"
+      ],
+      [
+        "Ġ",
+        "mbali"
+      ],
+      [
+        "Ġo",
+        "wa"
+      ],
+      [
+        "Ġo",
+        "kwa"
+      ],
+      [
+        "Ġo",
+        "meva"
+      ],
+      [
+        "Ġo",
+        "mbelela"
+      ],
+      [
+        "ĠO",
+        "ta"
+      ],
+      [
+        "ma",
+        "no"
+      ],
+      [
+        "Ġe",
+        "dina"
+      ],
+      [
+        "Ġi",
+        "ha"
+      ],
+      [
+        "Ġlo",
+        "nga"
+      ],
+      [
+        "Ġyo",
+        "ye"
+      ],
+      [
+        "Ġota",
+        "i"
+      ],
+      [
+        "mi",
+        "bi"
+      ],
+      [
+        "pa",
+        "st"
+      ],
+      [
+        "ĠTa",
+        "ngi"
+      ],
+      [
+        "ĠV",
+        "o"
+      ],
+      [
+        "Ġpu",
+        "mbwa"
+      ],
+      [
+        "mibi",
+        "a"
+      ],
+      [
+        "'",
+        ","
+      ],
+      [
+        ".",
+        "'"
+      ],
+      [
+        "O",
+        "k"
+      ],
+      [
+        "O",
+        "tashi"
+      ],
+      [
+        "O",
+        "handi"
+      ],
+      [
+        "e",
+        "li"
+      ],
+      [
+        "e",
+        "nge"
+      ],
+      [
+        "g",
+        "e"
+      ],
+      [
+        "u",
+        "p"
+      ],
+      [
+        "u",
+        "me"
+      ],
+      [
+        "Ġ",
+        "vo"
+      ],
+      [
+        "Ġo",
+        "f"
+      ],
+      [
+        "Ġo",
+        "n"
+      ],
+      [
+        "Ġo",
+        "ndi"
+      ],
+      [
+        "Ġo",
+        "shikombo"
+      ],
+      [
+        "ng",
+        "wa"
+      ],
+      [
+        "Ġe",
+        "fiku"
+      ],
+      [
+        "Ġi",
+        "s"
+      ],
+      [
+        "Ġko",
+        "nima"
+      ],
+      [
+        "Ġlo",
+        "ngi"
+      ],
+      [
+        "sho",
+        "na"
+      ],
+      [
+        "Ġme",
+        "ans"
+      ],
+      [
+        "ĠNa",
+        "a"
+      ],
+      [
+        "ĠNa",
+        "tu"
+      ],
+      [
+        "wi",
+        "imba"
+      ],
+      [
+        "Ġwo",
+        "ku"
+      ],
+      [
+        "Ġf",
+        "ya"
+      ],
+      [
+        "Ġle",
+        "le"
+      ],
+      [
+        "ndu",
+        "ka"
+      ],
+      [
+        "ĠF",
+        "ye"
+      ],
+      [
+        "H",
+        "ow"
+      ],
+      [
+        "O",
+        "ma"
+      ],
+      [
+        "a",
+        "t"
+      ],
+      [
+        "a",
+        "y"
+      ],
+      [
+        "b",
+        "or"
+      ],
+      [
+        "n",
+        "ye"
+      ],
+      [
+        "o",
+        "u"
+      ],
+      [
+        "s",
+        "e"
+      ],
+      [
+        "Ġ",
+        "5"
+      ],
+      [
+        "Ġ",
+        "fe"
+      ],
+      [
+        "nd",
+        "j"
+      ],
+      [
+        "na",
+        "ndi"
+      ],
+      [
+        "ku",
+        "ta"
+      ],
+      [
+        "mb",
+        "ula"
+      ],
+      [
+        "Ġm",
+        "u"
+      ],
+      [
+        "ĠE",
+        "e"
+      ],
+      [
+        "Ġi",
+        "ta"
+      ],
+      [
+        "Ġi",
+        "mwe"
+      ],
+      [
+        "Ġomu",
+        "longo"
+      ],
+      [
+        "Ġpo",
+        "pi"
+      ],
+      [
+        "Ġlo",
+        "mbwe"
+      ],
+      [
+        "dina",
+        "te"
+      ],
+      [
+        "Ġmo",
+        "na"
+      ],
+      [
+        "pe",
+        "na"
+      ],
+      [
+        "Ġwa",
+        "nge"
+      ],
+      [
+        "Ġsu",
+        "bor"
+      ],
+      [
+        "Ġomi",
+        "longo"
+      ],
+      [
+        "eli",
+        "ng"
+      ],
+      [
+        "Ġwoku",
+        "kuta"
+      ],
+      [
+        "Ġfe",
+        "eling"
+      ],
+      [
+        "Ġsubor",
+        "dinate"
+      ],
+      [
+        "?",
+        "'"
+      ],
+      [
+        "O",
+        "va"
+      ],
+      [
+        "P",
+        "ula"
+      ],
+      [
+        "n",
+        "u"
+      ],
+      [
+        "r",
+        "y"
+      ],
+      [
+        "Ġ",
+        "pi"
+      ],
+      [
+        "Ġ",
+        "ndi"
+      ],
+      [
+        "Ġ",
+        "he"
+      ],
+      [
+        "Ġ",
+        "lye"
+      ],
+      [
+        "ĠO",
+        "to"
+      ],
+      [
+        "lo",
+        "ngi"
+      ],
+      [
+        "nga",
+        "pi"
+      ],
+      [
+        "ka",
+        "ti"
+      ],
+      [
+        "Ġp",
+        "lural"
+      ],
+      [
+        "le",
+        "ka"
+      ],
+      [
+        "le",
+        "nde"
+      ],
+      [
+        "lu",
+        "ka"
+      ],
+      [
+        "Ġs",
+        "ingular"
+      ],
+      [
+        "pe",
+        "lende"
+      ],
+      [
+        "wo",
+        "i"
+      ],
+      [
+        "ĠOshi",
+        "fima"
+      ],
+      [
+        "ĠOshi",
+        "ndonga"
+      ],
+      [
+        "ro",
+        "up"
+      ],
+      [
+        "wi",
+        "liki"
+      ],
+      [
+        "ĠOva",
+        "nhu"
+      ],
+      [
+        "Ok",
+        "wiimba"
+      ],
+      [
+        "Ġlongi",
+        "fwa"
+      ],
+      [
+        ".",
+        ")"
+      ],
+      [
+        "K",
+        "a"
+      ],
+      [
+        "O",
+        "wa"
+      ],
+      [
+        "O",
+        "to"
+      ],
+      [
+        "g",
+        "a"
+      ],
+      [
+        "g",
+        "h"
+      ],
+      [
+        "i",
+        "na"
+      ],
+      [
+        "i",
+        "ni"
+      ],
+      [
+        "o",
+        "shi"
+      ],
+      [
+        "p",
+        "resent"
+      ],
+      [
+        "wa",
+        "mbo"
+      ],
+      [
+        "ĠO",
+        "te"
+      ],
+      [
+        "ma",
+        "ne"
+      ],
+      [
+        "ing",
+        "a"
+      ],
+      [
+        "lo",
+        "nga"
+      ],
+      [
+        "lo",
+        "ngwa"
+      ],
+      [
+        "nga",
+        "ipi"
+      ],
+      [
+        "Ġe",
+        "mbo"
+      ],
+      [
+        "Ġe",
+        "ke"
+      ],
+      [
+        "sha",
+        "kati"
+      ],
+      [
+        "po",
+        "nd"
+      ],
+      [
+        "un",
+        "ctive"
+      ],
+      [
+        "bj",
+        "unctive"
+      ],
+      [
+        "Ġsu",
+        "bjunctive"
+      ],
+      [
+        "Ġk",
+        "wafe"
+      ],
+      [
+        "Ġnge",
+        "enge"
+      ],
+      [
+        "ĠM",
+        "o"
+      ],
+      [
+        "ĠL",
+        "u"
+      ],
+      [
+        "ĠkO",
+        "shakati"
+      ],
+      [
+        "Ġnha",
+        "tu"
+      ],
+      [
+        "ĠOu",
+        "nona"
+      ],
+      [
+        "wiliki",
+        "na"
+      ],
+      [
+        "A",
+        "me"
+      ],
+      [
+        "H",
+        "e"
+      ],
+      [
+        "O",
+        "ha"
+      ],
+      [
+        "R",
+        "es"
+      ],
+      [
+        "c",
+        "h"
+      ],
+      [
+        "g",
+        "roup"
+      ],
+      [
+        "k",
+        "wanyama"
+      ],
+      [
+        "m",
+        "p"
+      ],
+      [
+        "o",
+        "mu"
+      ],
+      [
+        "y",
+        "i"
+      ],
+      [
+        "Ġ",
+        "b"
+      ],
+      [
+        "Ġo",
+        "to"
+      ],
+      [
+        "Ġo",
+        "lye"
+      ],
+      [
+        "Ġo",
+        "nghelo"
+      ],
+      [
+        "ĠO",
+        "sho"
+      ],
+      [
+        "ya",
+        "li"
+      ],
+      [
+        "ha",
+        "la"
+      ],
+      [
+        "ku",
+        "ki"
+      ],
+      [
+        "Ġp",
+        "wilikina"
+      ],
+      [
+        "Ġnga",
+        "pi"
+      ],
+      [
+        "Ġi",
+        "t"
+      ],
+      [
+        "Ġi",
+        "nandi"
+      ],
+      [
+        "Ġa",
+        "vali"
+      ],
+      [
+        "lu",
+        "ko"
+      ],
+      [
+        "we",
+        "r"
+      ],
+      [
+        "tu",
+        "al"
+      ],
+      [
+        "tu",
+        "lula"
+      ],
+      [
+        "ne",
+        "na"
+      ],
+      [
+        "Ġs",
+        "i"
+      ],
+      [
+        "Ġu",
+        "hala"
+      ],
+      [
+        "Ġoshi",
+        "pelende"
+      ],
+      [
+        "Ġko",
+        "fikola"
+      ],
+      [
+        "ĠN",
+        "ye"
+      ],
+      [
+        "Ġoku",
+        "lya"
+      ],
+      [
+        "..",
+        "."
+      ],
+      [
+        "pa",
+        "ngelo"
+      ],
+      [
+        "Ġou",
+        "nona"
+      ],
+      [
+        "Ġpa",
+        "tulula"
+      ],
+      [
+        "Ġve",
+        "rb"
+      ],
+      [
+        "ngu",
+        "lula"
+      ],
+      [
+        "bi",
+        "tual"
+      ],
+      [
+        "Ġle",
+        "sha"
+      ],
+      [
+        "Omu",
+        "shangelo"
+      ],
+      [
+        "mbi",
+        "ya"
+      ],
+      [
+        "Ġdi",
+        "ma"
+      ],
+      [
+        "ns",
+        "wer"
+      ],
+      [
+        "Ġnyo",
+        "la"
+      ],
+      [
+        "nu",
+        "te"
+      ],
+      [
+        "gh",
+        "t"
+      ],
+      [
+        "Ġeke",
+        "nde"
+      ],
+      [
+        "ĠLu",
+        "ngulula"
+      ],
+      [
+        "Res",
+        "pond"
+      ],
+      [
+        "G",
+        "ood"
+      ],
+      [
+        "O",
+        "u"
+      ],
+      [
+        "S",
+        "hi"
+      ],
+      [
+        "a",
+        "r"
+      ],
+      [
+        "g",
+        "ee"
+      ],
+      [
+        "i",
+        "la"
+      ],
+      [
+        "o",
+        "me"
+      ],
+      [
+        "t",
+        "he"
+      ],
+      [
+        "Ġ",
+        "be"
+      ],
+      [
+        "ng",
+        "ula"
+      ],
+      [
+        "Ġe",
+        "shi"
+      ],
+      [
+        "Ġli",
+        "mwe"
+      ],
+      [
+        "ko",
+        "tola"
+      ],
+      [
+        "Ġa",
+        "shike"
+      ],
+      [
+        "sha",
+        "mane"
+      ],
+      [
+        "lu",
+        "tu"
+      ],
+      [
+        "he",
+        "ma"
+      ],
+      [
+        "Ġs",
+        "ay"
+      ],
+      [
+        "Ġka",
+        "ume"
+      ],
+      [
+        "Ġha",
+        "bitual"
+      ],
+      [
+        "Ġoi",
+        "kombo"
+      ],
+      [
+        "Ġwa",
+        "ye"
+      ],
+      [
+        "Ġla",
+        "nda"
+      ],
+      [
+        "re",
+        "e"
+      ],
+      [
+        "ĠP",
+        "a"
+      ],
+      [
+        "ĠP",
+        "lural"
+      ],
+      [
+        "do",
+        "la"
+      ],
+      [
+        "do",
+        "kotola"
+      ],
+      [
+        "Ġwo",
+        "mu"
+      ],
+      [
+        "hi",
+        "s"
+      ],
+      [
+        "ĠTa",
+        "te"
+      ],
+      [
+        "ĠS",
+        "ingular"
+      ],
+      [
+        "Na",
+        "mibia"
+      ],
+      [
+        "ĠV",
+        "e"
+      ],
+      [
+        "oku",
+        "ya"
+      ],
+      [
+        "ĠNaa",
+        "ve"
+      ],
+      [
+        "Ġpi",
+        "ta"
+      ],
+      [
+        "ĠMo",
+        "Shi"
+      ],
+      [
+        "gee",
+        "nge"
+      ],
+      [
+        "ĠMoShi",
+        "kwanyama"
+      ],
+      [
+        "a",
+        "shi"
+      ],
+      [
+        "d",
+        "u"
+      ],
+      [
+        "e",
+        "l"
+      ],
+      [
+        "t",
+        "we"
+      ],
+      [
+        "y",
+        "u"
+      ],
+      [
+        "Ġ",
+        "Wa"
+      ],
+      [
+        "Ġo",
+        "nawa"
+      ],
+      [
+        "ĠO",
+        "ndi"
+      ],
+      [
+        "ĠO",
+        "mi"
+      ],
+      [
+        "ĠO",
+        "shikombo"
+      ],
+      [
+        "ya",
+        "xa"
+      ],
+      [
+        "la",
+        "nda"
+      ],
+      [
+        "Ġti",
+        "la"
+      ],
+      [
+        "ha",
+        "n"
+      ],
+      [
+        "ha",
+        "mano"
+      ],
+      [
+        "ing",
+        "wa"
+      ],
+      [
+        "mb",
+        "e"
+      ],
+      [
+        "ka",
+        "do"
+      ],
+      [
+        "Ġi",
+        "wa"
+      ],
+      [
+        "Ġa",
+        "nd"
+      ],
+      [
+        "Ġa",
+        "pa"
+      ],
+      [
+        "Ġa",
+        "nswer"
+      ],
+      [
+        "Ġna",
+        "ini"
+      ],
+      [
+        "Ġomu",
+        "woi"
+      ],
+      [
+        "nda",
+        "xa"
+      ],
+      [
+        "te",
+        "nya"
+      ],
+      [
+        "di",
+        "mo"
+      ],
+      [
+        "he",
+        "yali"
+      ],
+      [
+        "Ġya",
+        "nge"
+      ],
+      [
+        "Ġoshi",
+        "nima"
+      ],
+      [
+        "Ġd",
+        "a"
+      ],
+      [
+        "Ġlo",
+        "ye"
+      ],
+      [
+        "ĠmOshi",
+        "ndonga"
+      ],
+      [
+        "Ġno",
+        "mu"
+      ],
+      [
+        "Ġmo",
+        "mu"
+      ],
+      [
+        "ss",
+        "ive"
+      ],
+      [
+        "Ġoi",
+        "maliwa"
+      ],
+      [
+        "Ġota",
+        "va"
+      ],
+      [
+        "Ġn",
+        "ingwa"
+      ],
+      [
+        "Ġou",
+        "kuki"
+      ],
+      [
+        "Ġla",
+        "ngu"
+      ],
+      [
+        "al",
+        "l"
+      ],
+      [
+        "ĠK",
+        "o"
+      ],
+      [
+        "Ġshi",
+        "i"
+      ],
+      [
+        "ĠP",
+        "o"
+      ],
+      [
+        "ĠOma",
+        "fuma"
+      ],
+      [
+        "da",
+        "y"
+      ],
+      [
+        "ĠOi",
+        "kombo"
+      ],
+      [
+        "Ġfi",
+        "ka"
+      ],
+      [
+        "Oshi",
+        "ndonga"
+      ],
+      [
+        "Ġwe",
+        "ll"
+      ],
+      [
+        "Ġg",
+        "o"
+      ],
+      [
+        "Ġnyo",
+        "ko"
+      ],
+      [
+        "ra",
+        "i"
+      ],
+      [
+        "ĠEe",
+        "ngobe"
+      ],
+      [
+        "luka",
+        "ku"
+      ],
+      [
+        "ga",
+        "tive"
+      ],
+      [
+        "mp",
+        "le"
+      ],
+      [
+        "Ġsi",
+        "mple"
+      ],
+      [
+        "kado",
+        "na"
+      ],
+      [
+        "Ġlangu",
+        "a"
+      ],
+      [
+        "E",
+        "ti"
+      ],
+      [
+        "a",
+        "a"
+      ],
+      [
+        "a",
+        "lu"
+      ],
+      [
+        "c",
+        "e"
+      ],
+      [
+        "e",
+        "she"
+      ],
+      [
+        "i",
+        "a"
+      ],
+      [
+        "o",
+        "va"
+      ],
+      [
+        "p",
+        "u"
+      ],
+      [
+        "t",
+        "ya"
+      ],
+      [
+        "u",
+        "ya"
+      ],
+      [
+        "u",
+        "to"
+      ],
+      [
+        "x",
+        "t"
+      ],
+      [
+        "Ġo",
+        "mo"
+      ],
+      [
+        "Ġo",
+        "ndja"
+      ],
+      [
+        "ta",
+        "la"
+      ],
+      [
+        "ta",
+        "no"
+      ],
+      [
+        "ĠO",
+        "meva"
+      ],
+      [
+        "ĠO",
+        "ngaipi"
+      ],
+      [
+        "ti",
+        "ng"
+      ],
+      [
+        "lo",
+        "ka"
+      ],
+      [
+        "le",
+        "ni"
+      ],
+      [
+        "ĠE",
+        "shi"
+      ],
+      [
+        "me",
+        "sho"
+      ],
+      [
+        "Ġe",
+        "x"
+      ],
+      [
+        "Ġe",
+        "fima"
+      ],
+      [
+        "no",
+        "we"
+      ],
+      [
+        "ve",
+        "she"
+      ],
+      [
+        "ko",
+        "sha"
+      ],
+      [
+        "Ġi",
+        "vali"
+      ],
+      [
+        "fi",
+        "tola"
+      ],
+      [
+        "ndi",
+        "lo"
+      ],
+      [
+        "Ġna",
+        "nga"
+      ],
+      [
+        "te",
+        "r"
+      ],
+      [
+        "di",
+        "ko"
+      ],
+      [
+        "he",
+        "tatu"
+      ],
+      [
+        "Ġu",
+        "liki"
+      ],
+      [
+        "Ġlo",
+        "loka"
+      ],
+      [
+        "Ġyo",
+        "ku"
+      ],
+      [
+        "Ġha",
+        "nduka"
+      ],
+      [
+        "Ġc",
+        "an"
+      ],
+      [
+        "Ġno",
+        "va"
+      ],
+      [
+        "Ġva",
+        "nge"
+      ],
+      [
+        "Ġva",
+        "tatu"
+      ],
+      [
+        "ĠI",
+        "no"
+      ],
+      [
+        "Ġsha",
+        "ashi"
+      ],
+      [
+        "ĠY",
+        "es"
+      ],
+      [
+        "Ġpa",
+        "ssive"
+      ],
+      [
+        "Ġt",
+        "rai"
+      ],
+      [
+        "ndo",
+        "ka"
+      ],
+      [
+        "ĠK",
+        "wafe"
+      ],
+      [
+        "ee",
+        "kulu"
+      ],
+      [
+        "Ġoka",
+        "ana"
+      ],
+      [
+        "Ġg",
+        "ree"
+      ],
+      [
+        "Ġnha",
+        "no"
+      ],
+      [
+        "Ta",
+        "te"
+      ],
+      [
+        "ndj",
+        "u"
+      ],
+      [
+        "ĠPa",
+        "ife"
+      ],
+      [
+        "Ġondja",
+        "la"
+      ],
+      [
+        "nowe",
+        "le"
+      ],
+      [
+        "Ġuliki",
+        "le"
+      ],
+      [
+        "E",
+        "ewa"
+      ],
+      [
+        "H",
+        "a"
+      ],
+      [
+        "O",
+        "ndi"
+      ],
+      [
+        "a",
+        "lo"
+      ],
+      [
+        "c",
+        "k"
+      ],
+      [
+        "e",
+        "fimbo"
+      ],
+      [
+        "i",
+        "ta"
+      ],
+      [
+        "i",
+        "on"
+      ],
+      [
+        "i",
+        "ce"
+      ],
+      [
+        "l",
+        "yo"
+      ],
+      [
+        "m",
+        "ha"
+      ],
+      [
+        "o",
+        "nghelo"
+      ],
+      [
+        "s",
+        "o"
+      ],
+      [
+        "t",
+        "wi"
+      ],
+      [
+        "u",
+        "x"
+      ],
+      [
+        "x",
+        "ux"
+      ],
+      [
+        "Ġ",
+        "..."
+      ],
+      [
+        "Ġo",
+        "r"
+      ],
+      [
+        "Ġo",
+        "la"
+      ],
+      [
+        "Ġo",
+        "shike"
+      ],
+      [
+        "Ġo",
+        "ngobe"
+      ],
+      [
+        "Ġo",
+        "pena"
+      ],
+      [
+        "ĠO",
+        "mbelela"
+      ],
+      [
+        "nd",
+        "ele"
+      ],
+      [
+        "li",
+        "ya"
+      ],
+      [
+        "li",
+        "ka"
+      ],
+      [
+        "ku",
+        "nda"
+      ],
+      [
+        "mb",
+        "u"
+      ],
+      [
+        "mb",
+        "inga"
+      ],
+      [
+        "Ġp",
+        "ula"
+      ],
+      [
+        "Ġp",
+        "resent"
+      ],
+      [
+        "le",
+        "ke"
+      ],
+      [
+        "ĠE",
+        "fiku"
+      ],
+      [
+        "me",
+        "ka"
+      ],
+      [
+        "ve",
+        "nduka"
+      ],
+      [
+        "Ġa",
+        "s"
+      ],
+      [
+        "Ġa",
+        "va"
+      ],
+      [
+        "Ġa",
+        "me"
+      ],
+      [
+        "Ġoshi",
+        "ta"
+      ],
+      [
+        "Ġko",
+        "u"
+      ],
+      [
+        "Ġd",
+        "e"
+      ],
+      [
+        "Ġno",
+        "sho"
+      ],
+      [
+        "Ġno",
+        "luko"
+      ],
+      [
+        "Ġva",
+        "mwe"
+      ],
+      [
+        "ĠN",
+        "dokotola"
+      ],
+      [
+        "ĠN",
+        "geenge"
+      ],
+      [
+        "ĠT",
+        "e"
+      ],
+      [
+        "Ġto",
+        "ndoka"
+      ],
+      [
+        "Ġee",
+        "ng"
+      ],
+      [
+        "Ġla",
+        "ye"
+      ],
+      [
+        "Ġt",
+        "wa"
+      ],
+      [
+        "Ġt",
+        "his"
+      ],
+      [
+        "ĠNa",
+        "mibia"
+      ],
+      [
+        "ki",
+        "fa"
+      ],
+      [
+        "Ġoha",
+        "tu"
+      ],
+      [
+        "re",
+        "d"
+      ],
+      [
+        "Ġku",
+        "ta"
+      ],
+      [
+        "Ġku",
+        "la"
+      ],
+      [
+        "she",
+        "ndja"
+      ],
+      [
+        "do",
+        "lo"
+      ],
+      [
+        "Ġta",
+        "li"
+      ],
+      [
+        "Ġta",
+        "meka"
+      ],
+      [
+        "Ġye",
+        "tu"
+      ],
+      [
+        "bi",
+        "ila"
+      ],
+      [
+        "ĠTa",
+        "mbula"
+      ],
+      [
+        "mbi",
+        "di"
+      ],
+      [
+        "lwa",
+        "shike"
+      ],
+      [
+        "ĠL",
+        "i"
+      ],
+      [
+        "ĠL",
+        "o"
+      ],
+      [
+        "ndu",
+        "da"
+      ],
+      [
+        "res",
+        "ia"
+      ],
+      [
+        "ĠOi",
+        "kulya"
+      ],
+      [
+        "ĠkO",
+        "venduka"
+      ],
+      [
+        "ĠH",
+        "ee"
+      ],
+      [
+        "Ġke",
+        "umbo"
+      ],
+      [
+        "Ġfi",
+        "ne"
+      ],
+      [
+        "Ġwe",
+        "te"
+      ],
+      [
+        "ri",
+        "a"
+      ],
+      [
+        "Ġthe",
+        "m"
+      ],
+      [
+        "Ta",
+        "ngi"
+      ],
+      [
+        "Ġma",
+        "nga"
+      ],
+      [
+        "Ġvo",
+        "ye"
+      ],
+      [
+        "Ġvo",
+        "ice"
+      ],
+      [
+        "Ġita",
+        "ndi"
+      ],
+      [
+        "Ġlombwe",
+        "la"
+      ],
+      [
+        "Ġlombwe",
+        "lwa"
+      ],
+      [
+        "the",
+        "r"
+      ],
+      [
+        "ĠVe",
+        "rb"
+      ],
+      [
+        "han",
+        "k"
+      ],
+      [
+        "Ġnomu",
+        "shamane"
+      ],
+      [
+        "Ġgo",
+        "at"
+      ],
+      [
+        "ova",
+        "nhu"
+      ],
+      [
+        "Ġnanga",
+        "le"
+      ],
+      [
+        "alo",
+        "m"
+      ],
+      [
+        "mha",
+        "di"
+      ],
+      [
+        "ĠHee",
+        "no"
+      ],
+      [
+        "-",
+        "'"
+      ],
+      [
+        "C",
+        "an"
+      ],
+      [
+        "O",
+        "i"
+      ],
+      [
+        "O",
+        "ka"
+      ],
+      [
+        "R",
+        "e"
+      ],
+      [
+        "a",
+        "f"
+      ],
+      [
+        "a",
+        "k"
+      ],
+      [
+        "a",
+        "ch"
+      ],
+      [
+        "a",
+        "ria"
+      ],
+      [
+        "c",
+        "a"
+      ],
+      [
+        "d",
+        "hi"
+      ],
+      [
+        "e",
+        "p"
+      ],
+      [
+        "f",
+        "or"
+      ],
+      [
+        "i",
+        "lula"
+      ],
+      [
+        "k",
+        "we"
+      ],
+      [
+        "n",
+        "wa"
+      ],
+      [
+        "o",
+        "k"
+      ],
+      [
+        "o",
+        "ta"
+      ],
+      [
+        "o",
+        "ma"
+      ],
+      [
+        "o",
+        "ka"
+      ],
+      [
+        "p",
+        "ya"
+      ],
+      [
+        "r",
+        "t"
+      ],
+      [
+        "r",
+        "ning"
+      ],
+      [
+        "t",
+        "h"
+      ],
+      [
+        "u",
+        "s"
+      ],
+      [
+        "Ġ",
+        "="
+      ],
+      [
+        "Ġ",
+        "B"
+      ],
+      [
+        "Ġ",
+        "nda"
+      ],
+      [
+        "Ġ",
+        "...."
+      ],
+      [
+        "Ġ",
+        "inga"
+      ],
+      [
+        "Ġo",
+        "ko"
+      ],
+      [
+        "Ġo",
+        "te"
+      ],
+      [
+        "Ġo",
+        "sho"
+      ],
+      [
+        "Ġo",
+        "vo"
+      ],
+      [
+        "Ġo",
+        "nowele"
+      ],
+      [
+        "shi",
+        "wambo"
+      ],
+      [
+        "ta",
+        "ndi"
+      ],
+      [
+        "ĠO",
+        "nde"
+      ],
+      [
+        "ĠO",
+        "mo"
+      ],
+      [
+        "ĠO",
+        "nawa"
+      ],
+      [
+        "ti",
+        "vali"
+      ],
+      [
+        "la",
+        "ka"
+      ],
+      [
+        "na",
+        "mu"
+      ],
+      [
+        "ha",
+        "fa"
+      ],
+      [
+        "ha",
+        "ngu"
+      ],
+      [
+        "ku",
+        "ni"
+      ],
+      [
+        "lo",
+        "du"
+      ],
+      [
+        "mb",
+        "ulu"
+      ],
+      [
+        "shik",
+        "wi"
+      ],
+      [
+        "Ġe",
+        "to"
+      ],
+      [
+        "Ġe",
+        "umbo"
+      ],
+      [
+        "Ġli",
+        "wa"
+      ],
+      [
+        "ko",
+        "fa"
+      ],
+      [
+        "ko",
+        "no"
+      ],
+      [
+        "Ġi",
+        "tatu"
+      ],
+      [
+        "Ġa",
+        "mwe"
+      ],
+      [
+        "Ġa",
+        "veshe"
+      ],
+      [
+        "fi",
+        "la"
+      ],
+      [
+        "Ġna",
+        "le"
+      ],
+      [
+        "Ġomu",
+        "mati"
+      ],
+      [
+        "to",
+        "no"
+      ],
+      [
+        "te",
+        "n"
+      ],
+      [
+        "te",
+        "ns"
+      ],
+      [
+        "di",
+        "te"
+      ],
+      [
+        "ne",
+        "ko"
+      ],
+      [
+        "ne",
+        "umbo"
+      ],
+      [
+        "Ġs",
+        "e"
+      ],
+      [
+        "Ġs",
+        "pe"
+      ],
+      [
+        "Ġpo",
+        "shi"
+      ],
+      [
+        "Ġu",
+        "dite"
+      ],
+      [
+        "Ġko",
+        "ma"
+      ],
+      [
+        "Ġko",
+        "fitola"
+      ],
+      [
+        "Ġyo",
+        "lutu"
+      ],
+      [
+        "Ġova",
+        "kulunhu"
+      ],
+      [
+        "Ġmo",
+        "mbiya"
+      ],
+      [
+        "Ġmo",
+        "rning"
+      ],
+      [
+        "ho",
+        "no"
+      ],
+      [
+        "mi",
+        "longo"
+      ],
+      [
+        "ĠT",
+        "u"
+      ],
+      [
+        "ĠT",
+        "resia"
+      ],
+      [
+        "Ġou",
+        "fila"
+      ],
+      [
+        "Ġee",
+        "ngobe"
+      ],
+      [
+        "Ġla",
+        "nge"
+      ],
+      [
+        "Ġla",
+        "ndele"
+      ],
+      [
+        "Ġme",
+        "me"
+      ],
+      [
+        "Ġshi",
+        "mwe"
+      ],
+      [
+        "ĠOva",
+        "kulunhu"
+      ],
+      [
+        "ĠOva",
+        "mwameme"
+      ],
+      [
+        "Ġta",
+        "te"
+      ],
+      [
+        "Ġye",
+        "ni"
+      ],
+      [
+        "ĠOmu",
+        "nhu"
+      ],
+      [
+        "ĠOmu",
+        "kulunhu"
+      ],
+      [
+        "Ġf",
+        "ro"
+      ],
+      [
+        "ĠOma",
+        "umbo"
+      ],
+      [
+        "da",
+        "hafa"
+      ],
+      [
+        "ĠS",
+        "alom"
+      ],
+      [
+        "mwa",
+        "ina"
+      ],
+      [
+        "mwa",
+        "alu"
+      ],
+      [
+        "Ġne",
+        "gative"
+      ],
+      [
+        "Na",
+        "wa"
+      ],
+      [
+        "ĠkO",
+        "shikwi"
+      ],
+      [
+        "ĠH",
+        "ow"
+      ],
+      [
+        "Ġte",
+        "elela"
+      ],
+      [
+        "Ġomi",
+        "nute"
+      ],
+      [
+        "Ġsho",
+        "ku"
+      ],
+      [
+        "oku",
+        "uya"
+      ],
+      [
+        "ĠKa",
+        "ndi"
+      ],
+      [
+        "vi",
+        "ke"
+      ],
+      [
+        "ĠOta",
+        "li"
+      ],
+      [
+        "Ġof",
+        "ewa"
+      ],
+      [
+        "ĠNaa",
+        "me"
+      ],
+      [
+        "Ġhe",
+        "tatu"
+      ],
+      [
+        "ĠOmi",
+        "ti"
+      ],
+      [
+        "Ġda",
+        "ta"
+      ],
+      [
+        "Ġmomu",
+        "shangelo"
+      ],
+      [
+        "Ġlangua",
+        "ge"
+      ],
+      [
+        "Ġex",
+        "tens"
+      ],
+      [
+        "Ġefima",
+        "neko"
+      ],
+      [
+        "Ġgree",
+        "ting"
+      ],
+      [
+        "xux",
+        "wa"
+      ],
+      [
+        "Ġoshita",
+        "af"
+      ],
+      [
+        "Ġeeng",
+        "hono"
+      ],
+      [
+        "Ġtwa",
+        "lwa"
+      ],
+      [
+        "dolo",
+        "pa"
+      ],
+      [
+        "Ġ....",
+        "...."
+      ],
+      [
+        "Ġinga",
+        "pi"
+      ],
+      [
+        "ĠOmo",
+        "lwashike"
+      ],
+      [
+        "Ġeto",
+        "tono"
+      ],
+      [
+        "Ġspe",
+        "ak"
+      ],
+      [
+        "ĠkOshikwi",
+        "yu"
+      ],
+      [
+        "Ġextens",
+        "ion"
+      ],
+      [
+        "Ġoshitaaf",
+        "ula"
+      ],
+      [
+        "'",
+        ":"
+      ],
+      [
+        "3",
+        "0"
+      ],
+      [
+        "E",
+        "hee"
+      ],
+      [
+        "K",
+        "wafe"
+      ],
+      [
+        "M",
+        "eekulu"
+      ],
+      [
+        "O",
+        "we"
+      ],
+      [
+        "O",
+        "ho"
+      ],
+      [
+        "O",
+        "ngaipi"
+      ],
+      [
+        "Y",
+        "e"
+      ],
+      [
+        "a",
+        "i"
+      ],
+      [
+        "a",
+        "ndaxa"
+      ],
+      [
+        "a",
+        "kono"
+      ],
+      [
+        "b",
+        "ec"
+      ],
+      [
+        "e",
+        "d"
+      ],
+      [
+        "e",
+        "t"
+      ],
+      [
+        "e",
+        "la"
+      ],
+      [
+        "f",
+        "o"
+      ],
+      [
+        "f",
+        "ewa"
+      ],
+      [
+        "g",
+        "ood"
+      ],
+      [
+        "i",
+        "she"
+      ],
+      [
+        "j",
+        "ect"
+      ],
+      [
+        "l",
+        "p"
+      ],
+      [
+        "l",
+        "vi"
+      ],
+      [
+        "m",
+        "on"
+      ],
+      [
+        "n",
+        "ha"
+      ],
+      [
+        "o",
+        "sa"
+      ],
+      [
+        "o",
+        "po"
+      ],
+      [
+        "r",
+        "s"
+      ],
+      [
+        "s",
+        "oo"
+      ],
+      [
+        "s",
+        "tative"
+      ],
+      [
+        "t",
+        "hi"
+      ],
+      [
+        "u",
+        "es"
+      ],
+      [
+        "x",
+        "ita"
+      ],
+      [
+        "y",
+        "lvi"
+      ],
+      [
+        "Ġ",
+        "D"
+      ],
+      [
+        "Ġ",
+        "J"
+      ],
+      [
+        "Ġ",
+        "tashi"
+      ],
+      [
+        "Ġ",
+        "hu"
+      ],
+      [
+        "Ġ",
+        "Re"
+      ],
+      [
+        "Ġo",
+        "ya"
+      ],
+      [
+        "Ġo",
+        "lu"
+      ],
+      [
+        "Ġo",
+        "ke"
+      ],
+      [
+        "Ġo",
+        "mbwa"
+      ],
+      [
+        "Ġo",
+        "nghe"
+      ],
+      [
+        "Ġo",
+        "shendja"
+      ],
+      [
+        "Ġo",
+        "mhadi"
+      ],
+      [
+        "ng",
+        "ry"
+      ],
+      [
+        "shi",
+        "pangelo"
+      ],
+      [
+        "ĠO",
+        "o"
+      ],
+      [
+        "ĠO",
+        "lo"
+      ],
+      [
+        "ĠO",
+        "hema"
+      ],
+      [
+        "ti",
+        "on"
+      ],
+      [
+        "nd",
+        "ing"
+      ],
+      [
+        "la",
+        "shi"
+      ],
+      [
+        "na",
+        "akono"
+      ],
+      [
+        "ma",
+        "na"
+      ],
+      [
+        "ma",
+        "ngu"
+      ],
+      [
+        "ku",
+        "mana"
+      ],
+      [
+        "Ġp",
+        "ewa"
+      ],
+      [
+        "le",
+        "kwa"
+      ],
+      [
+        "le",
+        "ep"
+      ],
+      [
+        "le",
+        "xita"
+      ],
+      [
+        "fa",
+        "na"
+      ],
+      [
+        "ĠE",
+        "umbo"
+      ],
+      [
+        "Ġe",
+        "li"
+      ],
+      [
+        "Ġe",
+        "no"
+      ],
+      [
+        "Ġe",
+        "at"
+      ],
+      [
+        "Ġe",
+        "tivali"
+      ],
+      [
+        "no",
+        "ni"
+      ],
+      [
+        "no",
+        "ngo"
+      ],
+      [
+        "ve",
+        "li"
+      ],
+      [
+        "ve",
+        "rb"
+      ],
+      [
+        "Ġli",
+        "nene"
+      ],
+      [
+        "ko",
+        "naakono"
+      ],
+      [
+        "Ġi",
+        "mbi"
+      ],
+      [
+        "nge",
+        "la"
+      ],
+      [
+        "nge",
+        "leka"
+      ],
+      [
+        "Ġa",
+        "tatu"
+      ],
+      [
+        "fi",
+        "ka"
+      ],
+      [
+        "ndi",
+        "fa"
+      ],
+      [
+        "Ġna",
+        "tu"
+      ],
+      [
+        "Ġomu",
+        "kulunhu"
+      ],
+      [
+        "Ġomu",
+        "shona"
+      ],
+      [
+        "ye",
+        "nye"
+      ],
+      [
+        "te",
+        "leka"
+      ],
+      [
+        "Ġpo",
+        "kumana"
+      ],
+      [
+        "Ġka",
+        "mwe"
+      ],
+      [
+        "Ġoshi",
+        "kulu"
+      ],
+      [
+        "Ġko",
+        "va"
+      ],
+      [
+        "Ġko",
+        "nena"
+      ],
+      [
+        "Ġko",
+        "mesho"
+      ],
+      [
+        "Ġko",
+        "mbinga"
+      ],
+      [
+        "Ġko",
+        "shipangelo"
+      ],
+      [
+        "Ġlo",
+        "mu"
+      ],
+      [
+        "Ġlo",
+        "ok"
+      ],
+      [
+        "Ġlo",
+        "mangu"
+      ],
+      [
+        "Ġyo",
+        "shikombo"
+      ],
+      [
+        "Ġyo",
+        "ngobe"
+      ],
+      [
+        "Ġyo",
+        "shiwambo"
+      ],
+      [
+        "Ġha",
+        "mano"
+      ],
+      [
+        "Ġva",
+        "shona"
+      ],
+      [
+        "ke",
+        "lwa"
+      ],
+      [
+        "ĠN",
+        "dahafa"
+      ],
+      [
+        "Ġova",
+        "mwaina"
+      ],
+      [
+        "Ġoku",
+        "ya"
+      ],
+      [
+        "Ġoku",
+        "ka"
+      ],
+      [
+        "Ġoku",
+        "ning"
+      ],
+      [
+        "fe",
+        "le"
+      ],
+      [
+        "pe",
+        "nding"
+      ],
+      [
+        "Ġota",
+        "li"
+      ],
+      [
+        "Ġota",
+        "mu"
+      ],
+      [
+        "Ġota",
+        "yi"
+      ],
+      [
+        "pa",
+        "a"
+      ],
+      [
+        "ĠT",
+        "ula"
+      ],
+      [
+        "Ġto",
+        "kelwa"
+      ],
+      [
+        "Ġou",
+        "fiku"
+      ],
+      [
+        "Ġou",
+        "leke"
+      ],
+      [
+        "Ġme",
+        "dimo"
+      ],
+      [
+        "Ġpa",
+        "st"
+      ],
+      [
+        "Ġpa",
+        "sive"
+      ],
+      [
+        "ĠNa",
+        "ndi"
+      ],
+      [
+        "ĠP",
+        "ilula"
+      ],
+      [
+        "kwa",
+        "o"
+      ],
+      [
+        "Ġta",
+        "va"
+      ],
+      [
+        "Ġf",
+        "ye"
+      ],
+      [
+        "Ġle",
+        "ar"
+      ],
+      [
+        "Ġpro",
+        "ject"
+      ],
+      [
+        "ĠL",
+        "ya"
+      ],
+      [
+        "ĠS",
+        "ha"
+      ],
+      [
+        "ĠS",
+        "hi"
+      ],
+      [
+        "ĠS",
+        "ylvi"
+      ],
+      [
+        "fu",
+        "ta"
+      ],
+      [
+        "Na",
+        "ndi"
+      ],
+      [
+        "Na",
+        "tu"
+      ],
+      [
+        "oo",
+        "k"
+      ],
+      [
+        "Ġpu",
+        "ka"
+      ],
+      [
+        "ĠH",
+        "el"
+      ],
+      [
+        "Ġte",
+        "leka"
+      ],
+      [
+        "Ġte",
+        "xt"
+      ],
+      [
+        "Ġte",
+        "lekwa"
+      ],
+      [
+        "Ġfi",
+        "ke"
+      ],
+      [
+        "ulu",
+        "kifa"
+      ],
+      [
+        "ri",
+        "s"
+      ],
+      [
+        "ĠKa",
+        "la"
+      ],
+      [
+        "Ġtu",
+        "u"
+      ],
+      [
+        "ĠOka",
+        "ana"
+      ],
+      [
+        "nye",
+        "nye"
+      ],
+      [
+        "ou",
+        "ght"
+      ],
+      [
+        "Ġpopi",
+        "fwa"
+      ],
+      [
+        "Ka",
+        "ndi"
+      ],
+      [
+        "Ġkwafe",
+        "la"
+      ],
+      [
+        "Ġb",
+        "ought"
+      ],
+      [
+        "ĠKo",
+        "to"
+      ],
+      [
+        "Ġtrai",
+        "ning"
+      ],
+      [
+        "ndju",
+        "wo"
+      ],
+      [
+        "liya",
+        "mbi"
+      ],
+      [
+        "mbu",
+        "da"
+      ],
+      [
+        "Ġas",
+        "k"
+      ],
+      [
+        "Ġde",
+        "pending"
+      ],
+      [
+        "ĠLi",
+        "ina"
+      ],
+      [
+        "kuni",
+        "no"
+      ],
+      [
+        "Ġse",
+        "es"
+      ],
+      [
+        "Ġposhi",
+        "yaxa"
+      ],
+      [
+        "bec",
+        "ca"
+      ],
+      [
+        "soo",
+        "ndaxa"
+      ],
+      [
+        "ĠRe",
+        "becca"
+      ],
+      [
+        "Ġonghe",
+        "la"
+      ],
+      [
+        "Ġeno",
+        "ta"
+      ],
+      [
+        "nongo",
+        "noni"
+      ],
+      [
+        "Ġoshikulu",
+        "ngu"
+      ],
+      [
+        "Ġlomangu",
+        "luko"
+      ],
+      [
+        "Ġokuning",
+        "a"
+      ],
+      [
+        "ĠSylvi",
+        "a"
+      ],
+      [
+        "'",
+        "t"
+      ],
+      [
+        "E",
+        "shi"
+      ],
+      [
+        "E",
+        "ta"
+      ],
+      [
+        "E",
+        "fiku"
+      ],
+      [
+        "F",
+        "i"
+      ],
+      [
+        "I",
+        "no"
+      ],
+      [
+        "I",
+        "tandi"
+      ],
+      [
+        "M",
+        "eme"
+      ],
+      [
+        "N",
+        "dokotola"
+      ],
+      [
+        "N",
+        "geenge"
+      ],
+      [
+        "O",
+        "o"
+      ],
+      [
+        "O",
+        "ta"
+      ],
+      [
+        "O",
+        "shikombo"
+      ],
+      [
+        "O",
+        "meva"
+      ],
+      [
+        "O",
+        "hema"
+      ],
+      [
+        "S",
+        "ay"
+      ],
+      [
+        "T",
+        "e"
+      ],
+      [
+        "T",
+        "hank"
+      ],
+      [
+        "c",
+        "ome"
+      ],
+      [
+        "d",
+        "ja"
+      ],
+      [
+        "d",
+        "ge"
+      ],
+      [
+        "d",
+        "el"
+      ],
+      [
+        "e",
+        "f"
+      ],
+      [
+        "e",
+        "ve"
+      ],
+      [
+        "e",
+        "nda"
+      ],
+      [
+        "e",
+        "mba"
+      ],
+      [
+        "g",
+        "o"
+      ],
+      [
+        "g",
+        "es"
+      ],
+      [
+        "i",
+        "n"
+      ],
+      [
+        "i",
+        "ti"
+      ],
+      [
+        "l",
+        "d"
+      ],
+      [
+        "l",
+        "f"
+      ],
+      [
+        "n",
+        "yo"
+      ],
+      [
+        "o",
+        "m"
+      ],
+      [
+        "o",
+        "na"
+      ],
+      [
+        "o",
+        "ko"
+      ],
+      [
+        "p",
+        "ye"
+      ],
+      [
+        "p",
+        "ula"
+      ],
+      [
+        "p",
+        "pe"
+      ],
+      [
+        "q",
+        "ues"
+      ],
+      [
+        "r",
+        "ri"
+      ],
+      [
+        "s",
+        "i"
+      ],
+      [
+        "s",
+        "tala"
+      ],
+      [
+        "t",
+        "wa"
+      ],
+      [
+        "t",
+        "wo"
+      ],
+      [
+        "u",
+        "a"
+      ],
+      [
+        "u",
+        "sa"
+      ],
+      [
+        "u",
+        "st"
+      ],
+      [
+        "u",
+        "se"
+      ],
+      [
+        "y",
+        "ulu"
+      ],
+      [
+        "Ġ",
+        "\""
+      ],
+      [
+        "Ġ",
+        "/"
+      ],
+      [
+        "Ġ",
+        "2"
+      ],
+      [
+        "Ġ",
+        "ni"
+      ],
+      [
+        "Ġ",
+        "handi"
+      ],
+      [
+        "Ġ",
+        "wi"
+      ],
+      [
+        "Ġ",
+        "nde"
+      ],
+      [
+        "Ġ",
+        "she"
+      ],
+      [
+        "Ġ",
+        "Good"
+      ],
+      [
+        "Ġ",
+        "ques"
+      ],
+      [
+        "Ġo",
+        "o"
+      ],
+      [
+        "Ġo",
+        "li"
+      ],
+      [
+        "Ġo",
+        "lo"
+      ],
+      [
+        "Ġo",
+        "sha"
+      ],
+      [
+        "Ġo",
+        "we"
+      ],
+      [
+        "Ġo",
+        "di"
+      ],
+      [
+        "Ġo",
+        "tu"
+      ],
+      [
+        "Ġo",
+        "ne"
+      ],
+      [
+        "Ġo",
+        "yo"
+      ],
+      [
+        "Ġo",
+        "ngula"
+      ],
+      [
+        "Ġo",
+        "biila"
+      ],
+      [
+        "Ġo",
+        "nduda"
+      ],
+      [
+        "Ġo",
+        "ther"
+      ],
+      [
+        "sh",
+        "u"
+      ],
+      [
+        "sh",
+        "ele"
+      ],
+      [
+        "ng",
+        "hu"
+      ],
+      [
+        "shi",
+        "i"
+      ],
+      [
+        "shi",
+        "longo"
+      ],
+      [
+        "ta",
+        "ko"
+      ],
+      [
+        "ĠO",
+        "shik"
+      ],
+      [
+        "ĠO",
+        "tu"
+      ],
+      [
+        "ĠO",
+        "po"
+      ],
+      [
+        "ĠO",
+        "ngobe"
+      ],
+      [
+        "ĠO",
+        "mbali"
+      ],
+      [
+        "ĠO",
+        "pena"
+      ],
+      [
+        "nd",
+        "red"
+      ],
+      [
+        "li",
+        "fi"
+      ],
+      [
+        "li",
+        "xa"
+      ],
+      [
+        "li",
+        "longa"
+      ],
+      [
+        "li",
+        "kosha"
+      ],
+      [
+        "na",
+        "i"
+      ],
+      [
+        "ma",
+        "ka"
+      ],
+      [
+        "ma",
+        "ll"
+      ],
+      [
+        "ma",
+        "laka"
+      ],
+      [
+        "ha",
+        "uto"
+      ],
+      [
+        "ku",
+        "la"
+      ],
+      [
+        "ku",
+        "ndu"
+      ],
+      [
+        "ku",
+        "twi"
+      ],
+      [
+        "Ġ'",
+        "-"
+      ],
+      [
+        "nga",
+        "la"
+      ],
+      [
+        "pi",
+        "la"
+      ],
+      [
+        "ka",
+        "di"
+      ],
+      [
+        "le",
+        "lo"
+      ],
+      [
+        "ĠE",
+        "ti"
+      ],
+      [
+        "ĠE",
+        "nda"
+      ],
+      [
+        "me",
+        "sa"
+      ],
+      [
+        "Ġe",
+        "ta"
+      ],
+      [
+        "Ġe",
+        "kwa"
+      ],
+      [
+        "Ġe",
+        "mo"
+      ],
+      [
+        "Ġe",
+        "tango"
+      ],
+      [
+        "Ġe",
+        "pu"
+      ],
+      [
+        "Ġe",
+        "lelo"
+      ],
+      [
+        "Ġnga",
+        "a"
+      ],
+      [
+        "no",
+        "w"
+      ],
+      [
+        "ve",
+        "es"
+      ],
+      [
+        "Ġli",
+        "we"
+      ],
+      [
+        "Ġli",
+        "kosha"
+      ],
+      [
+        "Ġi",
+        "no"
+      ],
+      [
+        "Ġi",
+        "nai"
+      ],
+      [
+        "nge",
+        "ki"
+      ],
+      [
+        "Ġa",
+        "l"
+      ],
+      [
+        "Ġa",
+        "t"
+      ],
+      [
+        "Ġa",
+        "hamano"
+      ],
+      [
+        "Ġa",
+        "ppe"
+      ],
+      [
+        "Ġna",
+        "a"
+      ],
+      [
+        "ĠmO",
+        "wambo"
+      ],
+      [
+        "Ġomu",
+        "ti"
+      ],
+      [
+        "Ġomu",
+        "ndilo"
+      ],
+      [
+        "we",
+        "na"
+      ],
+      [
+        "te",
+        "xt"
+      ],
+      [
+        "ne",
+        "d"
+      ],
+      [
+        "yo",
+        "u"
+      ],
+      [
+        "Ġs",
+        "we"
+      ],
+      [
+        "ni",
+        "ka"
+      ],
+      [
+        "ni",
+        "vees"
+      ],
+      [
+        "Ġpo",
+        "pe"
+      ],
+      [
+        "Ġoshi",
+        "maliwa"
+      ],
+      [
+        "Ġoshi",
+        "kunino"
+      ],
+      [
+        "Ġko",
+        "mbo"
+      ],
+      [
+        "Ġko",
+        "lukaku"
+      ],
+      [
+        "es",
+        "emba"
+      ],
+      [
+        "Ġd",
+        "ulu"
+      ],
+      [
+        "Ġd",
+        "ana"
+      ],
+      [
+        "Ġyo",
+        "mu"
+      ],
+      [
+        "Ġha",
+        "ndu"
+      ],
+      [
+        "Ġc",
+        "ome"
+      ],
+      [
+        "Ġva",
+        "ye"
+      ],
+      [
+        "Ġva",
+        "ne"
+      ],
+      [
+        "Ġva",
+        "ngapi"
+      ],
+      [
+        "Ġva",
+        "hamano"
+      ],
+      [
+        "Ġva",
+        "heyali"
+      ],
+      [
+        "Ġva",
+        "tano"
+      ],
+      [
+        "Ġva",
+        "hetatu"
+      ],
+      [
+        "Ġova",
+        "na"
+      ],
+      [
+        "Ġova",
+        "mati"
+      ],
+      [
+        "Ġova",
+        "mwameme"
+      ],
+      [
+        "Ġova",
+        "longwa"
+      ],
+      [
+        "Ġoku",
+        "kofa"
+      ],
+      [
+        "Ġmo",
+        "for"
+      ],
+      [
+        "Ġmo",
+        "del"
+      ],
+      [
+        "Ġmo",
+        "nika"
+      ],
+      [
+        "mwe",
+        "di"
+      ],
+      [
+        "an",
+        "ua"
+      ],
+      [
+        "ĠI",
+        "ta"
+      ],
+      [
+        "ĠI",
+        "la"
+      ],
+      [
+        "ĠI",
+        "nda"
+      ],
+      [
+        "ĠI",
+        "to"
+      ],
+      [
+        "pe",
+        "pe"
+      ],
+      [
+        "Ġoi",
+        "i"
+      ],
+      [
+        "Ġota",
+        "a"
+      ],
+      [
+        "Ġota",
+        "ka"
+      ],
+      [
+        "pa",
+        "ngela"
+      ],
+      [
+        "Ġn",
+        "u"
+      ],
+      [
+        "Ġn",
+        "ingi"
+      ],
+      [
+        "Ġn",
+        "yenye"
+      ],
+      [
+        "Ġwa",
+        "ter"
+      ],
+      [
+        "kulu",
+        "kadi"
+      ],
+      [
+        "Ġpe",
+        "diko"
+      ],
+      [
+        "Ġee",
+        "dola"
+      ],
+      [
+        "ĠY",
+        "ou"
+      ],
+      [
+        "Ġla",
+        "nde"
+      ],
+      [
+        "be",
+        "la"
+      ],
+      [
+        "Ġnge",
+        "ye"
+      ],
+      [
+        "ndo",
+        "do"
+      ],
+      [
+        "Ġku",
+        "tya"
+      ],
+      [
+        "ĠK",
+        "eshe"
+      ],
+      [
+        "Ġve",
+        "ry"
+      ],
+      [
+        "Ġyou",
+        "r"
+      ],
+      [
+        "ĠM",
+        "eekulu"
+      ],
+      [
+        "ĠM",
+        "aria"
+      ],
+      [
+        "Ġshi",
+        "nya"
+      ],
+      [
+        "ĠOva",
+        "longi"
+      ],
+      [
+        "ĠOva",
+        "longwa"
+      ],
+      [
+        "ĠOmu",
+        "longi"
+      ],
+      [
+        "Ġf",
+        "u"
+      ],
+      [
+        "Ġf",
+        "or"
+      ],
+      [
+        "Ġoma",
+        "umbo"
+      ],
+      [
+        "Ġoma",
+        "fuma"
+      ],
+      [
+        "Ġcon",
+        "text"
+      ],
+      [
+        "da",
+        "li"
+      ],
+      [
+        "Omu",
+        "kulunhu"
+      ],
+      [
+        "mbi",
+        "lixa"
+      ],
+      [
+        "ĠOha",
+        "tu"
+      ],
+      [
+        "ĠH",
+        "aa"
+      ],
+      [
+        "Ġte",
+        "ka"
+      ],
+      [
+        "Ġke",
+        "she"
+      ],
+      [
+        "Ġke",
+        "fimbo"
+      ],
+      [
+        "Ġomi",
+        "ti"
+      ],
+      [
+        "Ġdi",
+        "le"
+      ],
+      [
+        "Ġdi",
+        "mwe"
+      ],
+      [
+        "Oshi",
+        "vike"
+      ],
+      [
+        "nt",
+        "y"
+      ],
+      [
+        "oku",
+        "longa"
+      ],
+      [
+        "ĠKa",
+        "pe"
+      ],
+      [
+        "mwameme",
+        "mati"
+      ],
+      [
+        "mwameme",
+        "kadona"
+      ],
+      [
+        "vi",
+        "li"
+      ],
+      [
+        "Ġma",
+        "ke"
+      ],
+      [
+        "Ġiha",
+        "u"
+      ],
+      [
+        "ge",
+        "no"
+      ],
+      [
+        "Ġof",
+        "ten"
+      ],
+      [
+        "se",
+        "t"
+      ],
+      [
+        "ndj",
+        "e"
+      ],
+      [
+        "ndj",
+        "ila"
+      ],
+      [
+        "mbula",
+        "u"
+      ],
+      [
+        "Ġmu",
+        "ch"
+      ],
+      [
+        "Ġita",
+        "no"
+      ],
+      [
+        "Ova",
+        "longwa"
+      ],
+      [
+        "Ova",
+        "neumbo"
+      ],
+      [
+        "Ġlye",
+        "ni"
+      ],
+      [
+        "oshi",
+        "nima"
+      ],
+      [
+        "Oha",
+        "tu"
+      ],
+      [
+        "omu",
+        "tenya"
+      ],
+      [
+        "Ġb",
+        "a"
+      ],
+      [
+        "ar",
+        "s"
+      ],
+      [
+        "ĠVe",
+        "nya"
+      ],
+      [
+        "mbe",
+        "sa"
+      ],
+      [
+        "all",
+        "y"
+      ],
+      [
+        "Ġfika",
+        "me"
+      ],
+      [
+        "Ġlangua",
+        "ges"
+      ],
+      [
+        "Ġnova",
+        "kulunhu"
+      ],
+      [
+        "Ġnova",
+        "mwamememati"
+      ],
+      [
+        "Ġtrai",
+        "ned"
+      ],
+      [
+        "lika",
+        "na"
+      ],
+      [
+        "Ġkou",
+        "fiku"
+      ],
+      [
+        "Ġkou",
+        "nivees"
+      ],
+      [
+        "ĠTe",
+        "ka"
+      ],
+      [
+        "ĠLo",
+        "mbwe"
+      ],
+      [
+        "Oi",
+        "kulya"
+      ],
+      [
+        "dhi",
+        "na"
+      ],
+      [
+        "Ġote",
+        "e"
+      ],
+      [
+        "Ġfro",
+        "m"
+      ],
+      [
+        "Ġdata",
+        "set"
+      ],
+      [
+        "Ġ........",
+        "."
+      ],
+      [
+        "nha",
+        "no"
+      ],
+      [
+        "tion",
+        "s"
+      ],
+      [
+        "ĠHel",
+        "lo"
+      ],
+      [
+        "ris",
+        "mesa"
+      ],
+      [
+        "Eta",
+        "ta"
+      ],
+      [
+        "ef",
+        "f"
+      ],
+      [
+        "rri",
+        "dge"
+      ],
+      [
+        "stala",
+        "ta"
+      ],
+      [
+        "Ġni",
+        "ght"
+      ],
+      [
+        "Ġques",
+        "tions"
+      ],
+      [
+        "maka",
+        "ya"
+      ],
+      [
+        "Ġekwa",
+        "fo"
+      ],
+      [
+        "Ġemo",
+        "fi"
+      ],
+      [
+        "Ġepu",
+        "ka"
+      ],
+      [
+        "Ġliwe",
+        "te"
+      ],
+      [
+        "ngeki",
+        "da"
+      ],
+      [
+        "Ġappe",
+        "ars"
+      ],
+      [
+        "Ġpope",
+        "pi"
+      ],
+      [
+        "Ġmofor",
+        "m"
+      ],
+      [
+        "Ġlande",
+        "la"
+      ],
+      [
+        "ĠHaa",
+        "me"
+      ],
+      [
+        "Ġkounivees",
+        "iti"
+      ],
+      [
+        "!",
+        "'"
+      ],
+      [
+        "\"",
+        ":"
+      ],
+      [
+        "A",
+        "ho"
+      ],
+      [
+        "A",
+        "nswer"
+      ],
+      [
+        "B",
+        "an"
+      ],
+      [
+        "D",
+        "esemba"
+      ],
+      [
+        "E",
+        "e"
+      ],
+      [
+        "E",
+        "nda"
+      ],
+      [
+        "E",
+        "umbo"
+      ],
+      [
+        "E",
+        "konaakono"
+      ],
+      [
+        "F",
+        "ulukifa"
+      ],
+      [
+        "G",
+        "ive"
+      ],
+      [
+        "H",
+        "i"
+      ],
+      [
+        "I",
+        "nda"
+      ],
+      [
+        "J",
+        "anua"
+      ],
+      [
+        "J",
+        "eff"
+      ],
+      [
+        "K",
+        "eshe"
+      ],
+      [
+        "K",
+        "oma"
+      ],
+      [
+        "L",
+        "ya"
+      ],
+      [
+        "M",
+        "o"
+      ],
+      [
+        "M",
+        "aria"
+      ],
+      [
+        "N",
+        "e"
+      ],
+      [
+        "N",
+        "go"
+      ],
+      [
+        "N",
+        "geno"
+      ],
+      [
+        "O",
+        "ve"
+      ],
+      [
+        "O",
+        "tu"
+      ],
+      [
+        "O",
+        "pe"
+      ],
+      [
+        "O",
+        "shike"
+      ],
+      [
+        "O",
+        "ngu"
+      ],
+      [
+        "O",
+        "kwa"
+      ],
+      [
+        "O",
+        "lye"
+      ],
+      [
+        "O",
+        "mbelela"
+      ],
+      [
+        "O",
+        "ngula"
+      ],
+      [
+        "O",
+        "milongo"
+      ],
+      [
+        "O",
+        "soondaxa"
+      ],
+      [
+        "O",
+        "vili"
+      ],
+      [
+        "P",
+        "a"
+      ],
+      [
+        "P",
+        "e"
+      ],
+      [
+        "T",
+        "u"
+      ],
+      [
+        "T",
+        "ula"
+      ],
+      [
+        "a",
+        "b"
+      ],
+      [
+        "a",
+        "me"
+      ],
+      [
+        "a",
+        "luka"
+      ],
+      [
+        "a",
+        "fana"
+      ],
+      [
+        "b",
+        "o"
+      ],
+      [
+        "b",
+        "ye"
+      ],
+      [
+        "b",
+        "ota"
+      ],
+      [
+        "b",
+        "ook"
+      ],
+      [
+        "c",
+        "i"
+      ],
+      [
+        "c",
+        "lo"
+      ],
+      [
+        "c",
+        "ho"
+      ],
+      [
+        "d",
+        "e"
+      ],
+      [
+        "d",
+        "h"
+      ],
+      [
+        "d",
+        "l"
+      ],
+      [
+        "e",
+        "i"
+      ],
+      [
+        "e",
+        "ewa"
+      ],
+      [
+        "e",
+        "dula"
+      ],
+      [
+        "e",
+        "ach"
+      ],
+      [
+        "f",
+        "fi"
+      ],
+      [
+        "f",
+        "ye"
+      ],
+      [
+        "f",
+        "ombo"
+      ],
+      [
+        "g",
+        "s"
+      ],
+      [
+        "g",
+        "us"
+      ],
+      [
+        "h",
+        "ing"
+      ],
+      [
+        "i",
+        "wa"
+      ],
+      [
+        "i",
+        "fa"
+      ],
+      [
+        "i",
+        "ns"
+      ],
+      [
+        "j",
+        "ust"
+      ],
+      [
+        "k",
+        "wiimba"
+      ],
+      [
+        "l",
+        "come"
+      ],
+      [
+        "m",
+        "hu"
+      ],
+      [
+        "n",
+        "y"
+      ],
+      [
+        "n",
+        "ja"
+      ],
+      [
+        "o",
+        "c"
+      ],
+      [
+        "o",
+        "l"
+      ],
+      [
+        "o",
+        "ha"
+      ],
+      [
+        "o",
+        "ve"
+      ],
+      [
+        "o",
+        "ngo"
+      ],
+      [
+        "o",
+        "un"
+      ],
+      [
+        "o",
+        "pa"
+      ],
+      [
+        "o",
+        "meme"
+      ],
+      [
+        "o",
+        "han"
+      ],
+      [
+        "p",
+        "p"
+      ],
+      [
+        "p",
+        "res"
+      ],
+      [
+        "p",
+        "yu"
+      ],
+      [
+        "r",
+        "ing"
+      ],
+      [
+        "r",
+        "st"
+      ],
+      [
+        "r",
+        "us"
+      ],
+      [
+        "s",
+        "u"
+      ],
+      [
+        "s",
+        "ome"
+      ],
+      [
+        "t",
+        "ha"
+      ],
+      [
+        "t",
+        "sa"
+      ],
+      [
+        "t",
+        "ho"
+      ],
+      [
+        "t",
+        "ry"
+      ],
+      [
+        "t",
+        "hank"
+      ],
+      [
+        "u",
+        "l"
+      ],
+      [
+        "u",
+        "ku"
+      ],
+      [
+        "u",
+        "ka"
+      ],
+      [
+        "u",
+        "nda"
+      ],
+      [
+        "u",
+        "nongononi"
+      ],
+      [
+        "Ġ",
+        "8"
+      ],
+      [
+        "Ġ",
+        "W"
+      ],
+      [
+        "Ġ",
+        "lu"
+      ],
+      [
+        "Ġ",
+        "ngo"
+      ],
+      [
+        "Ġ",
+        "hee"
+      ],
+      [
+        "Ġ",
+        "bi"
+      ],
+      [
+        "Ġ",
+        "res"
+      ],
+      [
+        "Ġo",
+        "nyama"
+      ],
+      [
+        "Ġo",
+        "fikola"
+      ],
+      [
+        "Ġo",
+        "yi"
+      ],
+      [
+        "Ġo",
+        "mbiya"
+      ],
+      [
+        "Ġo",
+        "hema"
+      ],
+      [
+        "Ġo",
+        "dola"
+      ],
+      [
+        "Ġo",
+        "lukaku"
+      ],
+      [
+        "Ġo",
+        "mbidi"
+      ],
+      [
+        "Ġo",
+        "namu"
+      ],
+      [
+        "Ġo",
+        "mwaalu"
+      ],
+      [
+        "Ġo",
+        "xuxwa"
+      ],
+      [
+        "Ġo",
+        "mbuda"
+      ],
+      [
+        "Ġo",
+        "ndjila"
+      ],
+      [
+        "Ġo",
+        "Hi"
+      ],
+      [
+        "Ġo",
+        "kwiimba"
+      ],
+      [
+        "shi",
+        "na"
+      ],
+      [
+        "shi",
+        "nima"
+      ],
+      [
+        "shi",
+        "pu"
+      ],
+      [
+        "ta",
+        "y"
+      ],
+      [
+        "ĠO",
+        "k"
+      ],
+      [
+        "ĠO",
+        "lu"
+      ],
+      [
+        "ĠO",
+        "we"
+      ],
+      [
+        "ĠO",
+        "ho"
+      ],
+      [
+        "ĠO",
+        "kwa"
+      ],
+      [
+        "ĠO",
+        "vo"
+      ],
+      [
+        "ĠO",
+        "lye"
+      ],
+      [
+        "ĠO",
+        "kwe"
+      ],
+      [
+        "ĠO",
+        "xuxwa"
+      ],
+      [
+        "ti",
+        "liya"
+      ],
+      [
+        "ti",
+        "ona"
+      ],
+      [
+        "la",
+        "i"
+      ],
+      [
+        "la",
+        "nga"
+      ],
+      [
+        "la",
+        "ula"
+      ],
+      [
+        "la",
+        "ndifa"
+      ],
+      [
+        "li",
+        "ma"
+      ],
+      [
+        "li",
+        "nga"
+      ],
+      [
+        "li",
+        "pi"
+      ],
+      [
+        "li",
+        "ni"
+      ],
+      [
+        "li",
+        "ngu"
+      ],
+      [
+        "li",
+        "tsa"
+      ],
+      [
+        "Ġti",
+        "red"
+      ],
+      [
+        "na",
+        "te"
+      ],
+      [
+        "na",
+        "nghu"
+      ],
+      [
+        "na",
+        "ngala"
+      ],
+      [
+        "na",
+        "shipu"
+      ],
+      [
+        "ha",
+        "imba"
+      ],
+      [
+        "lo",
+        "shi"
+      ],
+      [
+        "lo",
+        "makaya"
+      ],
+      [
+        "lo",
+        "ngekida"
+      ],
+      [
+        "lo",
+        "bota"
+      ],
+      [
+        "mb",
+        "ele"
+      ],
+      [
+        "ka",
+        "la"
+      ],
+      [
+        "ka",
+        "mi"
+      ],
+      [
+        "mu",
+        "she"
+      ],
+      [
+        "mu",
+        "kunda"
+      ],
+      [
+        "le",
+        "nge"
+      ],
+      [
+        "ĠE",
+        "fe"
+      ],
+      [
+        "ĠE",
+        "fimbo"
+      ],
+      [
+        "ĠE",
+        "fuma"
+      ],
+      [
+        "ĠE",
+        "konaakono"
+      ],
+      [
+        "me",
+        "e"
+      ],
+      [
+        "me",
+        "na"
+      ],
+      [
+        "Ġe",
+        "a"
+      ],
+      [
+        "Ġe",
+        "ka"
+      ],
+      [
+        "Ġe",
+        "nda"
+      ],
+      [
+        "Ġe",
+        "dimo"
+      ],
+      [
+        "Ġe",
+        "diko"
+      ],
+      [
+        "Ġe",
+        "ach"
+      ],
+      [
+        "Ġe",
+        "dhina"
+      ],
+      [
+        "Ġe",
+        "fombo"
+      ],
+      [
+        "Ġnga",
+        "he"
+      ],
+      [
+        "Ġnga",
+        "ho"
+      ],
+      [
+        "ve",
+        "la"
+      ],
+      [
+        "Ġli",
+        "nya"
+      ],
+      [
+        "Ġli",
+        "to"
+      ],
+      [
+        "Ġli",
+        "ke"
+      ],
+      [
+        "Ġli",
+        "ndju"
+      ],
+      [
+        "Ġli",
+        "longekida"
+      ],
+      [
+        "nya",
+        "la"
+      ],
+      [
+        "nya",
+        "sha"
+      ],
+      [
+        "ko",
+        "m"
+      ],
+      [
+        "ko",
+        "pi"
+      ],
+      [
+        "ko",
+        "mba"
+      ],
+      [
+        "Ġi",
+        "handi"
+      ],
+      [
+        "Ġi",
+        "laula"
+      ],
+      [
+        "nge",
+        "enge"
+      ],
+      [
+        "Ġa",
+        "n"
+      ],
+      [
+        "Ġa",
+        "di"
+      ],
+      [
+        "Ġa",
+        "ne"
+      ],
+      [
+        "Ġa",
+        "luka"
+      ],
+      [
+        "Ġa",
+        "ina"
+      ],
+      [
+        "Ġa",
+        "heyali"
+      ],
+      [
+        "Ġa",
+        "eshe"
+      ],
+      [
+        "Ġa",
+        "tala"
+      ],
+      [
+        "Ġa",
+        "tano"
+      ],
+      [
+        "Ġa",
+        "hetatu"
+      ],
+      [
+        "Ġa",
+        "ishe"
+      ],
+      [
+        "Ġa",
+        "ngry"
+      ],
+      [
+        "fi",
+        "ve"
+      ],
+      [
+        "fi",
+        "ni"
+      ],
+      [
+        "fi",
+        "linga"
+      ],
+      [
+        "Ġna",
+        "me"
+      ],
+      [
+        "Ġna",
+        "ye"
+      ],
+      [
+        "Ġna",
+        "nhano"
+      ],
+      [
+        "Ġomu",
+        "longi"
+      ],
+      [
+        "Ġomu",
+        "twe"
+      ],
+      [
+        "Ġomu",
+        "kadona"
+      ],
+      [
+        "Ġomu",
+        "mwamemekadona"
+      ],
+      [
+        "to",
+        "ma"
+      ],
+      [
+        "lu",
+        "ngu"
+      ],
+      [
+        "we",
+        "l"
+      ],
+      [
+        "te",
+        "ya"
+      ],
+      [
+        "te",
+        "te"
+      ],
+      [
+        "di",
+        "paa"
+      ],
+      [
+        "mbo",
+        "di"
+      ],
+      [
+        "tu",
+        "she"
+      ],
+      [
+        "ne",
+        "gative"
+      ],
+      [
+        "he",
+        "le"
+      ],
+      [
+        "he",
+        "lp"
+      ],
+      [
+        "yo",
+        "ko"
+      ],
+      [
+        "yo",
+        "vi"
+      ],
+      [
+        "Ġs",
+        "ing"
+      ],
+      [
+        "Ġs",
+        "po"
+      ],
+      [
+        "Ġs",
+        "leep"
+      ],
+      [
+        "Ġs",
+        "mall"
+      ],
+      [
+        "ni",
+        "ni"
+      ],
+      [
+        "Ġya",
+        "vo"
+      ],
+      [
+        "Ġya",
+        "verb"
+      ],
+      [
+        "Ġya",
+        "mbulau"
+      ],
+      [
+        "Ġpo",
+        "u"
+      ],
+      [
+        "Ġpo",
+        "pye"
+      ],
+      [
+        "ngo",
+        "lo"
+      ],
+      [
+        "Ġka",
+        "ndi"
+      ],
+      [
+        "Ġka",
+        "pe"
+      ],
+      [
+        "Ġka",
+        "tiliya"
+      ],
+      [
+        "Ġoshi",
+        "longo"
+      ],
+      [
+        "Ġoshi",
+        "mon"
+      ],
+      [
+        "Ġoshi",
+        "veli"
+      ],
+      [
+        "Ġoshi",
+        "nyenye"
+      ],
+      [
+        "sa",
+        "mane"
+      ],
+      [
+        "Ġko",
+        "lu"
+      ],
+      [
+        "Ġko",
+        "kamba"
+      ],
+      [
+        "Ġko",
+        "ngula"
+      ],
+      [
+        "Ġko",
+        "dolopa"
+      ],
+      [
+        "Ġd",
+        "ula"
+      ],
+      [
+        "Ġd",
+        "on"
+      ],
+      [
+        "Ġlo",
+        "va"
+      ],
+      [
+        "Ġlo",
+        "pangelo"
+      ],
+      [
+        "Ġyo",
+        "verb"
+      ],
+      [
+        "Ġyo",
+        "omeme"
+      ],
+      [
+        "Ġha",
+        "d"
+      ],
+      [
+        "Ġha",
+        "pp"
+      ],
+      [
+        "Ġc",
+        "oun"
+      ],
+      [
+        "Ġno",
+        "shi"
+      ],
+      [
+        "Ġno",
+        "mi"
+      ],
+      [
+        "Ġno",
+        "vo"
+      ],
+      [
+        "Ġno",
+        "biila"
+      ],
+      [
+        "Ġno",
+        "mbidi"
+      ],
+      [
+        "Ġno",
+        "unongononi"
+      ],
+      [
+        "Ġva",
+        "kwao"
+      ],
+      [
+        "mba",
+        "pila"
+      ],
+      [
+        "po",
+        "osa"
+      ],
+      [
+        "po",
+        "rridge"
+      ],
+      [
+        "ke",
+        "n"
+      ],
+      [
+        "ĠN",
+        "e"
+      ],
+      [
+        "ĠN",
+        "yoko"
+      ],
+      [
+        "Ġoku",
+        "landa"
+      ],
+      [
+        "Ġoku",
+        "twi"
+      ],
+      [
+        "Ġoku",
+        "nwa"
+      ],
+      [
+        "Ġoku",
+        "teleka"
+      ],
+      [
+        "Ġoku",
+        "vela"
+      ],
+      [
+        "Ġmo",
+        "ngula"
+      ],
+      [
+        "Ġmo",
+        "Namibia"
+      ],
+      [
+        "mwe",
+        "enda"
+      ],
+      [
+        "mwe",
+        "nyo"
+      ],
+      [
+        "fe",
+        "la"
+      ],
+      [
+        "ĠI",
+        "ha"
+      ],
+      [
+        "ĠI",
+        "nandi"
+      ],
+      [
+        "ĠI",
+        "ngapi"
+      ],
+      [
+        "ĠI",
+        "tandi"
+      ],
+      [
+        "ĠI",
+        "namu"
+      ],
+      [
+        "pe",
+        "r"
+      ],
+      [
+        "pe",
+        "ke"
+      ],
+      [
+        "Ġoi",
+        "wa"
+      ],
+      [
+        "Ġoi",
+        "she"
+      ],
+      [
+        "Ġoi",
+        "mbodi"
+      ],
+      [
+        "ho",
+        "li"
+      ],
+      [
+        "ho",
+        "ngi"
+      ],
+      [
+        "Ġota",
+        "u"
+      ],
+      [
+        "Ġota",
+        "di"
+      ],
+      [
+        "mi",
+        "nute"
+      ],
+      [
+        "pa",
+        "leke"
+      ],
+      [
+        "ĠOshi",
+        "yaxa"
+      ],
+      [
+        "ĠOshi",
+        "mbulu"
+      ],
+      [
+        "Ġn",
+        "hee"
+      ],
+      [
+        "ngi",
+        "ini"
+      ],
+      [
+        "Ġwa",
+        "s"
+      ],
+      [
+        "Ġwa",
+        "na"
+      ],
+      [
+        "Ġwa",
+        "nt"
+      ],
+      [
+        "Ġwa",
+        "paleke"
+      ],
+      [
+        "Ġto",
+        "ld"
+      ],
+      [
+        "kulu",
+        "pe"
+      ],
+      [
+        "Ġk",
+        "Onda"
+      ],
+      [
+        "Ġk",
+        "Eti"
+      ],
+      [
+        "Ġk",
+        "now"
+      ],
+      [
+        "Ġk",
+        "lini"
+      ],
+      [
+        "Ġee",
+        "mbwa"
+      ],
+      [
+        "Ġee",
+        "mbinga"
+      ],
+      [
+        "Ġee",
+        "nyala"
+      ],
+      [
+        "Ġla",
+        "Namibia"
+      ],
+      [
+        "Ġla",
+        "ndifa"
+      ],
+      [
+        "Ġt",
+        "hi"
+      ],
+      [
+        "Ġt",
+        "hing"
+      ],
+      [
+        "ĠNa",
+        "wa"
+      ],
+      [
+        "ĠNa",
+        "ye"
+      ],
+      [
+        "Ġnge",
+        "no"
+      ],
+      [
+        "Ġoha",
+        "shi"
+      ],
+      [
+        "ndo",
+        "ma"
+      ],
+      [
+        "re",
+        "ally"
+      ],
+      [
+        "ĠK",
+        "omutenya"
+      ],
+      [
+        "ĠK",
+        "uku"
+      ],
+      [
+        "Ġve",
+        "nya"
+      ],
+      [
+        "Ġve",
+        "tatu"
+      ],
+      [
+        "Ġin",
+        "fini"
+      ],
+      [
+        "ĠM",
+        "aa"
+      ],
+      [
+        "ĠM",
+        "bela"
+      ],
+      [
+        "Ġshi",
+        "lai"
+      ],
+      [
+        "ĠP",
+        "e"
+      ],
+      [
+        "ĠP",
+        "ula"
+      ],
+      [
+        "ĠP",
+        "et"
+      ],
+      [
+        "Ġwo",
+        "ve"
+      ],
+      [
+        "Ġwo",
+        "ye"
+      ],
+      [
+        "Ġwo",
+        "tete"
+      ],
+      [
+        "kwa",
+        "fela"
+      ],
+      [
+        "Ġta",
+        "a"
+      ],
+      [
+        "Ġta",
+        "la"
+      ],
+      [
+        "Ġta",
+        "mbula"
+      ],
+      [
+        "Ġta",
+        "mbu"
+      ],
+      [
+        "Ġye",
+        "s"
+      ],
+      [
+        "Ġye",
+        "fimbo"
+      ],
+      [
+        "ĠOmu",
+        "ti"
+      ],
+      [
+        "Ġf",
+        "ood"
+      ],
+      [
+        "Ġf",
+        "oc"
+      ],
+      [
+        "mo",
+        "sho"
+      ],
+      [
+        "mo",
+        "mukunda"
+      ],
+      [
+        "Ġle",
+        "shele"
+      ],
+      [
+        "Ġdo",
+        "pa"
+      ],
+      [
+        "Ġdo",
+        "lutu"
+      ],
+      [
+        "Ġoma",
+        "lodu"
+      ],
+      [
+        "Ġoma",
+        "andaxa"
+      ],
+      [
+        "ĠOma",
+        "mbo"
+      ],
+      [
+        "ĠOma",
+        "hangu"
+      ],
+      [
+        "ĠOma",
+        "lodu"
+      ],
+      [
+        "ĠTa",
+        "kami"
+      ],
+      [
+        "Omu",
+        "tenya"
+      ],
+      [
+        "mbi",
+        "nja"
+      ],
+      [
+        "Ġho",
+        "pe"
+      ],
+      [
+        "ĠOha",
+        "uto"
+      ],
+      [
+        "fu",
+        "do"
+      ],
+      [
+        "Ġne",
+        "umbo"
+      ],
+      [
+        "Ġne",
+        "ed"
+      ],
+      [
+        "ĠV",
+        "a"
+      ],
+      [
+        "ĠOi",
+        "maliwa"
+      ],
+      [
+        "ĠOi",
+        "filinga"
+      ],
+      [
+        "Ġpu",
+        "lwa"
+      ],
+      [
+        "ĠkO",
+        "nanghu"
+      ],
+      [
+        "ĠH",
+        "a"
+      ],
+      [
+        "ĠH",
+        "ai"
+      ],
+      [
+        "Ġomi",
+        "shona"
+      ],
+      [
+        "Ġoka",
+        "lexita"
+      ],
+      [
+        "Ġoka",
+        "kopi"
+      ],
+      [
+        "Oshi",
+        "fima"
+      ],
+      [
+        "Ġwe",
+        "lcome"
+      ],
+      [
+        "Ġsho",
+        "shona"
+      ],
+      [
+        "Ġsho",
+        "rt"
+      ],
+      [
+        "xa",
+        "m"
+      ],
+      [
+        "Ġg",
+        "ive"
+      ],
+      [
+        "Ġg",
+        "roup"
+      ],
+      [
+        "ri",
+        "n"
+      ],
+      [
+        "ĠF",
+        "rans"
+      ],
+      [
+        "ĠF",
+        "ulukifa"
+      ],
+      [
+        "Ġthe",
+        "re"
+      ],
+      [
+        "Ġtu",
+        "wa"
+      ],
+      [
+        "Ġtu",
+        "la"
+      ],
+      [
+        "Ġtu",
+        "ye"
+      ],
+      [
+        "ĠOka",
+        "ndjuwo"
+      ],
+      [
+        "ndja",
+        "uka"
+      ],
+      [
+        "Ġma",
+        "na"
+      ],
+      [
+        "Ġma",
+        "pyu"
+      ],
+      [
+        "ĠOta",
+        "yi"
+      ],
+      [
+        "Ġiha",
+        "i"
+      ],
+      [
+        "Ġiha",
+        "mano"
+      ],
+      [
+        "Ok",
+        "rismesa"
+      ],
+      [
+        "Ġon",
+        "wa"
+      ],
+      [
+        "Ġlongi",
+        "fa"
+      ],
+      [
+        "Oma",
+        "fuma"
+      ],
+      [
+        "ou",
+        "r"
+      ],
+      [
+        "ou",
+        "t"
+      ],
+      [
+        "se",
+        "lf"
+      ],
+      [
+        "ĠEe",
+        "pena"
+      ],
+      [
+        "Ġpopi",
+        "fa"
+      ],
+      [
+        "Ġmona",
+        "fana"
+      ],
+      [
+        "nu",
+        "lo"
+      ],
+      [
+        "Ġhe",
+        "r"
+      ],
+      [
+        "Ġhe",
+        "yali"
+      ],
+      [
+        "Ġhe",
+        "lp"
+      ],
+      [
+        "Ka",
+        "la"
+      ],
+      [
+        "Ka",
+        "ume"
+      ],
+      [
+        "Ame",
+        "lika"
+      ],
+      [
+        "Oha",
+        "uto"
+      ],
+      [
+        "mp",
+        "t"
+      ],
+      [
+        "omu",
+        "nhu"
+      ],
+      [
+        "Good",
+        "bye"
+      ],
+      [
+        "Ou",
+        "fiku"
+      ],
+      [
+        "Ġwomu",
+        "kulunhu"
+      ],
+      [
+        "twe",
+        "nty"
+      ],
+      [
+        "ĠOmi",
+        "longo"
+      ],
+      [
+        "Ġmomu",
+        "kunda"
+      ],
+      [
+        "ĠPo",
+        "pi"
+      ],
+      [
+        "ĠPo",
+        "ngapi"
+      ],
+      [
+        "Eti",
+        "ne"
+      ],
+      [
+        "ĠEshi",
+        "na"
+      ],
+      [
+        "Ġex",
+        "pres"
+      ],
+      [
+        "Ġefima",
+        "no"
+      ],
+      [
+        "Ġyoku",
+        "likosha"
+      ],
+      [
+        "Ġyoku",
+        "nangala"
+      ],
+      [
+        "Tate",
+        "kulu"
+      ],
+      [
+        "Ha",
+        "sho"
+      ],
+      [
+        "ita",
+        "va"
+      ],
+      [
+        "lyo",
+        "ka"
+      ],
+      [
+        "Ġ...",
+        "?"
+      ],
+      [
+        "Ġava",
+        "ngapi"
+      ],
+      [
+        "ĠTe",
+        "elela"
+      ],
+      [
+        "Oi",
+        "kombo"
+      ],
+      [
+        "kwe",
+        "va"
+      ],
+      [
+        "ota",
+        "lu"
+      ],
+      [
+        "oka",
+        "ume"
+      ],
+      [
+        "th",
+        "ing"
+      ],
+      [
+        "Ġoko",
+        "fi"
+      ],
+      [
+        "Ġoko",
+        "ndoma"
+      ],
+      [
+        "mbulu",
+        "kweva"
+      ],
+      [
+        "Ġkoma",
+        "hangu"
+      ],
+      [
+        "Ġkoma",
+        "lobota"
+      ],
+      [
+        "ĠTu",
+        "ka"
+      ],
+      [
+        "Ġfro",
+        "gs"
+      ],
+      [
+        "Ġ........",
+        ".."
+      ],
+      [
+        "ai",
+        "ma"
+      ],
+      [
+        "et",
+        "s"
+      ],
+      [
+        "opo",
+        "lifi"
+      ],
+      [
+        "thi",
+        "ma"
+      ],
+      [
+        "ĠD",
+        "on"
+      ],
+      [
+        "Ġhu",
+        "ngry"
+      ],
+      [
+        "Ġkova",
+        "kulunhu"
+      ],
+      [
+        "Ġlomu",
+        "longi"
+      ],
+      [
+        "paa",
+        "sa"
+      ],
+      [
+        "Ġlear",
+        "ning"
+      ],
+      [
+        "ĠSha",
+        "alu"
+      ],
+      [
+        "ĠShi",
+        "nya"
+      ],
+      [
+        "Fi",
+        "ka"
+      ],
+      [
+        "Te",
+        "elela"
+      ],
+      [
+        "eve",
+        "ry"
+      ],
+      [
+        "usa",
+        "nd"
+      ],
+      [
+        "Ġ2",
+        "1"
+      ],
+      [
+        "Ġwi",
+        "nya"
+      ],
+      [
+        "Ġnde",
+        "e"
+      ],
+      [
+        "Ġshe",
+        "umbo"
+      ],
+      [
+        "Ġowe",
+        "la"
+      ],
+      [
+        "shu",
+        "na"
+      ],
+      [
+        "shii",
+        "nda"
+      ],
+      [
+        "ĠOshik",
+        "wa"
+      ],
+      [
+        "malaka",
+        "langa"
+      ],
+      [
+        "Ġal",
+        "so"
+      ],
+      [
+        "Ġnaa",
+        "ve"
+      ],
+      [
+        "Ġswe",
+        "ets"
+      ],
+      [
+        "Ġhandu",
+        "kifa"
+      ],
+      [
+        "Ġovana",
+        "fikola"
+      ],
+      [
+        "Ġoii",
+        "mati"
+      ],
+      [
+        "Omukulunhu",
+        "fikola"
+      ],
+      [
+        "Ġba",
+        "ck"
+      ],
+      [
+        "Aho",
+        "we"
+      ],
+      [
+        "Ban",
+        "tu"
+      ],
+      [
+        "Ee",
+        "ngobe"
+      ],
+      [
+        "Koma",
+        "tango"
+      ],
+      [
+        "Ngo",
+        "lyoka"
+      ],
+      [
+        "Ope",
+        "ni"
+      ],
+      [
+        "Ongu",
+        "loshi"
+      ],
+      [
+        "clo",
+        "ck"
+      ],
+      [
+        "cho",
+        "ol"
+      ],
+      [
+        "dl",
+        "y"
+      ],
+      [
+        "gus",
+        "te"
+      ],
+      [
+        "ohan",
+        "na"
+      ],
+      [
+        "rst",
+        "y"
+      ],
+      [
+        "Ġhee",
+        "no"
+      ],
+      [
+        "Ġbi",
+        "lingu"
+      ],
+      [
+        "Ġonamu",
+        "nate"
+      ],
+      [
+        "ĠoHi",
+        "leni"
+      ],
+      [
+        "tiona",
+        "l"
+      ],
+      [
+        "nashipu",
+        "ndi"
+      ],
+      [
+        "mbele",
+        "wa"
+      ],
+      [
+        "Ġngahe",
+        "lipi"
+      ],
+      [
+        "Ġlindju",
+        "u"
+      ],
+      [
+        "Ġadi",
+        "she"
+      ],
+      [
+        "Ġaina",
+        "i"
+      ],
+      [
+        "Ġatala",
+        "la"
+      ],
+      [
+        "Ġspo",
+        "ken"
+      ],
+      [
+        "Ġkatiliya",
+        "na"
+      ],
+      [
+        "Ġoshimon",
+        "wa"
+      ],
+      [
+        "Ġhapp",
+        "y"
+      ],
+      [
+        "Ġcoun",
+        "try"
+      ],
+      [
+        "Ġnovo",
+        "wel"
+      ],
+      [
+        "ĠkOnda",
+        "ngwa"
+      ],
+      [
+        "ĠkEti",
+        "lashi"
+      ],
+      [
+        "Ġklini",
+        "ki"
+      ],
+      [
+        "Ġthi",
+        "rsty"
+      ],
+      [
+        "Ġinfini",
+        "tive"
+      ],
+      [
+        "ĠMaa",
+        "litsa"
+      ],
+      [
+        "ĠPet",
+        "rus"
+      ],
+      [
+        "Ġtambu",
+        "lwa"
+      ],
+      [
+        "ĠkOnanghu",
+        "lo"
+      ],
+      [
+        "Ġbilingu",
+        "al"
+      ]
+    ]
+  }
+}
