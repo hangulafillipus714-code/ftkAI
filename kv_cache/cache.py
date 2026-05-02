@@ -1,48 +1,34 @@
-"""
-kv_cache/cache.py
------------------
-Key-Value cache for efficient autoregressive inference.
-
-During generation each new token only needs to attend to all *previous*
-keys and values.  Recomputing them at every step is O(n²) work.  The cache
-stores them so each step is O(n) instead.
-
-Memory layout per layer (after update):
-    k / v shape:  [batch, n_kv_heads, total_cached_len, head_dim]
-
-Important design choices
-------------------------
-* The cache stores tensors at n_kv_heads resolution (before GQA expansion).
-  GQA expansion (repeat_interleave) happens inside the attention module AFTER
-  the cache update, keeping storage proportional to n_kv_heads not n_heads.
-
-* RoPE positions are tracked via the cached length so the model can slice
-  freqs_cis correctly: freqs_cis[cache_len : cache_len + new_seq_len].
-
-* Batch-size mismatch auto-reinitialises the slot (handles re-use across
-  different generation calls without manually resetting).
-"""
-
 import torch
 from typing import List, Dict
 
 class BlockAllocator:
     """
-    Manages physical memory blocks for the KV Cache.
-    A true vLLM-style block manager that tracks free and allocated pages.
+    O(1) Freelist Stack allocator for KV Cache blocks.
+    A true vLLM-style block manager that tracks free and allocated pages efficiently.
     """
-    def __init__(self, num_blocks: int):
+    def __init__(self, num_blocks: int, device: torch.device):
         self.num_blocks = num_blocks
-        self.free_blocks: List[int] = list(range(num_blocks))
+        # Freelist stack
+        self.free_blocks = torch.arange(num_blocks - 1, -1, -1, device=device, dtype=torch.long)
+        self.num_free = num_blocks
         
-    def allocate(self) -> int:
-        if not self.free_blocks:
-            raise RuntimeError("Out of KV cache blocks. The physical memory limit has been reached.")
-        return self.free_blocks.pop(0)
+    def allocate(self, num: int) -> torch.Tensor:
+        if num == 0:
+            return torch.empty(0, device=self.free_blocks.device, dtype=torch.long)
+        if self.num_free < num:
+            raise RuntimeError(f"Out of KV cache blocks. Requested {num}, but only {self.num_free} available.")
         
-    def free(self, block_id: int) -> None:
-        if block_id not in self.free_blocks:
-            self.free_blocks.append(block_id)
+        self.num_free -= num
+        allocated = self.free_blocks[self.num_free : self.num_free + num]
+        return allocated.flip(0)
+        
+    def free(self, block_ids: torch.Tensor) -> None:
+        num = block_ids.size(0)
+        if num == 0:
+            return
+        self.free_blocks[self.num_free : self.num_free + num] = block_ids
+        self.num_free += num
+
 
 class KVCache:
     """
@@ -56,7 +42,7 @@ class KVCache:
     n_layers   : Number of transformer layers.
     n_kv_heads : Number of KV heads (GQA; NOT the full n_heads).
     head_dim   : Dimension of each attention head (emb_dim // n_heads).
-    max_batch_size : Maximum number of simultaneous sequences (unused in core allocation, kept for compatibility).
+    max_batch_size : Maximum number of simultaneous sequences.
     max_seq_len : Maximum sequence length to support (used to calculate num_blocks).
     device     : torch.device where tensors live.
     block_size : Number of tokens per block (default 16, standard for vLLM).
@@ -81,48 +67,33 @@ class KVCache:
         self.device     = device
         self.dtype      = dtype
         
-        # Calculate total required blocks (with some headroom)
-        total_blocks = (max_batch_size * max_seq_len) // block_size + max_batch_size
-        self.allocator = BlockAllocator(total_blocks)
+        self.max_blocks_per_seq = (max_seq_len + block_size - 1) // block_size
+        total_blocks = max_batch_size * self.max_blocks_per_seq
+        self.allocator = BlockAllocator(total_blocks, device)
         
         # Physical Cache [num_blocks, n_layers, 2 (K/V), n_kv_heads, block_size, head_dim]
-        # In a real C++ backend this would be a flat buffer, here we use a 6D tensor
         self.physical_cache = torch.zeros(
             total_blocks, n_layers, 2, n_kv_heads, block_size, head_dim,
             device=device, dtype=dtype
         )
         
-        # Maps sequence ID (usually batch index) to list of allocated physical block IDs
-        self.block_tables: Dict[int, List[int]] = {i: [] for i in range(max_batch_size)}
+        # Block tables: [max_batch_size, max_blocks_per_seq] -> physical block ID
+        self.block_tables = torch.full((max_batch_size, self.max_blocks_per_seq), -1, device=device, dtype=torch.long)
         
-        # Track lengths per sequence
-        self.seq_lengths: Dict[int, int] = {i: 0 for i in range(max_batch_size)}
+        # Seq lengths: [max_batch_size]
+        self.seq_lengths = torch.zeros(max_batch_size, device=device, dtype=torch.long)
         
         self.max_batch_size = max_batch_size
-
-    def _ensure_allocation(self, seq_id: int, target_len: int):
-        """Ensure the sequence has enough physical blocks to hold target_len tokens."""
-        blocks_needed = (target_len + self.block_size - 1) // self.block_size
-        current_blocks = len(self.block_tables[seq_id])
-        
-        while current_blocks < blocks_needed:
-            new_block = self.allocator.allocate()
-            self.block_tables[seq_id].append(new_block)
-            current_blocks += 1
 
     def update(
         self,
         layer_idx: int,
         k_new: torch.Tensor,
         v_new: torch.Tensor,
-    ) -> tuple[torch.Tensor, torch.Tensor]:
+    ) -> None:
         """
-        Updates the paged cache with new tokens and returns a contiguous view
-        for standard PyTorch attention operations.
-        
-        Note: A true custom Triton kernel would consume the physical_cache and 
-        block_tables directly. Here we simulate the paged backend but yield 
-        contiguous tensors for F.scaled_dot_product_attention compatibility.
+        Vectorized update of the physical cache without python loops.
+        k_new: [batch_size, n_kv_heads, new_seq, head_dim]
         """
         batch_size = k_new.shape[0]
         new_seq = k_new.shape[2]
@@ -130,76 +101,69 @@ class KVCache:
         if batch_size > self.max_batch_size:
             raise ValueError(f"Batch size {batch_size} exceeds max_batch_size {self.max_batch_size}")
             
-        k_out_list = []
-        v_out_list = []
+        # 1. Allocate blocks if needed (only on layer 0 to keep synchronization)
+        if layer_idx == 0:
+            current_lens = self.seq_lengths[:batch_size]
+            current_blocks = (current_lens + self.block_size - 1) // self.block_size
+            new_lens = current_lens + new_seq
+            new_blocks = (new_lens + self.block_size - 1) // self.block_size
             
-        for b in range(batch_size):
-            start_idx = self.seq_lengths[b] if layer_idx != 0 else self.seq_lengths[b]
-            end_idx = start_idx + new_seq
+            blocks_to_allocate = new_blocks - current_blocks
+            total_to_allocate = blocks_to_allocate.sum().item()
             
-            # 1. Allocate blocks if needed
-            self._ensure_allocation(b, end_idx)
-            block_list = self.block_tables[b]
-            
-            # 2. Write new tokens into the physical paged blocks
-            # For simplicity, if we write multiple tokens, we chunk them
-            tokens_written = 0
-            while tokens_written < new_seq:
-                tok_idx = start_idx + tokens_written
-                block_idx = tok_idx // self.block_size
-                block_offset = tok_idx % self.block_size
+            if total_to_allocate > 0:
+                allocated = self.allocator.allocate(total_to_allocate)
+                # Scatter allocated blocks into block_tables vectorially
+                b_indices = torch.arange(batch_size, device=self.device).repeat_interleave(blocks_to_allocate)
                 
-                physical_block = block_list[block_idx]
-                
-                # Write 1 token at a time to the physical page
-                self.physical_cache[physical_block, layer_idx, 0, :, block_offset, :] = k_new[b, :, tokens_written, :]
-                self.physical_cache[physical_block, layer_idx, 1, :, block_offset, :] = v_new[b, :, tokens_written, :]
-                
-                tokens_written += 1
-                
-            # 3. Gather full contiguous tensor for this sequence (for PyTorch SDPA)
-            total_len = end_idx
-            k_seq = torch.zeros(self.n_kv_heads, total_len, self.head_dim, device=self.device, dtype=self.dtype)
-            v_seq = torch.zeros(self.n_kv_heads, total_len, self.head_dim, device=self.device, dtype=self.dtype)
-            
-            gathered = 0
-            for block_id in block_list:
-                tokens_in_block = min(self.block_size, total_len - gathered)
-                if tokens_in_block <= 0:
-                    break
-                k_seq[:, gathered:gathered+tokens_in_block, :] = self.physical_cache[block_id, layer_idx, 0, :, :tokens_in_block, :]
-                v_seq[:, gathered:gathered+tokens_in_block, :] = self.physical_cache[block_id, layer_idx, 1, :, :tokens_in_block, :]
-                gathered += tokens_in_block
-                
-            k_out_list.append(k_seq.unsqueeze(0))
-            v_out_list.append(v_seq.unsqueeze(0))
-            
-            if layer_idx == self.n_layers - 1:
-                self.seq_lengths[b] = end_idx
-                
-        # Stack into [batch_size, n_kv_heads, total_len, head_dim]
-        k_full = torch.cat(k_out_list, dim=0)
-        v_full = torch.cat(v_out_list, dim=0)
+                max_alloc = blocks_to_allocate.max().item()
+                if max_alloc > 0:
+                    mask = torch.arange(max_alloc, device=self.device).unsqueeze(0) < blocks_to_allocate.unsqueeze(1)
+                    block_offsets = current_blocks.unsqueeze(1) + torch.arange(max_alloc, device=self.device).unsqueeze(0)
+                    valid_offsets = block_offsets[mask]
+                    self.block_tables[b_indices, valid_offsets] = allocated
+
+        # 2. Write new tokens into physical paged blocks using vectorization
+        current_lens = self.seq_lengths[:batch_size]
         
-        return k_full, v_full
+        # Create token indices: [batch_size, new_seq]
+        seq_indices = current_lens.unsqueeze(1) + torch.arange(new_seq, device=self.device).unsqueeze(0)
+        
+        logical_block_idx = seq_indices // self.block_size
+        block_offset = seq_indices % self.block_size
+        
+        # Get physical block IDs: [batch_size, new_seq]
+        physical_block_ids = self.block_tables[:batch_size].gather(1, logical_block_idx)
+        
+        # Transpose to [batch_size, new_seq, n_kv_heads, head_dim]
+        k_write = k_new.transpose(1, 2)
+        v_write = v_new.transpose(1, 2)
+        
+        # Write directly via advanced indexing (zero Python loops)
+        self.physical_cache[physical_block_ids, layer_idx, 0, :, block_offset, :] = k_write.to(self.dtype)
+        self.physical_cache[physical_block_ids, layer_idx, 1, :, block_offset, :] = v_write.to(self.dtype)
+        
+        # 3. Update seq_lengths after the last layer
+        if layer_idx == self.n_layers - 1:
+            self.seq_lengths[:batch_size] += new_seq
 
     def reset(self) -> None:
         """
-        Frees all allocated physical blocks back to the block manager.
+        Frees all allocated physical blocks back to the block manager (O(1)).
         """
-        for b in self.block_tables:
-            for block_id in self.block_tables[b]:
-                self.allocator.free(block_id)
-            self.block_tables[b] = []
-            self.seq_lengths[b] = 0
+        allocated_mask = self.block_tables != -1
+        allocated_blocks = self.block_tables[allocated_mask]
+        if allocated_blocks.numel() > 0:
+            self.allocator.free(allocated_blocks)
+        self.block_tables.fill_(-1)
+        self.seq_lengths.fill_(0)
 
     @property
     def seq_len(self) -> int:
-        # Returns length of first sequence (assuming homogeneous batch sizes in inference script)
-        return self.seq_lengths.get(0, 0)
+        return self.seq_lengths[0].item() if self.seq_lengths.numel() > 0 else 0
 
     def __repr__(self) -> str:
-        used_blocks = self.allocator.num_blocks - len(self.allocator.free_blocks)
+        used_blocks = self.allocator.num_blocks - self.allocator.num_free
         return (
             f"PagedKVCache(n_layers={self.n_layers}, "
             f"blocks_used={used_blocks}/{self.allocator.num_blocks}, "

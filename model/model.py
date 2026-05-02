@@ -512,10 +512,25 @@ class GroupedQueryAttention(nn.Module):
         if kv_cache is not None:
             if layer_idx is None:
                 raise ValueError("layer_idx must be provided when using kv_cache")
-            k, v = kv_cache.update(layer_idx, k, v)
-            # After update: k/v shape = [b, n_kv_heads, total_len, head_dim]
+            kv_cache.update(layer_idx, k, v)
+            
+            from model.triton_attention import paged_attention
+            
+            # The attention kernel reads directly from the physical paged blocks
+            out = paged_attention(
+                q=q,
+                physical_cache=kv_cache.physical_cache,
+                block_tables=kv_cache.block_tables,
+                seq_lengths=kv_cache.seq_lengths,
+                layer_idx=layer_idx,
+                scale=self.attn_scale,
+                attn_mask=mask,
+            )
+            
+            out = out.transpose(1, 2).contiguous().view(b, seq_len, -1)
+            return self.resid_drop(self.wo(out))
 
-        # ── Expand KV for GQA (after cache, to save cache memory) ────────────
+        # ── Expand KV for GQA (Standard Training Path) ────────────
         if self.n_rep > 1:
             # Zero-allocation view expansion (prevents OOM crashes)
             seq_l = k.size(2)
